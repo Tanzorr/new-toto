@@ -1,0 +1,17 @@
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let title of titles; let i = index">
+    <td>{{ title }}</td>
+    <td>
+      <button (click)="editTitle(i)">Edit</button>
+      <button (click)="deleteTitle(i)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
