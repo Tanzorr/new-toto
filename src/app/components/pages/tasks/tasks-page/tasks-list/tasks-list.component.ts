@@ -9,7 +9,8 @@ import {TaskListService} from "./services/Tasks-list.service";
   styleUrls: ['./tasks-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TasksListComponent {  tasks$: Observable<Task[]>;
+export class TasksListComponent {
+  tasks$: Observable<Task[]>;
 
   constructor(
     private _taskService: TaskListService

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Tasks} from "../../models/entities/Task";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class TaskService {
   constructor(private http: HttpClient) {
   }
 
-  getTasks():Observable<any> {
-    return this.http.get(this.baseUrl + 'tasks');
+  getTasks():Observable<Tasks> {
+    return this.http.get<Tasks>(this.baseUrl + 'tasks');
   }
 
   getTask(id: number):Observable<any> {
