@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {Task} from "../../../../models/entities/Task";
 
 @Component({
   selector: 'app-tasks-list-table',
@@ -7,7 +8,15 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksListTableComponent {
-  @Input() titles: string[] = [];
+  private _tasks: Task[] = [];
+  @Input()
+  set tasks(value: Task[] | null) {
+    this._tasks = value ? this.transform(value) : [];
+  }
+
+  get tasks(): Task[] {
+    return this._tasks;
+  }
   @Output() edit = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
 
@@ -19,5 +28,10 @@ export class TasksListTableComponent {
 
   deleteTitle(index: number) {
     this.delete.emit(index);
+  }
+
+  private transform(value: Task[]): Task[] {
+    // Implement your transformation logic here
+    return value;
   }
 }

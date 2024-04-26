@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped">
   <thead>
   <tr>
     <th>Title</th>
@@ -6,11 +6,11 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let title of titles; let i = index">
-    <td>{{ title }}</td>
+  <tr *ngFor="let task of tasks; let i = index">
+    <td>{{ task.title }}</td>
     <td>
-      <button (click)="editTitle(i)">Edit</button>
-      <button (click)="deleteTitle(i)">Delete</button>
+      <button class="btn" (click)="editTitle(task.id)">Edit</button>
+      <button class="btn" (click)="deleteTitle(task.id)">Delete</button>
     </td>
   </tr>
   </tbody>

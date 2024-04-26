@@ -10,6 +10,9 @@ import { TasksListTableComponent } from './tasks-list-table.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    TasksListTableComponent
   ]
 })
 export class TasksListTableModule { }
