@@ -22,11 +22,11 @@ export class TasksListTableComponent {
 
   constructor() { }
 
-  editTitle(index: number) {
+  editTask(index: number) {
     this.edit.emit(index);
   }
 
-  deleteTitle(index: number) {
+  deleteTask(index: number) {
     this.delete.emit(index);
   }
 

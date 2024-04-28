@@ -1,9 +1,5 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  addTask,
-  addTaskSuccess,
-  deleteTask,
-  deleteTaskSuccess,
   getTasks,
   getTasksFail,
   getTasksSuccess,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Tasks} from "../../models/entities/Task";
+import {Task, Tasks} from "../../models/entities/Task";
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,7 @@ export class TaskService {
     return this.http.get<Tasks>(this.baseUrl + 'tasks');
   }
 
-  getTask(id: number):Observable<any> {
-    return this.http.get(this.baseUrl + 'tasks/' + id);
-  }
-
-  createTask(task: Object):Observable<Object> {
-    return this.http.post(this.baseUrl + 'tasks', task);
-  }
-
-  updateTask(id: number, value: any):Observable<Object> {
-    return this.http.put(this.baseUrl + 'tasks/' + id, value);
+  getTask(id: number):Observable<Task> {
+    return this.http.get<Task>(this.baseUrl + 'tasks/' + id);
   }
 }
