@@ -5,4 +5,4 @@ export interface Task {
 }
 
 export type Tasks = Task[];
-export type TaskId = number;
+export type TaskId = Task['id'];

@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {TaskPageService} from "./services/task-page.service";
 
 @Component({
   selector: 'app-task-page',
@@ -6,5 +7,11 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./task-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskPageComponent {
+export class TaskPageComponent implements OnInit {
+  constructor(private _taskPageService: TaskPageService) {
+  }
+
+  ngOnInit(): void {
+
+  }
 }

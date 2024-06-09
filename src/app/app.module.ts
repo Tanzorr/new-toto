@@ -11,6 +11,8 @@ import {EffectsModule} from "@ngrx/effects";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {TasksEffects} from "./store/tasks/tasks-efects";
 import {RouterModule} from "@angular/router";
+import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {CustomSerializer} from "./store/router/CustomSeriializer";
 
 @NgModule({
   declarations: [
@@ -22,14 +24,18 @@ import {RouterModule} from "@angular/router";
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({
-      tasksState: tasksReducer
+      tasksState: tasksReducer,
+      router:routerReducer
     }),
     EffectsModule.forRoot([TasksEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
     }),
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(
+      {serializer: CustomSerializer}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent],

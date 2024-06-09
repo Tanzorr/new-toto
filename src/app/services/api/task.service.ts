@@ -15,7 +15,7 @@ export class TaskService {
     return this.http.get<Tasks>(this.baseUrl + 'tasks');
   }
 
-  getTask(id: number):Observable<Task> {
+    getTask(id: number):Observable<Task> {
     return this.http.get<Task>(this.baseUrl + 'tasks/' + id);
   }
 }
