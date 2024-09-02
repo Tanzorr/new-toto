@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksComponent } from './tasks.component';
-
+import {TasksRoutingModule} from "./tasks-routing.module";
 
 
 @NgModule({
@@ -9,7 +9,11 @@ import { TasksComponent } from './tasks.component';
     TasksComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    TasksRoutingModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class TasksModule { }

@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let task of tasks; let i = index">
+    <td>{{ task.title }}</td>
+    <td>
+      <button class="btn" (click)="deleteTask(task.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
