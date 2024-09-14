@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Task } from 'src/app/models/entities/Task';
 import {tasksSelector} from "./tasks-selectors";
-import {TaskService} from "../../services/api/task.service";
+import {TaskService} from "../../services/api/task/task.service";
 
 
 @Injectable()

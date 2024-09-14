@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import { Store} from "@ngrx/store";
 import {Task} from "../../models/entities/Task";
-import {TaskService} from "../../services/api/task.service";
+import {TaskService} from "../../services/api/task/task.service";
 import {getTask, getTaskSuccess} from "./task-actions";
 import {switchMap, tap, withLatestFrom} from 'rxjs';
 import {routerSelector} from "../router/router-selector"
