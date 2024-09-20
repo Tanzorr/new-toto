@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {UsersComponent} from "../users.component";
+import {UsersPageComponent} from "./users-page.component";
+
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent,
+    component: UsersPageComponent,
     loadChildren: () => import('./users-list/users-list.module').then(m => m.UsersListModule)
   },
   {

@@ -13,30 +13,34 @@ import {TasksEffects} from "./store/tasks/tasks-efects";
 import {RouterModule} from "@angular/router";
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {CustomSerializer} from "./store/router/CustomSeriializer";
+import {NavigationModule} from "./components/navigation/navigation.module";
+import {usersReducer} from "./store/users/users-reducers";
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskPageComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    StoreModule.forRoot({
-      tasksState: tasksReducer,
-      router:routerReducer
-    }),
-    EffectsModule.forRoot([TasksEffects]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: false,
-    }),
-    RouterModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot(
-      {serializer: CustomSerializer}
-    )
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        StoreModule.forRoot({
+            tasksState: tasksReducer,
+            usersState: usersReducer,
+            router: routerReducer
+        }),
+        EffectsModule.forRoot([TasksEffects]),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25,
+            logOnly: false,
+        }),
+        RouterModule.forRoot([]),
+        StoreRouterConnectingModule.forRoot(
+            {serializer: CustomSerializer}
+        ),
+        NavigationModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [
