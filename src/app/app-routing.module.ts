@@ -3,8 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {path: 'tasks', loadChildren: () => import('./components/pages/tasks/tasks.module').then(m => m.TasksModule)},
+  // {path: 'users/:id', loadChildren: () => import('./components/pages/user/user.module').then(m => m.UserModule)},
   {path: 'users', loadChildren: () => import('./components/pages/users/users.module').then(m => m.UsersModule)},
-  {path: '', redirectTo: '/tasks', pathMatch: 'full'}
+  {path: '', redirectTo: '/users', pathMatch: 'full'}
 ];
 
 @NgModule({

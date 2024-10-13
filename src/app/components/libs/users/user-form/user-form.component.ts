@@ -12,7 +12,7 @@ export class UserFormComponent implements OnInit {
   userForm: FormGroup;
 
   // Для редагування користувача ми можемо передати дані через @Input
-  @Input() userData: UserCreateData = { name: '', email: '' };
+  @Input() userData: UserCreateData = { name: '', email: '', password: '', password_confirmation: '' };
   @Output() formSubmit: EventEmitter<UserCreateData> = new EventEmitter<UserCreateData>();
 
 
@@ -20,7 +20,9 @@ export class UserFormComponent implements OnInit {
     // Ініціалізація форми з валідаторами
     this.userForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
+      password_confirmation: ['', [Validators.required, Validators.minLength(1)]]
     });
   }
 

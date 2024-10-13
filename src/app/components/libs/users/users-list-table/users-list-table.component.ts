@@ -1,5 +1,13 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {User} from "../../../../models/entities/User";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectorRef,
+  SimpleChanges
+} from '@angular/core';
+import {PaginatedUsersResponse} from "../../../../models/entities/User";
 
 @Component({
   selector: 'app-users-list-table',
@@ -8,21 +16,31 @@ import {User} from "../../../../models/entities/User";
 })
 export class UsersListTableComponent {
 
-  private _users: User[] = [];
+  private _paginatedUsersResponse: PaginatedUsersResponse  = {} as PaginatedUsersResponse;
 
   @Input()
-  set users(value: User[] | null) {
-    this._users = value ? value : [];
+  set paginatedUsersResponse(value: PaginatedUsersResponse | null) {
+    console.log('vaule:', value);
+    this._paginatedUsersResponse = value ? value : {} as PaginatedUsersResponse;
+    this.cdr.detectChanges();
+    this.cdr.markForCheck()
   }
 
-  get users(): User[] {
-    return this._users;
+  get paginatedUsersResponse(): PaginatedUsersResponse {
+    return <PaginatedUsersResponse>this._paginatedUsersResponse;
   }
 
   @Output() edit = new EventEmitter<number>();
   @Output() delete = new EventEmitter<number>();
+  @Output() pageParams = new EventEmitter<string | null>();
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['paginatedUsersResponse']) {
+      console.log('Changes detected in paginatedUsersResponse:', changes['paginatedUsersResponse'].currentValue);
+    }
+  }
 
   editUser(index: number) {
     this.edit.emit(index);
@@ -30,5 +48,14 @@ export class UsersListTableComponent {
 
   deleteUser(index: number) {
     this.delete.emit(index);
+    this.setPaginateUsersResponse();
+  }
+
+  getPageParams(url: string | null) {
+    this.pageParams.emit(url);
+  }
+
+  private setPaginateUsersResponse() {
+
   }
 }

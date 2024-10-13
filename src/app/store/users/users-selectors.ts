@@ -1,3 +1,7 @@
-export const usersSelector = (state: any) => state.usersState.users;
+import {UsersState} from "./users-reducers";
 
-export const userSelector = (state: any) => state.userState.user;
+
+export const usersSelector = (state: any) => state.usersState.paginationResponse;
+
+
+export const userSelector = (state: any) => state.usersState.user;

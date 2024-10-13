@@ -16,7 +16,7 @@ export class TaskEffects {
         ofType(getTask),
         withLatestFrom(this._store.select(routerSelector)),
         switchMap(([action, params]) => {
-          const taskId = params.state.params.id;
+          const taskId = params.state.params["id"];
           return this._taskService.getTask(taskId).pipe(
             tap((task: Task) => {
               this._store.dispatch(getTaskSuccess({value: task}));

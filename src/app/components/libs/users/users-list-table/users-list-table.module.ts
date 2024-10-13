@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersListTableComponent } from './users-list-table.component';
+import {RouterLink} from "@angular/router";
 
 
 
@@ -11,8 +12,9 @@ import { UsersListTableComponent } from './users-list-table.component';
   exports: [
     UsersListTableComponent
   ],
-  imports: [
-    CommonModule
-  ]
+    imports: [
+        CommonModule,
+        RouterLink
+    ]
 })
 export class UsersListTableModule { }

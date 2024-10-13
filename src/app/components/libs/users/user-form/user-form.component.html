@@ -24,8 +24,32 @@
       </small>
     </div>
   </div>
+  <div class="form-group">
+    <label for="email">Password:</label>
+    <input type="email"  formControlName="password" class="form-control" id="password">
+    <div *ngIf="userForm.controls['password'].touched && userForm.controls['password'].errors">
+      <small class="text-danger" *ngIf="userForm.controls['password'].errors?.['required']">
+        Name is required.
+      </small>
+      <small class="text-danger" *ngIf="userForm.controls['password'].errors?.['minlength']">
+        Name must be at least 2 characters long.
+      </small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password_confirmation">Password Confirm:</label>
+    <input type="password"  formControlName="password_confirmation" class="form-control" id="password_confirmation">
+    <div *ngIf="userForm.controls['password_confirmation'].touched && userForm.controls['password_confirmation'].errors">
+      <small class="text-danger" *ngIf="userForm.controls['password_confirmation'].errors?.['required']">
+        Name is required.
+      </small>
+      <small class="text-danger" *ngIf="userForm.controls['password_confirmation'].errors?.['minlength']">
+        Name must be at least 2 characters long.
+      </small>
+    </div>
+  </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
-    {{ userData.name ? 'Update User' : 'Create User' }}
+  <button type="submit" class="btn btn-primary">
+    submit
   </button>
 </form>

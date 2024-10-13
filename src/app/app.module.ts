@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { TaskPageComponent } from './components/pages/tasks/task-page/task-page.component';
 import {StoreModule} from "@ngrx/store";
 import {tasksReducer} from "./store/tasks/tasks-reducer";
@@ -15,11 +15,13 @@ import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {CustomSerializer} from "./store/router/CustomSeriializer";
 import {NavigationModule} from "./components/navigation/navigation.module";
 import {usersReducer} from "./store/users/users-reducers";
+import {UsersEffects} from "./store/users/users-efects";
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskPageComponent
+    TaskPageComponent,
   ],
     imports: [
         BrowserModule,
@@ -30,7 +32,7 @@ import {usersReducer} from "./store/users/users-reducers";
             usersState: usersReducer,
             router: routerReducer
         }),
-        EffectsModule.forRoot([TasksEffects]),
+        EffectsModule.forRoot([TasksEffects, UsersEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
             logOnly: false,

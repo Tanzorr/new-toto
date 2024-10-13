@@ -6,11 +6,39 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let user of users; let i = index">
-    <td>{{ user.name }}</td>
+  <tr *ngFor="let user of paginatedUsersResponse.data; let i = index">
+    <td><a routerLink="{{user.id}}">{{ user.name }}</a></td>
+    <td><a routerLink="{{user.id}}/edit">edit</a></td>
     <td>
       <button class="btn" (click)="deleteUser(user.id)">Delete</button>
     </td>
   </tr>
   </tbody>
 </table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <button class="page-link"
+              (click)="getPageParams(paginatedUsersResponse.next_page_url)"
+              disabled="{{ paginatedUsersResponse.prev_page_url === null }}">
+        Previous
+      </button>
+    </li>
+    <li class="page-item" *ngFor="let link of paginatedUsersResponse.links">
+      <button class="page-link"
+              (click)="getPageParams(link.url)"
+              [ngClass]="link.active ? 'active' : ''"
+      >
+        {{ link.label }}
+      </button>
+    </li>
+    <li class="page-item">
+      <button class="page-link"
+              (click)="getPageParams(paginatedUsersResponse.next_page_url)"
+              disabled="{{ paginatedUsersResponse.next_page_url === null }}"
+      >
+        Next
+      </button>
+    </li>
+  </ul>
+</nav>

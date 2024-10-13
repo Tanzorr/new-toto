@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {UserCreateData} from "../../../../../models/entities/User";
+import {User, UserCreateData} from "../../../../../../models/entities/User";
+import {UserCreateService} from "./sevices/user-create.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-user-create',
@@ -9,11 +11,11 @@ import {UserCreateData} from "../../../../../models/entities/User";
 })
 export class UserCreateComponent {
 
-  constructor() {
+  constructor(private _userCreateService: UserCreateService) {
     console.log('UserCreateComponent');
   }
 
   createUser(userData: UserCreateData) {
-    console.log('Creating user:', userData);
+    this._userCreateService.addUser(userData);
   }
 }

@@ -1,3 +1,8 @@
 <h3>Users list</h3>
-<app-users-list-table [users]="users$ | async"></app-users-list-table>
+<a routerLink="create" class="btn btn-primary">Add User</a>
+<app-users-list-table
+  [paginatedUsersResponse]="paginatedUsersResponse$ | async"
+  (pageParams)="gerUsersWithParams($event)"
+  (delete)="deleteUser($event)"
+></app-users-list-table>
 

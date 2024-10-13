@@ -1,27 +1,26 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {UsersComponent} from "./users.component";
+import { RouterModule, Routes } from '@angular/router';
+import { UsersComponent } from './users.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent,
+    component: UsersComponent,  // Батьківський компонент для вкладених маршрутів
     children: [
       {
-        path: '',
-        loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule)
+        path: '',  // Маршрут за замовчуванням для списку користувачів
+        loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule),
       },
       {
-        path: 'create',
-        loadChildren: () => import('./user-page/user-create/user-create.module').then(m => m.UserCreateModule)
-      }
-      ]
-  }
+        path: ':id',  // Маршрут за замовчуванням для списку користувачів
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UsersRoutesModule { }
+export class UsersRoutesModule {}

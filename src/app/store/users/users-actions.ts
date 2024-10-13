@@ -1,13 +1,12 @@
 import {createAction, props} from "@ngrx/store";
-import {User, UserId, Users} from "../../models/entities/User";
+import {PaginatedUsersResponse, User, UserCreateData, UserId} from "../../models/entities/User";
 
-export const getUsers = createAction('[Users] Get Users');
+export const getUsers = createAction('[Users] Get Users', props<{ url?: string | null }>());
 
 export const getUsersSuccess = createAction(
   '[Users] Get Users Success',
-  props<{ value: Users }>()
+  props<{ value: PaginatedUsersResponse }>()
 );
-
 
 export const getUsersFail = createAction(
   '[Users] Get Users Fail',
@@ -17,7 +16,7 @@ export const getUsersFail = createAction(
 
 export const addUser = createAction(
   '[Users] Add User',
-  props<{ value: User }>()
+  props<{ value: UserCreateData }>()
 );
 
 export const addUserSuccess = createAction(
@@ -30,10 +29,38 @@ export const addUserFail = createAction(
   props<{ value: string }>()
 );
 
+export const getUser = createAction(
+  '[Users] Get User'
+);
+
+export const getUserSuccess = createAction(
+  '[Users] Get User Success',
+  props<{ value: User }>()
+);
+
+export const getUserFail = createAction(
+  '[Users] Get User Fail',
+  props<{ value: string }>()
+);
+
+export const updateUser = createAction(
+  '[Users] Update User',
+  props<{ value: User }>()
+);
+
+export const updateUserFail = createAction(
+  '[Users] Update User Fail',
+  props<{ value: string }>()
+);
+
+export const updateUserSuccess = createAction(
+  '[Users] Update User Success',
+  props<{ value: User }>()
+);
 
 export const deleteUser = createAction(
   '[Users] Delete User',
-  props<{ value: UserId }>()
+  props<{ id: UserId }>()
 );
 
 

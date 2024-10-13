@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {getUsers} from "../../../../../../store/users/users-actions";
+import {deleteUser, getUsers} from "../../../../../../store/users/users-actions";
 import {usersSelector} from "../../../../../../store/users/users-selectors";
 
 @Injectable({
@@ -8,11 +8,15 @@ import {usersSelector} from "../../../../../../store/users/users-selectors";
 })
 export class UsersListService {
 
-  users$ = this._store.select(usersSelector);
+  paginatedUsersResponse$ = this._store.select(usersSelector);
 
-  constructor(private _store: Store<{ users: []}>) { }
+  constructor(private _store: Store<{ usersResponse: any}>) { }
 
-  getUsers(): void {
-    this._store.dispatch(getUsers());
+  getUsers(url?: string | null): void {
+    this._store.dispatch(getUsers({url}));
+  }
+
+  deleteUser(id: number) {
+    this._store.dispatch(deleteUser({id}));
   }
 }

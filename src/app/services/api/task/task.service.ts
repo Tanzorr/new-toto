@@ -7,7 +7,7 @@ import {Task, Tasks} from "../../../models/entities/Task";
   providedIn: 'root'
 })
 export class TaskService {
-   private baseUrl = 'http://127.0.0.1:20080/';
+   private baseUrl = 'http://127.0.0.1:8000/';
   constructor(private http: HttpClient) {
   }
 
