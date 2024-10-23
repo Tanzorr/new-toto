@@ -12,10 +12,10 @@ const routes = [
         path: '',
         loadChildren: () => import('./user-view/user-view.module').then(m => m.UserViewModule)
       },
-      {
-        path: 'edit',
-        loadChildren: () => import('./user-edit/user-edit.module').then(m => m.UserEditModule)
-      }
+      // {
+      //   path: 'edit',
+      //   loadChildren: () => import('./user-edit/user-edit.module').then(m => m.UserEditModule)
+      // }
     ]
   }
 ];

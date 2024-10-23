@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 
 
+
 @NgModule({
   declarations: [
     UserFormComponent
@@ -12,9 +13,9 @@ import {ReactiveFormsModule} from "@angular/forms";
   exports: [
     UserFormComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ]
 })
 export class UserFormModule { }

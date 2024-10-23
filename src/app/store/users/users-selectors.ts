@@ -1,5 +1,4 @@
-import {UsersState} from "./users-reducers";
-
+import {State} from "@ngrx/store";
 
 export const usersSelector = (state: any) => state.usersState.paginationResponse;
 

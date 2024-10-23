@@ -5,14 +5,14 @@ import {
   Input,
   Output,
   ChangeDetectorRef,
-  SimpleChanges
 } from '@angular/core';
 import {PaginatedUsersResponse} from "../../../../models/entities/User";
 
 @Component({
   selector: 'app-users-list-table',
   templateUrl: './users-list-table.component.html',
-  styleUrls: ['./users-list-table.component.scss']
+  styleUrls: ['./users-list-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListTableComponent {
 
@@ -20,10 +20,7 @@ export class UsersListTableComponent {
 
   @Input()
   set paginatedUsersResponse(value: PaginatedUsersResponse | null) {
-    console.log('vaule:', value);
     this._paginatedUsersResponse = value ? value : {} as PaginatedUsersResponse;
-    this.cdr.detectChanges();
-    this.cdr.markForCheck()
   }
 
   get paginatedUsersResponse(): PaginatedUsersResponse {
@@ -36,26 +33,11 @@ export class UsersListTableComponent {
 
   constructor(private cdr: ChangeDetectorRef) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['paginatedUsersResponse']) {
-      console.log('Changes detected in paginatedUsersResponse:', changes['paginatedUsersResponse'].currentValue);
-    }
-  }
-
-  editUser(index: number) {
-    this.edit.emit(index);
-  }
-
   deleteUser(index: number) {
     this.delete.emit(index);
-    this.setPaginateUsersResponse();
   }
 
   getPageParams(url: string | null) {
     this.pageParams.emit(url);
-  }
-
-  private setPaginateUsersResponse() {
-
   }
 }

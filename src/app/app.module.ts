@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { TaskPageComponent } from './components/pages/tasks/task-page/task-page.component';
+import { HttpClientModule} from "@angular/common/http";
 import {StoreModule} from "@ngrx/store";
 import {tasksReducer} from "./store/tasks/tasks-reducer";
 import {EffectsModule} from "@ngrx/effects";
@@ -20,8 +19,7 @@ import {UsersEffects} from "./store/users/users-efects";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TaskPageComponent,
+    AppComponent
   ],
     imports: [
         BrowserModule,

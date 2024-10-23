@@ -13,7 +13,6 @@ export const getUsersFail = createAction(
   props<{ value: string }>()
 );
 
-
 export const addUser = createAction(
   '[Users] Add User',
   props<{ value: UserCreateData }>()

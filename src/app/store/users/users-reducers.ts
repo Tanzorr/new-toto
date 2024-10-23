@@ -57,18 +57,16 @@ export const usersReducer = createReducer(
   }),
 
   on(addUserSuccess, (state, action) => {
-    console.log('User success:', action.value);
     return {
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: [...state.paginationResponse.data, action.value]
+        data: [ action.value, ...state.paginationResponse.data]
       }
     };
   }),
 
   on(getUserSuccess, (state, action) => {
-    console.log(state)
     return { ...state, user: action.value };
   }),
 

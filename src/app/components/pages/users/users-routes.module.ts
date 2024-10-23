@@ -12,8 +12,16 @@ const routes: Routes = [
         loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule),
       },
       {
+        path: 'create',
+        loadChildren: () => import('./user/user-page/user-create/user-create.module').then(m=>m.UserCreateModule),
+      },
+      {
         path: ':id',  // Маршрут за замовчуванням для списку користувачів
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+      },
+      {
+        path: ':id/edit',  // Маршрут за замовчуванням для списку користувачів
+        loadChildren: () => import('./user/user-page/user-edit/user-edit.module').then(m => m.UserEditModule),
       },
     ],
   },

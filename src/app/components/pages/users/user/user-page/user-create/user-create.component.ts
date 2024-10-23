@@ -12,7 +12,6 @@ import {Observable} from "rxjs";
 export class UserCreateComponent {
 
   constructor(private _userCreateService: UserCreateService) {
-    console.log('UserCreateComponent');
   }
 
   createUser(userData: UserCreateData) {
