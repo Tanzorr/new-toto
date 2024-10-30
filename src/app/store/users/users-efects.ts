@@ -84,7 +84,6 @@ export class UsersEffects {
       switchMap((action) => {
         return this._usersApiService.updateUser(action.value).pipe(
           map((user: User) => {
-            this._router.navigate([`/users/${action.value.id}`]).then(r => console.log('Navigate:', r));
             return updateUserSuccess({ value: user });
           }),
           catchError((error) => of(updateUserFail({ value: error })))

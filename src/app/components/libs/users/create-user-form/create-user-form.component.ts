@@ -8,19 +8,13 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserCreateData} from "../../../../models/entities/User";
 
 
-enum ErrType {
-  required = 'required',
-  email = 'email',
-  minlength = 'minlength'
-}
-
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
+  selector: 'app-create-user-form',
+  templateUrl: './create-user-form.component.html',
+  styleUrls: ['./create-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserFormComponent {
+export class CreateUserFormComponent {
   userForm: FormGroup;
 
   @Output() formSubmit: EventEmitter<UserCreateData> = new EventEmitter<UserCreateData>();

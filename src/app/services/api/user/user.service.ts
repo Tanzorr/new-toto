@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {CreateUserResponse, PaginatedUsersResponse, User, UserCreateData} from "../../../models/entities/User";
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +13,9 @@ export class UserService {
   private csrfToken: string | null = null;
 
   constructor(private http: HttpClient) {
-    this.initializeCsrfToken()
   }
 
-  private getCsrfToken(): Observable<any> {
-    return this.http.get('http://127.0.0.1:8000/api/csrf-token');
-  }
-
-  initializeCsrfToken(): void {
-    this.getCsrfToken().subscribe(response => {
-      this.csrfToken = response.csrfToken;
-      console.log('CSRF Token:', this.csrfToken);
-    });
-  }
-
-  getUsers(url:string | null = null): Observable<PaginatedUsersResponse> {
+  getUsers(url: string | null = null): Observable<PaginatedUsersResponse> {
     let urlParams = url ? url : this.baseUrl + 'users';
     return this.http.get<PaginatedUsersResponse>(urlParams);
   }
@@ -37,7 +25,7 @@ export class UserService {
   }
 
   addUser(user: UserCreateData) {
-    return this.http.post<CreateUserResponse>(this.baseUrl + 'users',user);
+    return this.http.post<CreateUserResponse>(this.baseUrl + 'users', user);
   }
 
   deleteUser(id: number) {
@@ -45,6 +33,7 @@ export class UserService {
   }
 
   updateUser(value: User): Observable<User> {
+    console.log('Update User:', value);
     return this.http.put<User>(this.baseUrl + 'users/' + value.id, value);
   }
 }

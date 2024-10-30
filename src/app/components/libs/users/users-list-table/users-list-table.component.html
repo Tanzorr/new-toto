@@ -15,29 +15,15 @@
   </tr>
   </tbody>
 </table>
-<nav aria-label="Page navigation example">
+<nav aria-label="pagination">
   <ul class="pagination justify-content-center">
-    <li class="page-item">
-      <button class="page-link"
-              (click)="getPageParams(paginatedUsersResponse.next_page_url)"
-              disabled="{{ paginatedUsersResponse.prev_page_url === null }}">
-        Previous
-      </button>
-    </li>
     <li class="page-item" *ngFor="let link of paginatedUsersResponse.links">
       <button class="page-link"
               (click)="getPageParams(link.url)"
               [ngClass]="link.active ? 'active' : ''"
+              [disabled]="link.active"
       >
         {{ link.label }}
-      </button>
-    </li>
-    <li class="page-item">
-      <button class="page-link"
-              (click)="getPageParams(paginatedUsersResponse.next_page_url)"
-              disabled="{{ paginatedUsersResponse.next_page_url === null }}"
-      >
-        Next
       </button>
     </li>
   </ul>
