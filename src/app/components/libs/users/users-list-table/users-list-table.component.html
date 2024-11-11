@@ -8,9 +8,9 @@
   <tbody>
   <tr *ngFor="let user of paginatedUsersResponse.data; let i = index">
     <td><a [routerLink]="[user.id]">{{ user.name }}</a></td>
-    <td><a [routerLink]="[user.id, 'edit']">edit</a></td>
+    <td><a class="btn btn-primary" [routerLink]="[user.id, 'edit']">edit</a></td>
     <td>
-      <button class="btn" (click)="deleteUser(user.id)">Delete</button>
+      <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
     </td>
   </tr>
   </tbody>

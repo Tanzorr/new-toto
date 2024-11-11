@@ -14,7 +14,7 @@
   </div>
   <div class="form-group">
     <label for="email">Email address:</label>
-    <input type="email"  formControlName="email" class="form-control" id="email">
+    <input type="email" formControlName="email" class="form-control" id="email">
     <div *ngIf="userForm.controls['email'].touched && userForm.controls['email'].errors">
       <small class="text-danger" *ngIf="userForm.controls['email'].errors?.['required']">
         Name is required.
@@ -24,10 +24,11 @@
       </small>
     </div>
   </div>
-
-  <button type="submit"
-          class="btn btn-primary"
-  >
-    Submit
-  </button>
+  <div class="form-group mt-2">
+    <button type="submit"
+            class="btn btn-primary"
+    >
+      Submit
+    </button>
+  </div>
 </form>

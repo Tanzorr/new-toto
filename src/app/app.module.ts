@@ -15,6 +15,10 @@ import {CustomSerializer} from "./store/router/CustomSeriializer";
 import {NavigationModule} from "./components/navigation/navigation.module";
 import {usersReducer} from "./store/users/users-reducers";
 import {UsersEffects} from "./store/users/users-efects";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ModalService} from "./services/modals/modal.service";
+import {AlertService} from "./services/alerts/alert.service";
+import {AlertModule} from "./components/libs/alert/alert.module";
 
 
 @NgModule({
@@ -39,12 +43,17 @@ import {UsersEffects} from "./store/users/users-efects";
         StoreRouterConnectingModule.forRoot(
             {serializer: CustomSerializer}
         ),
-        NavigationModule
+        NavigationModule,
+        NgbModule,
+        AlertModule
     ],
-  providers: [],
+  providers: [
+    ModalService,
+    AlertService
+  ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
-  ]
+  ],
 })
 export class AppModule { }

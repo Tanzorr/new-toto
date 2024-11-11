@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ data?.title }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+</div>
+<div class="modal-body">
+  <p>{{ data?.body }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn {{ data?.cancelButtonClass }}" (click)="cancel()">
+    {{ data?.cancelButtonText }}
+  </button>
+  <button type="button" class="btn {{ data?.confirmButtonClass }}" (click)="confirm()">
+    {{ data?.confirmButtonText }}
+  </button>
+</div>
