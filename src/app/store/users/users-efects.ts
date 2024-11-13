@@ -12,7 +12,7 @@ import {
   getUserFail, updateUser, updateUserSuccess, updateUserFail,
 
 } from "./users-actions";
-import {catchError, switchMap, tap, withLatestFrom, map} from "rxjs/operators";
+import {catchError, switchMap, tap, withLatestFrom, map, finalize} from "rxjs/operators";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {Store} from "@ngrx/store";
 import {User, PaginatedUsersResponse, CreateUserResponse} from "../../models/entities/User";
@@ -21,6 +21,7 @@ import {usersSelector} from "./users-selectors";
 import {ActivatedRoute, Router} from "@angular/router";
 import {of} from "rxjs";
 import {routerSelector} from "../router/router-selector";
+import {SpinnerLoaderService} from "../../services/lodesrs/spinner-loader.service";
 
 @Injectable()
 export class UsersEffects {
@@ -32,8 +33,10 @@ export class UsersEffects {
         ofType(getUsers),
         withLatestFrom(this._store.select(usersSelector)),
         switchMap((action) => {
+          this._spinnerLoaderService.show();
           return this._usersApiService.getUsers(action[0].url).pipe(
             tap((usersData: PaginatedUsersResponse) => {
+              this._spinnerLoaderService.hide();
               this._store.dispatch(getUsersSuccess({value: usersData}));
               catchError((error) => {
                 this._store.dispatch(getUsersFail({value: error}));
@@ -70,9 +73,11 @@ export class UsersEffects {
       ofType(getUser),
       withLatestFrom(this._store.select(routerSelector)),
       switchMap(([action, route]) => {
+        this._spinnerLoaderService.show();
         return this._usersApiService.getUser(route.state.params['id']).pipe(
-          switchMap((user: User) => [getUserSuccess({value: user})]),
-          catchError((error) => [getUserFail({value: error})])
+          map((user: User) => getUserSuccess({value: user})),
+          catchError((error) => of(getUserFail({value: error}))),
+          finalize(() => this._spinnerLoaderService.hide())
         );
       })
     )
@@ -82,11 +87,13 @@ export class UsersEffects {
     this._actions$.pipe(
       ofType(updateUser),
       switchMap((action) => {
+        this._spinnerLoaderService.show();
         return this._usersApiService.updateUser(action.value).pipe(
           map((user: User) => {
-            return updateUserSuccess({ value: user });
+            return updateUserSuccess({value: user});
           }),
-          catchError((error) => of(updateUserFail({ value: error })))
+          catchError((error) => of(updateUserFail({value: error}))),
+          finalize(() => this._spinnerLoaderService.hide())
         );
       })
     )
@@ -108,7 +115,8 @@ export class UsersEffects {
     private _store: Store<{ users: User[] }>,
     private _router: Router,
     private _usersApiService: UserService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _spinnerLoaderService: SpinnerLoaderService
   ) {
     this._userId = this._route.snapshot.params['id'];
   }

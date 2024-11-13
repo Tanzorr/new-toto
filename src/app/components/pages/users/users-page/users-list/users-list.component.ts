@@ -3,7 +3,7 @@ import {Observable} from "rxjs";
 import {PaginatedUsersResponse} from "../../../../../models/entities/User";
 import {UsersListService} from "./services/users-list.service";
 import {ModalService} from "../../../../../services/modals/modal.service";
-import {AlertService} from "../../../../../services/alerts/alert.service";
+
 
 @Component({
   selector: 'app-users-list',

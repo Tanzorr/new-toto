@@ -1,55 +1,22 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" formControlName="name" class="form-control" id="name">
-    <input type="hidden" formControlName="id" class="form-control" id="id">
-    <div *ngIf="userForm.controls['name'].touched && userForm.controls['name'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['name'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['name'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email address:</label>
-    <input type="email"  formControlName="email" class="form-control" id="email">
-    <div *ngIf="userForm.controls['email'].touched && userForm.controls['email'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['email'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['email'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
-  <div  class="form-group">
-    <label for="email">Password:</label>
-    <input type="email"  formControlName="password" class="form-control" id="password">
-    <div *ngIf="userForm.controls['password'].touched && userForm.controls['password'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['password'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['password'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="password_confirmation">Password Confirm:</label>
-    <input type="password"  formControlName="password_confirmation" class="form-control" id="password_confirmation">
-    <div *ngIf="userForm.controls['password_confirmation'].touched && userForm.controls['password_confirmation'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['password_confirmation'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['password_confirmation'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
+  <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
+        <input type="text" formControlName="name" class="form-control" id="name">
+        <input type="hidden" formControlName="id" class="form-control" id="id">
+  </app-form-group>
 
-  <button type="submit" class="btn btn-primary">
+  <app-form-group label="Email address" controlName="email" [errorMessage]="getErrorMessage('email')">
+        <input type="email" formControlName="email" class="form-control" id="email">
+  </app-form-group>
+
+  <app-form-group label="Password" controlName="passwod" [errorMessage]="getErrorMessage('password')" >
+        <input type="password"  formControlName="password" class="form-control" id="password">
+  </app-form-group>
+
+  <app-form-group label="Password confirm" controlName="password_confirmation" [errorMessage]="getErrorMessage('password_confirmation')">
+        <input type="password" formControlName="password_confirmation" class="form-control" id="password_confirmation">
+  </app-form-group>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
     submit
   </button>
 </form>

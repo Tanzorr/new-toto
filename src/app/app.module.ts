@@ -19,37 +19,41 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ModalService} from "./services/modals/modal.service";
 import {AlertService} from "./services/alerts/alert.service";
 import {AlertModule} from "./components/libs/alert/alert.module";
+import {SpinnerModule} from "./components/libs/spinner/spinner.module";
+import {SpinnerLoaderService} from "./services/lodesrs/spinner-loader.service";
 
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        StoreModule.forRoot({
-            tasksState: tasksReducer,
-            usersState: usersReducer,
-            router: routerReducer
-        }),
-        EffectsModule.forRoot([TasksEffects, UsersEffects]),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: false,
-        }),
-        RouterModule.forRoot([]),
-        StoreRouterConnectingModule.forRoot(
-            {serializer: CustomSerializer}
-        ),
-        NavigationModule,
-        NgbModule,
-        AlertModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    StoreModule.forRoot({
+      tasksState: tasksReducer,
+      usersState: usersReducer,
+      router: routerReducer
+    }),
+    EffectsModule.forRoot([TasksEffects, UsersEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false,
+    }),
+    RouterModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(
+      {serializer: CustomSerializer}
+    ),
+    NavigationModule,
+    NgbModule,
+    AlertModule,
+    SpinnerModule
+  ],
   providers: [
     ModalService,
-    AlertService
+    AlertService,
+    SpinnerLoaderService
   ],
   bootstrap: [AppComponent],
   schemas: [

@@ -25,7 +25,7 @@ export class ModalService {
     const modalRef = this.modalService.open(ModalComponent, {centered: true });
     modalRef.componentInstance.data = data;
     const {result} = modalRef;
-    console.log({result})
+
     return result;
   }
 }

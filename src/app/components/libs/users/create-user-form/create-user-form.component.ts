@@ -19,6 +19,24 @@ export class CreateUserFormComponent {
 
   @Output() formSubmit: EventEmitter<UserCreateData> = new EventEmitter<UserCreateData>();
 
+  errorMessages: {[key: string]: {[key: string]: string}} = {
+    name: {
+      required: 'Name is required.',
+      minlength: 'Name must be at least 2 characters long.'
+    },
+    email: {
+      required: 'Email is required.',
+      email: 'Please enter a valid email address.'
+    },
+    password: {
+      required: 'Password is required.',
+      minlength: 'Password must be at least 1 character long.'
+    },
+    password_confirmation: {
+      required: 'Password confirmation is required.',
+      minlength: 'Password confirmation must be at least 1 character long.'
+    }
+  };
   constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
       id: [null],
@@ -33,5 +51,15 @@ export class CreateUserFormComponent {
     if (this.userForm.valid) {
       this.formSubmit.emit(this.userForm.value);
     }
+  }
+
+  getErrorMessage(controlName: string): string | null {
+    const control = this.userForm.get(controlName);
+
+    if (control?.touched && control?.errors) {
+      const firstErrorKey = Object.keys(control.errors)[0];
+      return this.errorMessages[controlName][firstErrorKey];
+    }
+    return null;
   }
 }
