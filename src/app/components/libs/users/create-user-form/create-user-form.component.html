@@ -1,7 +1,8 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
-        <input type="text" formControlName="name" class="form-control" id="name">
+<!--        <input type="text" formControlName="name" class="form-control" id="name">-->
         <input type="hidden" formControlName="id" class="form-control" id="id">
+        <app-input-text formControlName="name"></app-input-text>
   </app-form-group>
 
   <app-form-group label="Email address" controlName="email" [errorMessage]="getErrorMessage('email')">

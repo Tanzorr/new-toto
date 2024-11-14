@@ -7,6 +7,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import {PaginatedUsersResponse} from "../../../../models/entities/User";
+import {PageChangedEvent} from "ngx-bootstrap/pagination";
+
+const URL = 'http://127.0.0.1:8000/api/users?page=';
 
 @Component({
   selector: 'app-users-list-table',
@@ -37,7 +40,10 @@ export class UsersListTableComponent {
     this.delete.emit(index);
   }
 
-  getPageParams(url: string | null) {
+
+  getPageParams(param: PageChangedEvent) {
+
+    const url = URL + param.page;
     this.pageParams.emit(url);
   }
 }
