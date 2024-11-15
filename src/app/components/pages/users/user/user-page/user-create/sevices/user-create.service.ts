@@ -7,11 +7,7 @@ import {addUser} from "../../../../../../../store/users/users-actions";
   providedIn: 'root'
 })
 export class UserCreateService {
-
-
   constructor(private _store: Store<{user: User}>) { }
-
-
   addUser(user: UserCreateData): void {
     this._store.dispatch(addUser({value: user}));
   }

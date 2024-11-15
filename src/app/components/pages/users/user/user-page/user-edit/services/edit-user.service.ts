@@ -11,7 +11,6 @@ export class EditUserService {
 
   user$ = this._store.select(userSelector);
   constructor(private _store: Store) { }
-
   getUser(): void {
     this._store.dispatch(getUser());
   }

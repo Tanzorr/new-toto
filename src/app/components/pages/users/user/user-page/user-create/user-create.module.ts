@@ -5,8 +5,6 @@ import {UserCreateRoutingModule} from "./user-create-routing.module";
 import {UserFormModule} from "../../../../../libs/users/create-user-form/user-form.module";
 
 
-
-
 @NgModule({
   declarations: [
     UserCreateComponent

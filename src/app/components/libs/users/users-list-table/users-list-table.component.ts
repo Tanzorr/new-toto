@@ -40,9 +40,7 @@ export class UsersListTableComponent {
     this.delete.emit(index);
   }
 
-
   getPageParams(param: PageChangedEvent) {
-
     const url = URL + param.page;
     this.pageParams.emit(url);
   }
