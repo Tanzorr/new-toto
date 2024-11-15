@@ -19,6 +19,7 @@ import {AlertService} from "./services/alerts/alert.service";
 import {AlertModule} from "./components/libs/alert/alert.module";
 import {SpinnerModule} from "./components/libs/spinner/spinner.module";
 import {SpinnerLoaderService} from "./services/lodesrs/spinner-loader.service";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -30,7 +31,6 @@ import {SpinnerLoaderService} from "./services/lodesrs/spinner-loader.service";
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({
-
       usersState: usersReducer,
       router: routerReducer
     }),

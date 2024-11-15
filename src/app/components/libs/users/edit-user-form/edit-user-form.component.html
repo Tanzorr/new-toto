@@ -1,34 +1,18 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="name">Name:</label>
+  <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
     <input type="text" formControlName="name" class="form-control" id="name">
     <input type="hidden" formControlName="id" class="form-control" id="id">
-    <div *ngIf="userForm.controls['name'].touched && userForm.controls['name'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['name'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['name'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="email">Email address:</label>
+  </app-form-group>
+
+  <app-form-group label="Email address" controlName="email" [errorMessage]="getErrorMessage('email')">
     <input type="email" formControlName="email" class="form-control" id="email">
-    <div *ngIf="userForm.controls['email'].touched && userForm.controls['email'].errors">
-      <small class="text-danger" *ngIf="userForm.controls['email'].errors?.['required']">
-        Name is required.
-      </small>
-      <small class="text-danger" *ngIf="userForm.controls['email'].errors?.['minlength']">
-        Name must be at least 2 characters long.
-      </small>
-    </div>
-  </div>
-  <div class="form-group mt-2">
+  </app-form-group>
+
+  <app-form-group>
     <button type="submit"
             class="btn btn-primary"
     >
       Submit
     </button>
-  </div>
+  </app-form-group>
 </form>

@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Outp
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserCreateData} from "../../../../models/entities/User";
 
+
+
 @Component({
   selector: 'app-edit-user-form',
   templateUrl: './edit-user-form.component.html',
@@ -13,6 +15,17 @@ export class EditUserFormComponent implements OnChanges{
 
   @Input() userData!: UserCreateData;
   @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
+
+  errorMessages: {[key: string]: {[key: string]: string}} = {
+    name: {
+      required: 'Name is required.',
+      minlength: 'Name must be at least 2 characters long.'
+    },
+    email: {
+      required: 'Email is required.',
+      email: 'Please enter a valid email address.'
+    }
+  }
 
    constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
@@ -32,5 +45,17 @@ export class EditUserFormComponent implements OnChanges{
       if(changes['userData'].currentValue){
         this.userForm.patchValue(this.userData);
       }
+  }
+
+  getErrorMessage(controlName: string): string | null {
+    const control = this.userForm.get(controlName);
+
+    console.log(control?.errors, control?.touched);
+
+    if (control?.touched && control?.errors) {
+      const firstErrorKey = Object.keys(control.errors)[0];
+      return this.errorMessages[controlName][firstErrorKey];
+    }
+    return null;
   }
 }

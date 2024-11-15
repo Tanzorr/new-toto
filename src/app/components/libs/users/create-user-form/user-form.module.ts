@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateUserFormComponent } from './create-user-form.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FormGroupModule} from "../../form-group/form-group.module";
-import {InputTextModule} from "../../input-text/input-text.module";
+import {CustomInputModule} from "../../input-text/custom-input.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import {InputTextModule} from "../../input-text/input-text.module";
     CommonModule,
     ReactiveFormsModule,
     FormGroupModule,
-    InputTextModule
+    CustomInputModule,
+    FormsModule
   ]
 })
 export class UserFormModule { }
