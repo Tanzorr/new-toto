@@ -5,10 +5,10 @@ import { UsersComponent } from './users.component';
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent,  // Батьківський компонент для вкладених маршрутів
+    component: UsersComponent,
     children: [
       {
-        path: '',  // Маршрут за замовчуванням для списку користувачів
+        path: '',
         loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule),
       },
       {
@@ -16,11 +16,11 @@ const routes: Routes = [
         loadChildren: () => import('./user/user-page/user-create/user-create.module').then(m=>m.UserCreateModule),
       },
       {
-        path: ':id',  // Маршрут за замовчуванням для списку користувачів
+        path: ':id',
         loadChildren: () => import('./user/user.module').then(m => m.UserModule),
       },
       {
-        path: ':id/edit',  // Маршрут за замовчуванням для списку користувачів
+        path: ':id/edit',
         loadChildren: () => import('./user/user-page/user-edit/user-edit.module').then(m => m.UserEditModule),
       },
     ],

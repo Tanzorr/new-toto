@@ -38,7 +38,7 @@ export class UsersEffects {
             tap((usersData: PaginatedUsersResponse) => {
               this._spinnerLoaderService.hide();
               this._store.dispatch(getUsersSuccess({value: usersData}));
-              catchError((error) => {
+              catchError((error:string) => {
                 this._store.dispatch(getUsersFail({value: error}));
                 return error;
               });
@@ -60,7 +60,7 @@ export class UsersEffects {
             this._router.navigate(['/users']).then(r => console.log('Navigate:', r));
             return addUserSuccess({value: userResponse.user});
           }),
-          catchError((error) => {
+          catchError((error:string) => {
             return of(addUserFail({value: error}));
           })
         );
@@ -76,7 +76,7 @@ export class UsersEffects {
         this._spinnerLoaderService.show();
         return this._usersApiService.getUser(route.state.params['id']).pipe(
           map((user: User) => getUserSuccess({value: user})),
-          catchError((error) => of(getUserFail({value: error}))),
+          catchError((error: string) => of(getUserFail({value: error}))),
           finalize(() => this._spinnerLoaderService.hide())
         );
       })
@@ -92,7 +92,7 @@ export class UsersEffects {
           map((user: User) => {
             return updateUserSuccess({value: user});
           }),
-          catchError((error) => of(updateUserFail({value: error}))),
+          catchError((error: string) => of(updateUserFail({value: error}))),
           finalize(() => this._spinnerLoaderService.hide())
         );
       })

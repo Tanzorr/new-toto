@@ -5,9 +5,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {FormGroupModule} from "../../form-group/form-group.module";
 import {InputTextModule} from "../../input-text/input-text.module";
 
-
-
-
 @NgModule({
   declarations: [
     CreateUserFormComponent

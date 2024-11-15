@@ -5,7 +5,6 @@ import {UsersListRoutingModule} from "./users-list-routing.module";
 import {UsersListTableModule} from "../../../../libs/users/users-list-table/users-list-table.module";
 
 
-
 @NgModule({
   declarations: [
     UsersListComponent

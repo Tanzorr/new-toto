@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UsersComponent } from './users.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UsersComponent} from './users.component';
 import {UsersRoutesModule} from "./users-routes.module";
-
 
 
 @NgModule({
@@ -14,4 +13,5 @@ import {UsersRoutesModule} from "./users-routes.module";
     UsersRoutesModule
   ]
 })
-export class UsersModule { }
+export class UsersModule {
+}

@@ -4,7 +4,7 @@ import {
   addUserFail,
   addUserSuccess,
   deleteUserFail,
-  deleteUserSuccess, getUser,
+  deleteUserSuccess,
   getUsersFail,
   getUsersSuccess, getUserSuccess
 } from "./users-actions";

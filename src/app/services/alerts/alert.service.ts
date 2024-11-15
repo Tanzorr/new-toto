@@ -4,7 +4,7 @@ import {BehaviorSubject} from "rxjs";
 export interface AlertData {
   type: 'success' | 'danger' | 'warning' | 'info';
   message: string;
-  timeout?: number; // Таймаут у мілісекундах
+  timeout?: number;
 }
 @Injectable({
   providedIn: 'root'

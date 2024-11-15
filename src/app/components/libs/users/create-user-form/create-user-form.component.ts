@@ -56,7 +56,7 @@ export class CreateUserFormComponent {
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
 
-    console.log(control, control?.touched);
+    console.log(control?.errors, control?.touched);
 
     if (control?.touched && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
