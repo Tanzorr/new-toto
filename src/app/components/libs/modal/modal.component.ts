@@ -1,16 +1,15 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {ModalData} from "../../../services/modals/modal.service";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ModalData } from '../../../services/modals/modal.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-modals',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
-   @Input() data: ModalData | null = null;
+  @Input() data: ModalData | null = null;
 
   constructor(public activeModal: NgbActiveModal) {}
 

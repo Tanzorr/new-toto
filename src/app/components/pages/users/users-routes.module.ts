@@ -9,19 +9,21 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule),
+        loadChildren: () => import('./users-page/users-page.module').then((m) => m.UsersPageModule),
       },
       {
         path: 'create',
-        loadChildren: () => import('./user/user-page/user-create/user-create.module').then(m=>m.UserCreateModule),
+        loadChildren: () =>
+          import('./user/user-page/user-create/user-create.module').then((m) => m.UserCreateModule),
       },
       {
         path: ':id',
-        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
       },
       {
         path: ':id/edit',
-        loadChildren: () => import('./user/user-page/user-edit/user-edit.module').then(m => m.UserEditModule),
+        loadChildren: () =>
+          import('./user/user-page/user-edit/user-edit.module').then((m) => m.UserEditModule),
       },
     ],
   },

@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {AlertData, AlertService} from "../../../services/alerts/alert.service";
-import {Observable} from "rxjs";
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AlertData, AlertService } from '../../../services/alerts/alert.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent {
   alerts$!: Observable<AlertData[]>;

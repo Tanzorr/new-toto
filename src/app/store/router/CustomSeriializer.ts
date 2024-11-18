@@ -27,5 +27,4 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   }
 }
 
-export class RouterStateModel {
-}
+export class RouterStateModel {}

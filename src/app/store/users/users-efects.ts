@@ -1,27 +1,31 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
-  addUser, addUserFail,
+  addUser,
+  addUserFail,
   addUserSuccess,
   deleteUser,
-  deleteUserFail, deleteUserSuccess,
+  deleteUserFail,
+  deleteUserSuccess,
+  getUser,
+  getUserFail,
   getUsers,
   getUsersFail,
   getUsersSuccess,
-  getUser,
   getUserSuccess,
-  getUserFail, updateUser, updateUserSuccess, updateUserFail,
-
-} from "./users-actions";
-import {catchError, switchMap, tap, withLatestFrom, map, finalize} from "rxjs/operators";
-import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {Store} from "@ngrx/store";
-import {User, PaginatedUsersResponse, CreateUserResponse} from "../../models/entities/User";
-import {UserService} from "../../services/api/user/user.service";
-import {usersSelector} from "./users-selectors";
-import {ActivatedRoute, Router} from "@angular/router";
-import {of} from "rxjs";
-import {routerSelector} from "../router/router-selector";
-import {SpinnerLoaderService} from "../../services/lodesrs/spinner-loader.service";
+  updateUser,
+  updateUserFail,
+  updateUserSuccess,
+} from './users-actions';
+import { catchError, finalize, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { CreateUserResponse, PaginatedUsersResponse, User } from '../../models/entities/User';
+import { UserService } from '../../services/api/user/user.service';
+import { usersSelector } from './users-selectors';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { routerSelector } from '../router/router-selector';
+import { SpinnerLoaderService } from '../../services/lodesrs/spinner-loader.service';
 
 @Injectable()
 export class UsersEffects {
@@ -37,9 +41,9 @@ export class UsersEffects {
           return this._usersApiService.getUsers(action[0].url).pipe(
             tap((usersData: PaginatedUsersResponse) => {
               this._spinnerLoaderService.hide();
-              this._store.dispatch(getUsersSuccess({value: usersData}));
-              catchError((error:string) => {
-                this._store.dispatch(getUsersFail({value: error}));
+              this._store.dispatch(getUsersSuccess({ value: usersData }));
+              catchError((error: string) => {
+                this._store.dispatch(getUsersFail({ value: error }));
                 return error;
               });
             })
@@ -57,11 +61,11 @@ export class UsersEffects {
       switchMap((action) => {
         return this._usersApiService.addUser(action.value).pipe(
           map((userResponse: CreateUserResponse) => {
-            this._router.navigate(['/users']).then(r => console.log('Navigate:', r));
-            return addUserSuccess({value: userResponse.user});
+            this._router.navigate(['/users']).then((r) => console.log('Navigate:', r));
+            return addUserSuccess({ value: userResponse.user });
           }),
-          catchError((error:string) => {
-            return of(addUserFail({value: error}));
+          catchError((error: string) => {
+            return of(addUserFail({ value: error }));
           })
         );
       })
@@ -75,8 +79,8 @@ export class UsersEffects {
       switchMap(([action, route]) => {
         this._spinnerLoaderService.show();
         return this._usersApiService.getUser(route.state.params['id']).pipe(
-          map((user: User) => getUserSuccess({value: user})),
-          catchError((error: string) => of(getUserFail({value: error}))),
+          map((user: User) => getUserSuccess({ value: user })),
+          catchError((error: string) => of(getUserFail({ value: error }))),
           finalize(() => this._spinnerLoaderService.hide())
         );
       })
@@ -90,9 +94,9 @@ export class UsersEffects {
         this._spinnerLoaderService.show();
         return this._usersApiService.updateUser(action.value).pipe(
           map((user: User) => {
-            return updateUserSuccess({value: user});
+            return updateUserSuccess({ value: user });
           }),
-          catchError((error: string) => of(updateUserFail({value: error}))),
+          catchError((error: string) => of(updateUserFail({ value: error }))),
           finalize(() => this._spinnerLoaderService.hide())
         );
       })
@@ -103,8 +107,8 @@ export class UsersEffects {
       ofType(deleteUser),
       switchMap((action) => {
         return this._usersApiService.deleteUser(action.id).pipe(
-          switchMap(() => [deleteUserSuccess({value: action.id})]),
-          catchError((error) => [deleteUserFail({value: error})])
+          switchMap(() => [deleteUserSuccess({ value: action.id })]),
+          catchError((error) => [deleteUserFail({ value: error })])
         );
       })
     )

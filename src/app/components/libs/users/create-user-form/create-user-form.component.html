@@ -1,23 +1,38 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
-<!--        <input type="text" formControlName="name" class="form-control" id="name">-->
-        <input type="hidden" formControlName="id" class="form-control" id="id">
-        <app-custom-input formControlName="name"></app-custom-input>
+    <!--        <input type="text" formControlName="name" class="form-control" id="name">-->
+    <input type="hidden" formControlName="id" class="form-control" id="id" />
+    <app-custom-input formControlName="name"></app-custom-input>
   </app-form-group>
 
-  <app-form-group label="Email address" controlName="email" [errorMessage]="getErrorMessage('email')">
-        <input type="email" formControlName="email" class="form-control" id="email">
+  <app-form-group
+    label="Email address"
+    controlName="email"
+    [errorMessage]="getErrorMessage('email')"
+  >
+    <input type="email" formControlName="email" class="form-control" id="email" />
   </app-form-group>
 
-  <app-form-group label="Password" controlName="passwod" [errorMessage]="getErrorMessage('password')" >
-        <input type="password"  formControlName="password" class="form-control" id="password">
+  <app-form-group
+    label="Password"
+    controlName="passwod"
+    [errorMessage]="getErrorMessage('password')"
+  >
+    <input type="password" formControlName="password" class="form-control" id="password" />
   </app-form-group>
 
-  <app-form-group label="Password confirm" controlName="password_confirmation" [errorMessage]="getErrorMessage('password_confirmation')">
-        <input type="password" formControlName="password_confirmation" class="form-control" id="password_confirmation">
+  <app-form-group
+    label="Password confirm"
+    controlName="password_confirmation"
+    [errorMessage]="getErrorMessage('password_confirmation')"
+  >
+    <input
+      type="password"
+      formControlName="password_confirmation"
+      class="form-control"
+      id="password_confirmation"
+    />
   </app-form-group>
 
-  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">
-    submit
-  </button>
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">submit</button>
 </form>

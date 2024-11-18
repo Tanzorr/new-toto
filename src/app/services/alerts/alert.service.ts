@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 export interface AlertData {
   type: 'success' | 'danger' | 'warning' | 'info';
@@ -7,14 +7,13 @@ export interface AlertData {
   timeout?: number;
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AlertService {
   alertsSubject = new BehaviorSubject<AlertData[]>([]);
   public alerts$ = this.alertsSubject.asObservable();
 
-  constructor() { }
-
+  constructor() {}
 
   showAlert(alert: AlertData) {
     const currentAlerts = this.alertsSubject.value;
@@ -26,7 +25,7 @@ export class AlertService {
   }
 
   dismissAlert(alert: AlertData) {
-    const currentAlerts = this.alertsSubject.value.filter(a => a !== alert);
+    const currentAlerts = this.alertsSubject.value.filter((a) => a !== alert);
     this.alertsSubject.next(currentAlerts);
   }
 }

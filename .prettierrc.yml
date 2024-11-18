@@ -1,0 +1,10 @@
+printWidth: 100                # Maximum line width
+tabWidth: 2                    # Number of spaces per tab
+useTabs: false                 # Use spaces instead of tabs
+semi: true                     # Add semicolons at the end of statements
+singleQuote: true              # Use single quotes instead of double quotes
+trailingComma: "es5"           # Add trailing commas where valid in ES5 (e.g., objects, arrays)
+bracketSpacing: true           # Add spaces between brackets in object literals
+arrowParens: "always"          # Always include parentheses in arrow function arguments
+endOfLine: "lf"                # Line feed only ('\n') as newline character
+htmlWhitespaceSensitivity: "css" # Respect the CSS display property in HTML

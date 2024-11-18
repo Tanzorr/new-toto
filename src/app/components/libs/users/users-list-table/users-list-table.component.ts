@@ -6,8 +6,8 @@ import {
   Output,
   ChangeDetectorRef,
 } from '@angular/core';
-import {PaginatedUsersResponse} from "../../../../models/entities/User";
-import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import { PaginatedUsersResponse } from '../../../../models/entities/User';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 const URL = 'http://127.0.0.1:8000/api/users?page=';
 
@@ -15,15 +15,14 @@ const URL = 'http://127.0.0.1:8000/api/users?page=';
   selector: 'app-users-list-table',
   templateUrl: './users-list-table.component.html',
   styleUrls: ['./users-list-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListTableComponent {
-
-  private _paginatedUsersResponse: PaginatedUsersResponse  = {} as PaginatedUsersResponse;
+  private _paginatedUsersResponse: PaginatedUsersResponse = {} as PaginatedUsersResponse;
 
   @Input()
   set paginatedUsersResponse(value: PaginatedUsersResponse | null) {
-    this._paginatedUsersResponse = value ? value : {} as PaginatedUsersResponse;
+    this._paginatedUsersResponse = value ? value : ({} as PaginatedUsersResponse);
   }
 
   get paginatedUsersResponse(): PaginatedUsersResponse {
@@ -34,7 +33,7 @@ export class UsersListTableComponent {
   @Output() delete = new EventEmitter<number>();
   @Output() pageParams = new EventEmitter<string | null>();
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   deleteUser(index: number) {
     this.delete.emit(index);

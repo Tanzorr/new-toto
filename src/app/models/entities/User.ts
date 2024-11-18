@@ -13,13 +13,11 @@ export type Users = User[];
 export type UserId = User['id'];
 export type UserCreateData = User;
 
-
 interface PaginationLink {
   url: string | null;
   label: string;
   active: boolean;
 }
-
 
 export interface PaginatedUsersResponse {
   current_page: number;
@@ -41,4 +39,3 @@ export interface CreateUserResponse {
   message: string;
   user: User;
 }
-

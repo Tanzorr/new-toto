@@ -3,14 +3,8 @@ import { CommonModule } from '@angular/common';
 import { BackDirective } from './back.directive';
 
 @NgModule({
-    declarations: [
-        BackDirective
-    ],
-    exports: [
-        BackDirective
-    ],
-    imports: [
-        CommonModule
-    ]
+  declarations: [BackDirective],
+  exports: [BackDirective],
+  imports: [CommonModule],
 })
-export class BackModule { }
+export class BackModule {}

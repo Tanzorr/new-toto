@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  Input,
-  Optional,
-  Self
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 
 type fn = (value: any) => void;
@@ -33,7 +26,6 @@ export class CustomInputComponent implements ControlValueAccessor {
 
   private onChange: fn = (_: any) => {};
   private onTouched: fn = () => {};
-
 
   writeValue(value: any): void {
     if (value !== undefined) {

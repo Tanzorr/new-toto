@@ -1,13 +1,14 @@
-import {PaginatedUsersResponse, User} from "../../models/entities/User";
-import {createReducer, on} from "@ngrx/store";
+import { PaginatedUsersResponse, User } from '../../models/entities/User';
+import { createReducer, on } from '@ngrx/store';
 import {
   addUserFail,
   addUserSuccess,
   deleteUserFail,
   deleteUserSuccess,
   getUsersFail,
-  getUsersSuccess, getUserSuccess
-} from "./users-actions";
+  getUsersSuccess,
+  getUserSuccess,
+} from './users-actions';
 
 export interface UsersStateModel {
   user: User;
@@ -20,14 +21,13 @@ export interface UsersState {
 }
 
 const initialState: UsersStateModel = {
-  user:
-    {
-      id: 1,
-      name: 'User 1',
-      email: 'email@ukr.net',
-      password: 'password',
-      password_confirmation: 'password'
-    },
+  user: {
+    id: 1,
+    name: 'User 1',
+    email: 'email@ukr.net',
+    password: 'password',
+    password_confirmation: 'password',
+  },
   paginationResponse: {
     current_page: 1,
     data: [],
@@ -37,11 +37,11 @@ const initialState: UsersStateModel = {
     last_page_url: '',
     next_page_url: '',
     links: [],
-    path: "",
+    path: '',
     per_page: 0,
     prev_page_url: null,
     to: 0,
-    total: 0
+    total: 0,
   },
   errorMessage: '',
 };
@@ -49,7 +49,10 @@ const initialState: UsersStateModel = {
 export const usersReducer = createReducer(
   initialState,
   on(getUsersSuccess, (state, action) => {
-    return { ...state, paginationResponse: {...state.paginationResponse, ...action.value || {}} };
+    return {
+      ...state,
+      paginationResponse: { ...state.paginationResponse, ...(action.value || {}) },
+    };
   }),
 
   on(getUsersFail, (state, action) => {
@@ -61,8 +64,8 @@ export const usersReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: [ action.value, ...state.paginationResponse.data]
-      }
+        data: [action.value, ...state.paginationResponse.data],
+      },
     };
   }),
 
@@ -74,14 +77,13 @@ export const usersReducer = createReducer(
     return { ...state, errorMessage: action.value };
   }),
 
-
   on(deleteUserSuccess, (state, action) => {
     return {
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: state.paginationResponse.data.filter((user) => user.id !== action.value)
-      }
+        data: state.paginationResponse.data.filter((user) => user.id !== action.value),
+      },
     };
   }),
 
