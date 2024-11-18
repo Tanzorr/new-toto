@@ -22,6 +22,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {of} from "rxjs";
 import {routerSelector} from "../router/router-selector";
 import {SpinnerLoaderService} from "../../services/lodesrs/spinner-loader.service";
+import {UsersState} from "./users-reducers";
 
 @Injectable()
 export class UsersEffects {
@@ -112,7 +113,7 @@ export class UsersEffects {
 
   constructor(
     private _actions$: Actions,
-    private _store: Store<{ users: User[] }>,
+    private _store: Store<UsersState>,
     private _router: Router,
     private _usersApiService: UserService,
     private _route: ActivatedRoute,
