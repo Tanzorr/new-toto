@@ -8,8 +8,8 @@ import { UserService } from './services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserViewComponent {
-  user$ = this._userService.user$;
-  constructor(private _userService: UserService) {
-    this._userService.getUser();
+  user$ = this.userService.user$;
+  constructor(private userService: UserService) {
+    this.userService.getUser();
   }
 }

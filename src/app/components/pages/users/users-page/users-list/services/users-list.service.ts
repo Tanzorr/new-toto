@@ -8,15 +8,15 @@ import { UsersState } from '../../../../../../store/users/users-reducers';
   providedIn: 'root',
 })
 export class UsersListService {
-  paginatedUsersResponse$ = this._store.select(usersSelector);
+  paginatedUsersResponse$ = this.store.select(usersSelector);
 
-  constructor(private _store: Store<UsersState>) {}
+  constructor(private store: Store<UsersState>) {}
 
   getUsers(url?: string | null): void {
-    this._store.dispatch(getUsers({ url }));
+    this.store.dispatch(getUsers({ url }));
   }
 
   deleteUser(id: number) {
-    this._store.dispatch(deleteUser({ id }));
+    this.store.dispatch(deleteUser({ id }));
   }
 }

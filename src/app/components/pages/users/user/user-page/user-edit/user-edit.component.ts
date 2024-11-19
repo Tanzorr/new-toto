@@ -12,12 +12,12 @@ import { EditUserService } from './services/edit-user.service';
 export class UserEditComponent {
   user$: Observable<User>;
 
-  constructor(private _editUserService: EditUserService) {
-    this.user$ = this._editUserService.user$;
-    this._editUserService.getUser();
+  constructor(private editUserService: EditUserService) {
+    this.user$ = this.editUserService.user$;
+    this.editUserService.getUser();
   }
 
   updateUser(user: User): void {
-    this._editUserService.updateUser(user);
+    this.editUserService.updateUser(user);
   }
 }

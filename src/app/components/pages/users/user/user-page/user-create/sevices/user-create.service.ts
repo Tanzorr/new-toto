@@ -8,9 +8,9 @@ import { UsersState } from '../../../../../../../store/users/users-reducers';
   providedIn: 'root',
 })
 export class UserCreateService {
-  constructor(private _store: Store<UsersState>) {}
+  constructor(private store: Store<UsersState>) {}
 
   addUser(user: User): void {
-    this._store.dispatch(addUser({ value: user }));
+    this.store.dispatch(addUser({ value: user }));
   }
 }
