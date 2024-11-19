@@ -10,8 +10,6 @@ import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 export class UserService {
   private baseUrl = 'http://127.0.0.1:8000/api/';
 
-  private csrfToken: string | null = null;
-
   private baringToken: string | null = '8|1PKzqbp0PfRtNvmbjc6IlMlSuXZdTK4nLWCplI0bb05545a';
 
   private headers = {
@@ -42,7 +40,6 @@ export class UserService {
   }
 
   updateUser(value: User): Observable<User> {
-    console.log('Update User:', value);
     return this.http.put<User>(this.baseUrl + 'users/' + value.id, value, {
       headers: this.headers,
     });

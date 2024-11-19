@@ -9,15 +9,15 @@ import { UsersState } from '../../../../../../../store/users/users-reducers';
   providedIn: 'root',
 })
 export class EditUserService {
-  user$ = this._store.select(userSelector);
+  user$ = this.store.select(userSelector);
 
-  constructor(private _store: Store<UsersState>) {}
+  constructor(private store: Store<UsersState>) {}
 
   getUser(): void {
-    this._store.dispatch(getUser());
+    this.store.dispatch(getUser());
   }
 
   updateUser(user: User): void {
-    this._store.dispatch(updateUser({ value: user }));
+    this.store.dispatch(updateUser({ value: user }));
   }
 }

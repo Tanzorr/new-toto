@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCreateComponent {
-  constructor(private _userCreateService: UserCreateService) {}
+  constructor(private userCreateService: UserCreateService) {}
 
   createUser(userData: User) {
-    this._userCreateService.addUser(userData);
+    this.userCreateService.addUser(userData);
   }
 }
