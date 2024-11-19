@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { PaginatedUsersResponse, User, UserCreateData, UserId } from '../../models/entities/User';
+import { User } from '../../models/user';
+import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 
 export const getUsers = createAction('[Users] Get Users', props<{ url?: string | null }>());
 
@@ -10,7 +11,7 @@ export const getUsersSuccess = createAction(
 
 export const getUsersFail = createAction('[Users] Get Users Fail', props<{ value: string }>());
 
-export const addUser = createAction('[Users] Add User', props<{ value: UserCreateData }>());
+export const addUser = createAction('[Users] Add User', props<{ value: User }>());
 
 export const addUserSuccess = createAction('[Users] Add User Success', props<{ value: User }>());
 
@@ -31,11 +32,11 @@ export const updateUserSuccess = createAction(
   props<{ value: User }>()
 );
 
-export const deleteUser = createAction('[Users] Delete User', props<{ id: UserId }>());
+export const deleteUser = createAction('[Users] Delete User', props<{ id: User['id'] }>());
 
 export const deleteUserSuccess = createAction(
   '[Users] Delete User Success',
-  props<{ value: UserId }>()
+  props<{ value: User['id'] }>()
 );
 
 export const deleteUserFail = createAction('[Users] Delete User Fail', props<{ value: string }>());

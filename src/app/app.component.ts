@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { SpinnerLoaderService } from './services/lodesrs/spinner-loader.service';
+import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

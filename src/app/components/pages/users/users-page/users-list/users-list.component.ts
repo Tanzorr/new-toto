@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PaginatedUsersResponse } from '../../../../../models/entities/User';
 import { UsersListService } from './services/users-list.service';
-import { ModalService } from '../../../../../services/modals/modal.service';
+import { ModalService } from '../../../../../services/ui/modal.service';
+import { PaginatedUsersResponse } from '../../../../../models/paginate-users-response';
 
 @Component({
   selector: 'app-users-list',

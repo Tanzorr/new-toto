@@ -1,4 +1,4 @@
-import { PaginatedUsersResponse, User } from '../../models/entities/User';
+import { User } from '../../models/user';
 import { createReducer, on } from '@ngrx/store';
 import {
   addUserFail,
@@ -9,6 +9,7 @@ import {
   getUsersSuccess,
   getUserSuccess,
 } from './users-actions';
+import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 
 export interface UsersStateModel {
   user: User;

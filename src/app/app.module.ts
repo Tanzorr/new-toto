@@ -9,16 +9,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterModule } from '@angular/router';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { CustomSerializer } from './store/router/CustomSeriializer';
-import { NavigationModule } from './components/navigation/navigation.module';
+import { CustomSerializer } from './store/router/custom-serializer';
+import { NavigationModule } from './components/presentational/navigation/navigation.module';
 import { usersReducer } from './store/users/users-reducers';
 import { UsersEffects } from './store/users/users-efects';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ModalService } from './services/modals/modal.service';
-import { AlertService } from './services/alerts/alert.service';
+import { ModalService } from './services/ui/modal.service';
+import { AlertService } from './services/ui/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
 import { SpinnerModule } from './components/libs/spinner/spinner.module';
-import { SpinnerLoaderService } from './services/lodesrs/spinner-loader.service';
+import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
 
 @NgModule({
   declarations: [AppComponent],

@@ -6,8 +6,8 @@ import {
   Output,
   ChangeDetectorRef,
 } from '@angular/core';
-import { PaginatedUsersResponse } from '../../../../models/entities/User';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { PaginatedUsersResponse } from '../../../../models/paginate-users-response';
 
 const URL = 'http://127.0.0.1:8000/api/users?page=';
 

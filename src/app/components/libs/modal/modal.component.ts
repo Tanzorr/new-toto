@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ModalData } from '../../../services/modals/modal.service';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalData } from '../../../services/ui/modal.service';
 
 @Component({
   selector: 'app-modals',

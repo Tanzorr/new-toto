@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  CreateUserResponse,
-  PaginatedUsersResponse,
-  User,
-  UserCreateData,
-} from '../../../models/entities/User';
+import { CreateUserResponse, User } from '../../models/user';
 import { Observable } from 'rxjs';
+import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +31,7 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + 'users/' + id, { headers: this.headers });
   }
 
-  addUser(user: UserCreateData) {
+  addUser(user: User) {
     return this.http.post<CreateUserResponse>(this.baseUrl + 'users', user, {
       headers: this.headers,
     });

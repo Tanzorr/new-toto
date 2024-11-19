@@ -1,26 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserCreateData } from '../../../../models/entities/User';
+import { User } from '../../../../models/user';
 
 @Component({
-  selector: 'app-edit-user-form',
-  templateUrl: './edit-user-form.component.html',
-  styleUrls: ['./edit-user-form.component.scss'],
+  selector: 'app-create-user-form',
+  templateUrl: './create-user-form.component.html',
+  styleUrls: ['./create-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditUserFormComponent implements OnChanges {
+export class CreateUserFormComponent {
   userForm: FormGroup;
 
-  @Input() userData!: UserCreateData;
-  @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() formSubmit: EventEmitter<User> = new EventEmitter<User>();
 
   errorMessages: { [key: string]: { [key: string]: string } } = {
     name: {
@@ -31,30 +22,35 @@ export class EditUserFormComponent implements OnChanges {
       required: 'Email is required.',
       email: 'Please enter a valid email address.',
     },
+    password: {
+      required: 'Password is required.',
+      minlength: 'Password must be at least 1 character long.',
+    },
+    password_confirmation: {
+      required: 'Password confirmation is required.',
+      minlength: 'Password confirmation must be at least 1 character long.',
+    },
   };
-
   constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
       id: [null],
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
+      password_confirmation: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
   onSubmit() {
-    if (this.userForm.valid && this.userForm.dirty) {
+    if (this.userForm.valid) {
       this.formSubmit.emit(this.userForm.value);
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userData'].currentValue) {
-      this.userForm.patchValue(this.userData);
     }
   }
 
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
+
+    console.log(control?.errors, control?.touched);
 
     if (control?.touched && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];

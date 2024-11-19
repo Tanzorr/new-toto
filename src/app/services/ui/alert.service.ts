@@ -10,14 +10,14 @@ export interface AlertData {
   providedIn: 'root',
 })
 export class AlertService {
-  alertsSubject = new BehaviorSubject<AlertData[]>([]);
-  public alerts$ = this.alertsSubject.asObservable();
+  alertsSubject$ = new BehaviorSubject<AlertData[]>([]);
+  public alerts$ = this.alertsSubject$.asObservable();
 
   constructor() {}
 
   showAlert(alert: AlertData) {
-    const currentAlerts = this.alertsSubject.value;
-    this.alertsSubject.next([...currentAlerts, alert]);
+    const currentAlerts = this.alertsSubject$.value;
+    this.alertsSubject$.next([...currentAlerts, alert]);
 
     if (alert.timeout) {
       setTimeout(() => this.dismissAlert(alert), alert.timeout);
@@ -25,7 +25,7 @@ export class AlertService {
   }
 
   dismissAlert(alert: AlertData) {
-    const currentAlerts = this.alertsSubject.value.filter((a) => a !== alert);
-    this.alertsSubject.next(currentAlerts);
+    const currentAlerts = this.alertsSubject$.value.filter((a) => a !== alert);
+    this.alertsSubject$.next(currentAlerts);
   }
 }

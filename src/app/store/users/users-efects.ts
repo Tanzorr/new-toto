@@ -19,13 +19,15 @@ import {
 import { catchError, finalize, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { CreateUserResponse, PaginatedUsersResponse, User } from '../../models/entities/User';
-import { UserService } from '../../services/api/user/user.service';
+import { CreateUserResponse, User } from '../../models/user';
+import { UserService } from '../../services/api/user.service';
 import { usersSelector } from './users-selectors';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { routerSelector } from '../router/router-selector';
-import { SpinnerLoaderService } from '../../services/lodesrs/spinner-loader.service';
+import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
+import { PaginatedUsersResponse } from '../../models/paginate-users-response';
+import { UsersState } from './users-reducers';
 
 @Injectable()
 export class UsersEffects {
@@ -116,7 +118,7 @@ export class UsersEffects {
 
   constructor(
     private _actions$: Actions,
-    private _store: Store<{ users: User[] }>,
+    private _store: Store<UsersState>,
     private _router: Router,
     private _usersApiService: UserService,
     private _route: ActivatedRoute,

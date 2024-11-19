@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { User, UserCreateData } from '../../../../../../models/entities/User';
+import { User } from '../../../../../../models/user';
 import { UserCreateService } from './sevices/user-create.service';
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class UserCreateComponent {
   constructor(private _userCreateService: UserCreateService) {}
 
-  createUser(userData: UserCreateData) {
+  createUser(userData: User) {
     this._userCreateService.addUser(userData);
   }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AlertData, AlertService } from '../../../services/alerts/alert.service';
+import { AlertData, AlertService } from '../../../services/ui/alert.service';
 import { Observable } from 'rxjs';
 
 @Component({

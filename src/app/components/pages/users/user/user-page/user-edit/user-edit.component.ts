@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../../../../../models/entities/User';
+import { User } from '../../../../../../models/user';
 import { EditUserService } from './services/edit-user.service';
 
 @Component({
