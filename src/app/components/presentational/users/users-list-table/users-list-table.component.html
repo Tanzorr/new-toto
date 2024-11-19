@@ -1,0 +1,33 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of paginatedUsersResponse.data; let i = index">
+      <td>
+        <a [routerLink]="[user.id]">{{ user.name }}</a>
+      </td>
+      <td><a class="btn btn-primary" [routerLink]="[user.id, 'edit']">edit</a></td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="paginatedUsersResponse.total"
+    (pageChanged)="getPageParams($event)"
+    [itemsPerPage]="paginatedUsersResponse.per_page"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

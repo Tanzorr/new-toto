@@ -1,0 +1,7 @@
+<h2>User view</h2>
+
+<div *ngIf="user$ | async as user">
+  <p>ID: {{ user.id }}</p>
+  <p>{{ user.name }}</p>
+  <p>{{ user.email }}</p>
+</div>

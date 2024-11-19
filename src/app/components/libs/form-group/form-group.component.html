@@ -1,0 +1,9 @@
+<div class="form-group mb-3">
+  <label [for]="controlName">{{ label }}:</label>
+
+  <ng-content></ng-content>
+
+  <small class="text-danger mt-2" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </small>
+</div>

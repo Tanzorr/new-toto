@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {UsersComponent} from "./users.component";
+import { RouterModule, Routes } from '@angular/router';
+import { UsersComponent } from './users.component';
 
 const routes: Routes = [
   {
@@ -10,14 +9,28 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./users-page/users-page.module').then(m => m.UsersPageModule)
-      }
-      ]
-  }
+        loadChildren: () => import('./users-page/users-page.module').then((m) => m.UsersPageModule),
+      },
+      {
+        path: 'create',
+        loadChildren: () =>
+          import('./user/user-page/user-create/user-create.module').then((m) => m.UserCreateModule),
+      },
+      {
+        path: ':id',
+        loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: ':id/edit',
+        loadChildren: () =>
+          import('./user/user-page/user-edit/user-edit.module').then((m) => m.UserEditModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UsersRoutesModule { }
+export class UsersRoutesModule {}
