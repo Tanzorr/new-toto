@@ -7,7 +7,7 @@ import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UsersService {
   private baseUrl = 'http://127.0.0.1:8000/api/';
 
   private baringToken: string | null = '8|1PKzqbp0PfRtNvmbjc6IlMlSuXZdTK4nLWCplI0bb05545a';
