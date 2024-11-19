@@ -5,9 +5,12 @@ import {
   addUserSuccess,
   deleteUserFail,
   deleteUserSuccess,
+  getUserFail,
   getUsersFail,
   getUsersSuccess,
   getUserSuccess,
+  updateUserFail,
+  updateUserSuccess,
 } from './users-actions';
 import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 
@@ -70,11 +73,31 @@ export const usersReducer = createReducer(
     };
   }),
 
+  on(addUserFail, (state, action) => {
+    return { ...state, errorMessage: action.value };
+  }),
+
   on(getUserSuccess, (state, action) => {
     return { ...state, user: action.value };
   }),
 
-  on(addUserFail, (state, action) => {
+  on(getUserFail, (state, action) => {
+    return { ...state, errorMessage: action.value };
+  }),
+
+  on(updateUserSuccess, (state, action) => {
+    return {
+      ...state,
+      paginationResponse: {
+        ...state.paginationResponse,
+        data: state.paginationResponse.data.map((user) =>
+          user.id === action.value.id ? action.value : user
+        ),
+      },
+    };
+  }),
+
+  on(updateUserFail, (state, action) => {
     return { ...state, errorMessage: action.value };
   }),
 

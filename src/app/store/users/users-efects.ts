@@ -98,7 +98,7 @@ export class UsersEffects {
           map((user: User) => {
             return updateUserSuccess({ value: user });
           }),
-          catchError((error: string) => of(updateUserFail({ value: error }))),
+          catchError((error: any) => of(updateUserFail({ value: error.message }))),
           finalize(() => this._spinnerLoaderService.hide())
         );
       })
