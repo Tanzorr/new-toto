@@ -40,13 +40,16 @@ export class UsersEffects {
         switchMap((action) => {
           this.spinnerLoaderService.show();
           return this.usersApiService.getUsers(action[0].url).pipe(
-            tap((usersData: PaginatedUsersResponse) => {
+            map((usersData: PaginatedUsersResponse) => {
               this.spinnerLoaderService.hide();
               this.store.dispatch(getUsersSuccess({ value: usersData }));
-              catchError((error: ServerError) => {
-                this.serverErrorDisplayService.displayError(error.message);
-                return of(addUserFail({ value: error.message }));
-              });
+            }),
+            catchError((error: ServerError) => {
+              this.serverErrorDisplayService.displayError(error.message);
+              return of(addUserFail({ value: error.message }));
+            }),
+            finalize(() => {
+              this.spinnerLoaderService.hide();
             })
           );
         })

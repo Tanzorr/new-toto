@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { LogoutService } from './services/logout.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,4 +7,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationComponent {}
+export class NavigationComponent {
+  isLogged = true;
+  constructor(private logoutService: LogoutService) {}
+
+  logout(): void {
+    this.logoutService.logout();
+  }
+
+  protected readonly localStorage = localStorage;
+}
