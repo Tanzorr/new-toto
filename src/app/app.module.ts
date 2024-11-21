@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -19,6 +19,9 @@ import { AlertService } from './services/ui/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
 import { SpinnerModule } from './components/libs/spinner/spinner.module';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
+import { authReducer } from './store/auth/auth-reducers';
+import { AuthEffects } from './store/auth/auth-efects';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +32,9 @@ import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
     StoreModule.forRoot({
       usersState: usersReducer,
       router: routerReducer,
+      authState: authReducer,
     }),
-    EffectsModule.forRoot([UsersEffects]),
+    EffectsModule.forRoot([UsersEffects, AuthEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
@@ -42,7 +46,12 @@ import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
     AlertModule,
     SpinnerModule,
   ],
-  providers: [ModalService, AlertService, SpinnerLoaderService],
+  providers: [
+    ModalService,
+    AlertService,
+    SpinnerLoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

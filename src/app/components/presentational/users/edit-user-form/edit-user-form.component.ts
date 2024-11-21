@@ -20,7 +20,7 @@ export class EditUserFormComponent implements OnChanges {
   userForm: FormGroup;
 
   @Input() userData!: User;
-  @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() formSubmit: EventEmitter<User> = new EventEmitter<User>();
 
   errorMessages: { [key: string]: { [key: string]: string } } = {
     name: {
@@ -41,7 +41,7 @@ export class EditUserFormComponent implements OnChanges {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.userForm.valid && this.userForm.dirty) {
       this.formSubmit.emit(this.userForm.value);
     }

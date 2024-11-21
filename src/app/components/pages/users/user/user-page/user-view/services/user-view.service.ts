@@ -7,7 +7,7 @@ import { UsersState } from '../../../../../../../store/users/users-reducers';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class UserViewService {
   user$ = this.store.select(userSelector);
   constructor(private store: Store<UsersState>) {}
 
