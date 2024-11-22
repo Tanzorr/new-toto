@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Vault } from '../../../../models/vault';
 
 class PaginatedVaultsResponse {
   data: any[] = [];
@@ -17,7 +18,13 @@ export class VaultsListTableComponent {
     this._paginatedVaultsResponse = value ? value : ({} as PaginatedVaultsResponse);
   }
 
+  @Output() selectedVaultId: EventEmitter<Vault['id']> = new EventEmitter<Vault['id']>();
+
   get paginatedVaultsResponse(): PaginatedVaultsResponse {
     return <PaginatedVaultsResponse>this._paginatedVaultsResponse;
+  }
+
+  getVault(id: Vault['id']): void {
+    this.selectedVaultId.emit(id);
   }
 }

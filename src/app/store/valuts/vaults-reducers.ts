@@ -13,6 +13,7 @@ import {
 } from './vaults-actions';
 
 export interface VaultsStateModel {
+  vault: Vault;
   vaults: Vault[];
   selectedVault: Vault | null;
   paginationResponse: any;
@@ -24,6 +25,14 @@ export interface VaultsState {
 }
 
 const initialState: VaultsStateModel = {
+  vault: {
+    id: 1,
+    name: 'Vault 1',
+    description: 'Description 1',
+    user_id: 1,
+    createdAt: '',
+    updatedAt: '',
+  },
   vaults: [],
   selectedVault: null,
   paginationResponse: {
@@ -72,6 +81,7 @@ export const vaultsReducer = createReducer(
   }),
 
   on(getVaultSuccess, (state, action) => {
+    console.log('getVaultSuccess', action);
     return { ...state, vault: action.value };
   }),
 

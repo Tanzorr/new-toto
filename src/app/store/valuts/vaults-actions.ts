@@ -18,7 +18,7 @@ export const addVaultSuccess = createAction('[Vaults] Add Vault Success', props<
 
 export const addVaultFailure = createAction('[Vaults] Add Vault Fail', props<{ value: string }>());
 
-export const getVault = createAction('[Vaults] Get Vault', props<{ id: number }>());
+export const getVault = createAction('[Vaults] Get Vault', props<{ id: number | string }>());
 
 export const getVaultSuccess = createAction('[Vaults] Get Vault Success', props<{ value: any }>());
 

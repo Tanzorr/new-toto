@@ -3,17 +3,12 @@
   <thead>
   <tr>
     <th>Title</th>
-    <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let vault of paginatedVaultsResponse.data; let i = index ">
-    <td>
+    <td (click)="getVault(vault.id)">
       <a href="#">{{ vault.name }}</a>
-    </td>
-    <td><a class="btn btn-primary">edit</a></td>
-    <td>
-      <button class="btn btn-danger">Delete</button>
     </td>
   </tr>
   </tbody>

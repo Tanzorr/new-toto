@@ -1,2 +1,5 @@
 <p>vaults-list works!</p>
-<app-vaults-list-table [paginatedVaultsResponse]="vaultsPaginateResponse$ | async"></app-vaults-list-table>
+<app-vaults-list-table [paginatedVaultsResponse]="vaultsPaginateResponse$ | async"
+                       (selectedVaultId)="gitVaultId($event)"
+
+></app-vaults-list-table>

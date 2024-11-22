@@ -12,4 +12,8 @@ export class VaultsService {
   getVaults() {
     return this.http.get(this.baseUrl);
   }
+
+  getVault(id: number | string) {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { VaultListService } from './services/vault-list.service';
 import { Observable } from 'rxjs';
+import { Vault } from '../../../../../models/vault';
 
 @Component({
   selector: 'app-vaults-list',
@@ -16,5 +17,9 @@ export class VaultsListComponent {
 
   ngOnInit(): void {
     this.vaultsListService.getVaults();
+  }
+
+  gitVaultId(id: Vault['id']): void {
+    this.vaultsListService.getVault(id);
   }
 }
