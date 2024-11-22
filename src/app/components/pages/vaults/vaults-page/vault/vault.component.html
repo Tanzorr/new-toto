@@ -1,0 +1,21 @@
+<div *ngIf="vault$ | async as vault" class="controls d-flex justify-content-end gap-3">
+  <button class="btn btn-success" (click)="openAddVaultModal()">Add Vault</button>
+  <button class="btn btn-primary" (click)="openEditVaultModal(vault)">Edit</button>
+  <button class="btn btn-danger" (click)="deleteVault(vault.id)">Delete</button>
+</div>
+
+<hr />
+
+<div *ngIf="vault$ | async as vault" class="vault-content">
+  <h3>Vault name: {{ vault.name }}</h3>
+
+  <h4>Vault Description</h4>
+  <p>
+    {{ vault.description }}
+  </p>
+
+  <h3>Password list</h3>
+  <app-passwords-list [vaultId]="vault.id"></app-passwords-list>
+</div>
+
+<h2 *ngIf="!(vault$ | async)">Please Select Vault</h2>

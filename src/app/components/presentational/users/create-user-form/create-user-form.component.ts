@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../models/user';
+import { userErrorMessages } from '../../../../constans/error-messages';
 
 @Component({
   selector: 'app-create-user-form',
@@ -13,24 +14,6 @@ export class CreateUserFormComponent {
 
   @Output() formSubmit: EventEmitter<User> = new EventEmitter<User>();
 
-  errorMessages: { [key: string]: { [key: string]: string } } = {
-    name: {
-      required: 'Name is required.',
-      minlength: 'Name must be at least 2 characters long.',
-    },
-    email: {
-      required: 'Email is required.',
-      email: 'Please enter a valid email address.',
-    },
-    password: {
-      required: 'Password is required.',
-      minlength: 'Password must be at least 1 character long.',
-    },
-    password_confirmation: {
-      required: 'Password confirmation is required.',
-      minlength: 'Password confirmation must be at least 1 character long.',
-    },
-  };
   constructor(private fb: FormBuilder) {
     this.userForm = this.fb.group({
       id: [null],
@@ -50,11 +33,9 @@ export class CreateUserFormComponent {
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
 
-    console.log(control?.errors, control?.touched);
-
     if (control?.touched && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
-      return this.errorMessages[controlName][firstErrorKey];
+      return userErrorMessages[controlName][firstErrorKey];
     }
     return null;
   }

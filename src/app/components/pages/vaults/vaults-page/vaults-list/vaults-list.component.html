@@ -1,0 +1,5 @@
+<app-vaults-list-table
+  [paginatedVaultsResponse]="vaultsPaginateResponse"
+  (selectedVaultId)="getVaultById($event)"
+  (pageParams)="getVaultsWithParams($event)"
+></app-vaults-list-table>

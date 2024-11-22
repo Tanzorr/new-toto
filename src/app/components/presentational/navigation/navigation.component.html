@@ -11,6 +11,9 @@
         <li class="nav-item">
           <a routerLinkActive="active" class="nav-link" routerLink="/users">Users</a>
         </li>
+        <li class="nav-item">
+          <a routerLinkActive="active" class="nav-link" routerLink="/vaults">Vaults</a>
+        </li>
         <li *ngIf="!localStorage.getItem('access_token')" class="nav-item">
           <a routerLinkActive="active" class="nav-link" routerLink="/login">Log In</a>
         </li>
