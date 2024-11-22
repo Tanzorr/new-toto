@@ -12,13 +12,15 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/custom-serializer';
 import { NavigationModule } from './components/presentational/navigation/navigation.module';
 import { usersReducer } from './store/users/users-reducers';
-import { UsersEffects } from './store/users/users-efects';
+import { UsersEffects } from './store/users/users-effects';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from './services/ui/modal.service';
 import { AlertService } from './services/ui/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
 import { SpinnerModule } from './components/libs/spinner/spinner.module';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
+import { vaultsReducer } from './store/valuts/vaults-reducers';
+import { VaultsEffects } from './store/valuts/vaults-effects.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,8 +31,9 @@ import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
     StoreModule.forRoot({
       usersState: usersReducer,
       router: routerReducer,
+      vaultsState: vaultsReducer,
     }),
-    EffectsModule.forRoot([UsersEffects]),
+    EffectsModule.forRoot([UsersEffects, VaultsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
