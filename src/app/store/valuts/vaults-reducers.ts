@@ -32,6 +32,7 @@ const initialState: VaultsStateModel = {
     user_id: 1,
     createdAt: '',
     updatedAt: '',
+    passwords: [],
   },
   vaults: [],
   selectedVault: null,

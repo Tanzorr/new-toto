@@ -12,8 +12,11 @@
   <p>
     {{ vault.description }}
   </p>
+
+
+  <h3>Password list</h3>
+
+  <app-password-list-table [passwordList]="vault.passwords"></app-password-list-table>
 </div>
 
-<hr/>
 
-<h3>Password list</h3>
