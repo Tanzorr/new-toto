@@ -22,4 +22,8 @@ export class VaultsListComponent {
   gitVaultId(id: Vault['id']): void {
     this.vaultsListService.getVault(id);
   }
+
+  getVaultsWithParams(url: string | null): void {
+    this.vaultsListService.getVaults(url);
+  }
 }

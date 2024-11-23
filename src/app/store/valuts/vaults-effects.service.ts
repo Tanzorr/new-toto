@@ -9,8 +9,8 @@ import {
 } from './vaults-actions';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Vault } from '../../models/vault';
 import { VaultsService } from '../../services/api/vaults.service';
+import { PaginatedVaultsResponse, Vault } from '../../models/vault';
 
 @Injectable()
 export class VaultsEffects {
@@ -20,7 +20,7 @@ export class VaultsEffects {
         ofType(getVaults),
         switchMap(() => {
           return this.vaultsApiService.getVaults().pipe(
-            map((vaultsData: any) => {
+            map((vaultsData: PaginatedVaultsResponse) => {
               return getVaultsSuccess({ value: vaultsData });
             }),
             catchError((error: any) => {
@@ -38,7 +38,7 @@ export class VaultsEffects {
         ofType(getVault),
         switchMap((action) => {
           return this.vaultsApiService.getVault(action.id).pipe(
-            map((vaultData: any) => {
+            map((vaultData: Vault) => {
               return getVaultSuccess({ value: vaultData });
             }),
             catchError((error: any) => {

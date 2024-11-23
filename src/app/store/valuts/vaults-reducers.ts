@@ -30,8 +30,8 @@ const initialState: VaultsStateModel = {
     name: 'Vault 1',
     description: 'Description 1',
     user_id: 1,
-    createdAt: '',
-    updatedAt: '',
+    created_at: '',
+    updated_at: '',
     passwords: [],
   },
   vaults: [],
@@ -82,7 +82,6 @@ export const vaultsReducer = createReducer(
   }),
 
   on(getVaultSuccess, (state, action) => {
-    console.log('getVaultSuccess', action);
     return { ...state, vault: action.value };
   }),
 
@@ -95,7 +94,7 @@ export const vaultsReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: state.paginationResponse.data.map((vault: { id: any }) =>
+        data: state.paginationResponse.data.map((vault: Vault) =>
           vault.id === action.value.id ? action.value : vault
         ),
       },
@@ -111,9 +110,7 @@ export const vaultsReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: state.paginationResponse.data.filter(
-          (vault: { id: number }) => vault.id !== action.id
-        ),
+        data: state.paginationResponse.data.filter((vault: Vault) => vault.id !== action.id),
       },
     };
   }),

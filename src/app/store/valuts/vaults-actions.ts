@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { PaginatedVaultsResponse } from '../../models/vault';
 
 export const getVaults = createAction('[Vaults] Get Vaults', props<{ url?: string | null }>());
 
 export const getVaultsSuccess = createAction(
   '[Vaults] Get Vaults Success',
-  props<{ value: any }>()
+  props<{ value: PaginatedVaultsResponse }>()
 );
 
 export const getVaultsFailure = createAction(

@@ -1,3 +1,5 @@
+import { Vault } from './vault';
+
 export interface User {
   id: number;
   name: string;
@@ -7,6 +9,7 @@ export interface User {
   email_verified_at?: string;
   created_at?: string;
   updated_at?: string;
+  vaults?: Vault[];
 }
 
 export interface CreateUserResponse {

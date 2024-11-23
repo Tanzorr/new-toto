@@ -16,7 +16,7 @@ export interface PaginatedUsersResponse {
   total: number;
 }
 
-interface PaginationLink {
+export interface PaginationLink {
   url: string | null;
   label: string;
   active: boolean;

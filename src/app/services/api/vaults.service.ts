@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PaginatedVaultsResponse, Vault } from '../../models/vault';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +11,11 @@ export class VaultsService {
 
   constructor(private http: HttpClient) {}
 
-  getVaults() {
-    return this.http.get(this.baseUrl);
+  getVaults(): Observable<PaginatedVaultsResponse> {
+    return this.http.get<PaginatedVaultsResponse>(this.baseUrl);
   }
 
-  getVault(id: number | string) {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getVault(id: number | string): Observable<Vault> {
+    return this.http.get<Vault>(`${this.baseUrl}/${id}`);
   }
 }
