@@ -13,7 +13,7 @@ import {
 } from './vaults-actions';
 
 export interface VaultsStateModel {
-  vault: Vault;
+  vault: Vault | null;
   vaults: Vault[];
   selectedVault: Vault | null;
   paginationResponse: any;
@@ -25,15 +25,7 @@ export interface VaultsState {
 }
 
 const initialState: VaultsStateModel = {
-  vault: {
-    id: 1,
-    name: 'Vault 1',
-    description: 'Description 1',
-    user_id: 1,
-    created_at: '',
-    updated_at: '',
-    passwords: [],
-  },
+  vault: null,
   vaults: [],
   selectedVault: null,
   paginationResponse: {

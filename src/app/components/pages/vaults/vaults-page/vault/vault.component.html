@@ -1,6 +1,6 @@
-<div class="controls d-flex justify-content-end gap-3">
+<div *ngIf="vault$ | async as vault" class="controls d-flex justify-content-end gap-3">
   <button class="btn btn-primary">Edit</button>
-  <button class="btn btn-danger">Delete</button>
+  <button class="btn btn-danger" (click)="deleteVault(vault.id)">Delete</button>
 </div>
 
 <hr />
@@ -8,15 +8,14 @@
 <div *ngIf="vault$ | async as vault" class="vault-content">
   <h3>Vault name: {{ vault.name }}</h3>
 
-  <h3>Vault Description</h3>
+  <h4>Vault Description</h4>
   <p>
     {{ vault.description }}
   </p>
-
 
   <h3>Password list</h3>
 
   <app-password-list-table [passwordList]="vault.passwords"></app-password-list-table>
 </div>
 
-
+<h2 *ngIf="!(vault$ | async)">Please Select Vault</h2>

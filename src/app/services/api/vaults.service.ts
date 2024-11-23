@@ -18,4 +18,8 @@ export class VaultsService {
   getVault(id: number | string): Observable<Vault> {
     return this.http.get<Vault>(`${this.baseUrl}/${id}`);
   }
+
+  deleteVault(id: Vault[]): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
 }
