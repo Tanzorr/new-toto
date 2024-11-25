@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Password } from '../../../../models/password';
 
 @Component({
@@ -8,6 +8,11 @@ import { Password } from '../../../../models/password';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordListTableComponent {
-  @Input() passwordList: Password[] = [];
+  @Input() passwordList: Password[] | null = [];
+  @Output() deletePassword = new EventEmitter<Password['id']>();
   constructor() {}
+
+  deletePasswordById(id: Password['id']): void {
+    this.deletePassword.emit(id);
+  }
 }

@@ -20,7 +20,9 @@ import { AlertModule } from './components/libs/alert/alert.module';
 import { SpinnerModule } from './components/libs/spinner/spinner.module';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
 import { vaultsReducer } from './store/valuts/vaults-reducers';
-import { VaultsEffects } from './store/valuts/vaults-effects.service';
+import { VaultsEffects } from './store/valuts/vaults-effects';
+import { PasswordsEffects } from './store/passwords/passwords-effects';
+import { passwordsReducer } from './store/passwords/passwords-reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,8 +34,9 @@ import { VaultsEffects } from './store/valuts/vaults-effects.service';
       usersState: usersReducer,
       router: routerReducer,
       vaultsState: vaultsReducer,
+      passwordsState: passwordsReducer,
     }),
-    EffectsModule.forRoot([UsersEffects, VaultsEffects]),
+    EffectsModule.forRoot([UsersEffects, VaultsEffects, PasswordsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,

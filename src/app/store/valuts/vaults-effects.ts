@@ -10,10 +10,13 @@ import {
   getVaultsSuccess,
   getVaultSuccess,
 } from './vaults-actions';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { VaultsService } from '../../services/api/vaults.service';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
+import { Store } from '@ngrx/store';
+import { PasswordState } from '../passwords/passwords-reducers';
+import { getPasswordsSuccess } from '../passwords/passwords-actions';
 
 @Injectable()
 export class VaultsEffects {
@@ -42,6 +45,7 @@ export class VaultsEffects {
         switchMap((action) => {
           return this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
+              this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
               return getVaultSuccess({ value: vaultData });
             }),
             catchError((error: any) => {
@@ -74,6 +78,7 @@ export class VaultsEffects {
 
   constructor(
     private actions$: Actions,
-    private vaultsApiService: VaultsService
+    private vaultsApiService: VaultsService,
+    private passwordStore: Store<PasswordState>
   ) {}
 }

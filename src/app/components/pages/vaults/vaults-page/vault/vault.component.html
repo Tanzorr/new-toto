@@ -14,8 +14,7 @@
   </p>
 
   <h3>Password list</h3>
-
-  <app-password-list-table [passwordList]="vault.passwords"></app-password-list-table>
+  <app-passwords-list></app-passwords-list>
 </div>
 
 <h2 *ngIf="!(vault$ | async)">Please Select Vault</h2>
