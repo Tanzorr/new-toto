@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { VaultService } from './services/vault.service';
-import { Vault } from '../../../../../models/vault';
+import { CreateVault, Vault } from '../../../../../models/vault';
 import { ModalService } from '../../../../../services/ui/modal.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddVaultModalComponent } from '../../../../presentational/vaults/add-vault-modal/add-vault-modal.component';
 
 @Component({
   selector: 'app-vault',
@@ -13,9 +15,29 @@ export class VaultComponent {
   vault$ = this.vaultService.vault$;
   constructor(
     private vaultService: VaultService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private assModalService: NgbModal
   ) {
     this.vault$ = this.vaultService.vault$;
+  }
+
+  openAddVaultModal() {
+    const modalRef = this.assModalService.open(AddVaultModalComponent);
+
+    modalRef.result
+      .then(
+        (vaultData: CreateVault) => {
+          if (vaultData) {
+            console.log({ vaultData });
+          }
+        },
+        () => {
+          console.log('Modal dismissed');
+        }
+      )
+      .catch((error) => {
+        console.log({ error });
+      });
   }
 
   deleteVault(id: Vault['id']): void {

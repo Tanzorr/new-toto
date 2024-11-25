@@ -13,9 +13,6 @@ export class VaultsListComponent {
   vaultsPaginateResponse$!: Observable<any>;
   constructor(private vaultsListService: VaultListService) {
     this.vaultsPaginateResponse$ = this.vaultsListService.paginatedVaultsResponse$;
-  }
-
-  ngOnInit(): void {
     this.vaultsListService.getVaults();
   }
 

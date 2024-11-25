@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PaginatedVaultsResponse, Vault } from '../../models/vault';
+import { CreateVault, PaginatedVaultsResponse, Vault } from '../../models/vault';
 import { Password } from '../../models/password';
 
 export const getVaults = createAction('[Vaults] Get Vaults', props<{ url?: string | null }>());

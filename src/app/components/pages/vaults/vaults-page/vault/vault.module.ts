@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { VaultComponent } from './vault.component';
 import { PasswordsListTableModule } from '../../../../presentational/passwords/passwords-list-table/passwords-list-table.module';
 import { PasswordsListModule } from '../passwords-list/passwords-list.module';
+import { AddVaultModalModule } from '../../../../presentational/vaults/add-vault-modal/add-vault-modal.module';
 
 @NgModule({
   declarations: [VaultComponent],
-  imports: [CommonModule, PasswordsListModule],
+  imports: [CommonModule, PasswordsListModule, AddVaultModalModule],
   exports: [VaultComponent],
 })
 export class VaultModule {}

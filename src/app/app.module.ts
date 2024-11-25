@@ -13,7 +13,7 @@ import { CustomSerializer } from './store/router/custom-serializer';
 import { NavigationModule } from './components/presentational/navigation/navigation.module';
 import { usersReducer } from './store/users/users-reducers';
 import { UsersEffects } from './store/users/users-effects';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from './services/ui/modal.service';
 import { AlertService } from './services/ui/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
@@ -48,7 +48,7 @@ import { passwordsReducer } from './store/passwords/passwords-reducers';
     AlertModule,
     SpinnerModule,
   ],
-  providers: [ModalService, AlertService, SpinnerLoaderService],
+  providers: [ModalService, AlertService, SpinnerLoaderService, NgbActiveModal],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -10,6 +10,12 @@ export interface Vault {
   passwords: Password[];
 }
 
+export interface CreateVault {
+  user_id: number;
+  name: string;
+  description: string;
+}
+
 export interface PaginationLink {
   url: string | null;
   label: string;

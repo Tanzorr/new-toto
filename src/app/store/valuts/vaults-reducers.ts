@@ -95,8 +95,14 @@ export const vaultsReducer = createReducer(
     };
   }),
 
-  on(deleteVaultFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
+  on(deleteVaultSuccess, (state, action) => {
+    return {
+      ...state,
+      paginationResponse: {
+        ...state.paginationResponse,
+        data: state.paginationResponse.data.filter((vault: Vault) => vault.id !== action.id),
+      },
+    };
   }),
 
   on(deleteVaultFailure, (state, action) => {
