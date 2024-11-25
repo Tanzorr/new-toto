@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  addVault,
+  addVaultFailure,
+  addVaultSuccess,
   deleteVault,
   deleteVaultFailure,
   deleteVaultSuccess,
@@ -31,6 +34,24 @@ export class VaultsEffects {
             }),
             catchError((error: any) => {
               return of(getVaultsFailure({ value: error }));
+            })
+          );
+        })
+      ),
+    { dispatch: true }
+  );
+
+  addVault$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addVault),
+        switchMap((action) => {
+          return this.vaultsApiService.addVault(action.value).pipe(
+            map(() => {
+              return addVaultSuccess({ value: action.value });
+            }),
+            catchError((error: any) => {
+              return of(addVaultFailure({ value: error }));
             })
           );
         })

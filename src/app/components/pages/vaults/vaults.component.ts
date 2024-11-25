@@ -18,7 +18,6 @@ export class VaultsComponent {
       .then(
         (vaultData) => {
           if (vaultData) {
-            console.log({ vaultData });
           }
         },
         () => {

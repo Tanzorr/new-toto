@@ -28,7 +28,7 @@ export class VaultComponent {
       .then(
         (vaultData: CreateVault) => {
           if (vaultData) {
-            console.log({ vaultData });
+            this.vaultService.addVault(vaultData);
           }
         },
         () => {

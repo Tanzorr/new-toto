@@ -22,4 +22,8 @@ export class VaultsService {
   deleteVault(id: Vault['id']): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  addVault(value: any): Observable<any> {
+    return this.http.post(this.baseUrl, value);
+  }
 }
