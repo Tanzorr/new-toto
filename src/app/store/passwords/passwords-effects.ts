@@ -1,5 +1,8 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  addPassword,
+  addPasswordFailure,
+  addPasswordSuccess,
   deletePassword,
   deletePasswordFailure,
   deletePasswordSuccess,
@@ -47,6 +50,24 @@ export class PasswordsEffects {
             }),
             catchError((error: any) => {
               return of(updatePasswordFailure({ value: error }));
+            })
+          );
+        })
+      ),
+    { dispatch: true }
+  );
+
+  addPassword$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addPassword),
+        switchMap((action) => {
+          return this.passwordsService.addPassword(action.value).pipe(
+            map(() => {
+              return addPasswordSuccess({ value: action.value });
+            }),
+            catchError((error: any) => {
+              return of(addPasswordFailure({ value: error }));
             })
           );
         })

@@ -45,7 +45,7 @@ export const passwordsReducer = createReducer(
   }),
 
   on(addPasswordSuccess, (state, action) => {
-    return { ...state, password: action.value };
+    return { ...state, passwords: [action.value, ...state.passwords] };
   }),
 
   on(addPasswordFailure, (state, action) => {

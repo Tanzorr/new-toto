@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { PasswordState } from '../../../../../../store/passwords/passwords-reducers';
 import { passwordsSelector } from '../../../../../../store/passwords/password-selecotors';
 import { Password } from '../../../../../../models/password';
-import { deletePassword } from '../../../../../../store/passwords/passwords-actions';
+import { addPassword, deletePassword } from '../../../../../../store/passwords/passwords-actions';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +14,9 @@ export class PasswordService {
 
   deletePassword(id: Password['id']): void {
     this.store.dispatch(deletePassword({ id }));
+  }
+
+  addPassword(passwordData: any) {
+    this.store.dispatch(addPassword({ value: passwordData }));
   }
 }

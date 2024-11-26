@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { VaultListService } from './services/vault-list.service';
-import { Observable } from 'rxjs';
-import { Vault } from '../../../../../models/vault';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { PaginatedVaultsResponse, Vault } from '../../../../../models/vault';
 
 @Component({
   selector: 'app-vaults-list',
@@ -9,18 +15,38 @@ import { Vault } from '../../../../../models/vault';
   styleUrls: ['./vaults-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VaultsListComponent {
-  vaultsPaginateResponse$!: Observable<any>;
-  constructor(private vaultsListService: VaultListService) {
+export class VaultsListComponent implements OnInit, OnDestroy {
+  vaultsPaginateResponse!: PaginatedVaultsResponse;
+  vaultsPaginateResponse$!: Observable<PaginatedVaultsResponse>;
+  private destroy$ = new Subject<void>();
+  constructor(
+    private vaultsListService: VaultListService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.vaultsPaginateResponse$ = this.vaultsListService.paginatedVaultsResponse$;
     this.vaultsListService.getVaults();
   }
 
-  gitVaultId(id: Vault['id']): void {
+  ngOnInit(): void {
+    this.vaultsPaginateResponse$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response: PaginatedVaultsResponse) => {
+        this.vaultsPaginateResponse = response;
+        this.getVaultById(response.data[0]?.id);
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
+  getVaultById(id: Vault['id']): void {
     this.vaultsListService.getVault(id);
   }
 
   getVaultsWithParams(url: string | null): void {
     this.vaultsListService.getVaults(url);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

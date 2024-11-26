@@ -6,3 +6,10 @@ export interface Password {
   updatedAt: Date | '';
   vault_id: string | number;
 }
+
+export class CreatePassword {
+  name: string = '';
+  value: string = '';
+  description: string = '';
+  vault_id: string | number = '';
+}
