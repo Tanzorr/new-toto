@@ -29,14 +29,14 @@ export const getVaultSuccess = createAction(
 
 export const getVaultFailure = createAction('[Vaults] Get Vault Fail', props<{ value: string }>());
 
-export const updateVault = createAction('[Vaults] Update Vault', props<{ value: any }>());
+export const updateVault = createAction('[Vaults] Update Vault', props<{ value: Vault }>());
 
 export const updateVaultSuccess = createAction(
   '[Vaults] Update Vault Success',
   props<{ value: any }>()
 );
 
-export const UpdatePasswordInVault = createAction(
+export const updatePasswordInVault = createAction(
   '[Vaults] Update Password In Vault',
   props<{ value: Password['id'] }>()
 );

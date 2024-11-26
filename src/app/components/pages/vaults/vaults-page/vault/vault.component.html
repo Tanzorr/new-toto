@@ -1,6 +1,6 @@
 <div *ngIf="vault$ | async as vault" class="controls d-flex justify-content-end gap-3">
   <button class="btn btn-success" (click)="openAddVaultModal()" >Add Vault</button>
-  <button class="btn btn-primary">Edit</button>
+  <button class="btn btn-primary" (click)="openEditVaultModal(vault)">Edit</button>
   <button class="btn btn-danger" (click)="deleteVault(vault.id)">Delete</button>
 </div>
 

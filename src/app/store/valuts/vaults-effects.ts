@@ -12,6 +12,7 @@ import {
   getVaultsFailure,
   getVaultsSuccess,
   getVaultSuccess,
+  updateVault,
 } from './vaults-actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -71,6 +72,24 @@ export class VaultsEffects {
             }),
             catchError((error: any) => {
               return of(getVaultsFailure({ value: error }));
+            })
+          );
+        })
+      ),
+    { dispatch: true }
+  );
+
+  updateVault$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateVault),
+        switchMap((action) => {
+          return this.vaultsApiService.updateVault(action.value).pipe(
+            map(() => {
+              return addVaultSuccess({ value: action.value });
+            }),
+            catchError((error: any) => {
+              return of(addVaultFailure({ value: error }));
             })
           );
         })

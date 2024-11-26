@@ -92,6 +92,7 @@ export const vaultsReducer = createReducer(
           vault.id === action.value.id ? action.value : vault
         ),
       },
+      vault: action.value,
     };
   }),
 

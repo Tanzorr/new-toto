@@ -4,6 +4,7 @@ import { CreateVault, Vault } from '../../../../../models/vault';
 import { ModalService } from '../../../../../services/ui/modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddVaultModalComponent } from '../../../../presentational/vaults/add-vault-modal/add-vault-modal.component';
+import { EditVaultComponent } from '../../../../presentational/vaults/edit-vault/edit-vault.component';
 
 @Component({
   selector: 'app-vault',
@@ -29,6 +30,27 @@ export class VaultComponent {
         (vaultData: CreateVault) => {
           if (vaultData) {
             this.vaultService.addVault(vaultData);
+          }
+        },
+        () => {
+          console.log('Modal dismissed');
+        }
+      )
+      .catch((error) => {
+        console.log({ error });
+      });
+  }
+
+  openEditVaultModal(vaultData: Vault): void {
+    const modalRef = this.assModalService.open(EditVaultComponent);
+
+    modalRef.componentInstance.vaultData = vaultData;
+
+    modalRef.result
+      .then(
+        (vaultData: Vault) => {
+          if (vaultData) {
+            this.vaultService.updateVault(vaultData);
           }
         },
         () => {

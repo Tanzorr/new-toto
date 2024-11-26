@@ -26,4 +26,8 @@ export class VaultsService {
   addVault(value: any): Observable<any> {
     return this.http.post(this.baseUrl, value);
   }
+
+  updateVault(value: Vault): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${value.id}`, value);
+  }
 }
