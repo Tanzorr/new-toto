@@ -26,7 +26,7 @@ export class AddVaultModalComponent {
   ) {
     this.vaultForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      user_id: [1, [Validators.required]],
+      user_id: [41, [Validators.required]],
       description: ['', [Validators.maxLength(255)]],
     });
   }

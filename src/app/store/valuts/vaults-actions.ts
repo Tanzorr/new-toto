@@ -22,7 +22,10 @@ export const addVaultFailure = createAction('[Vaults] Add Vault Fail', props<{ v
 
 export const getVault = createAction('[Vaults] Get Vault', props<{ id: Vault['id'] }>());
 
-export const getVaultSuccess = createAction('[Vaults] Get Vault Success', props<{ value: any }>());
+export const getVaultSuccess = createAction(
+  '[Vaults] Get Vault Success',
+  props<{ value: Vault }>()
+);
 
 export const getVaultFailure = createAction('[Vaults] Get Vault Fail', props<{ value: string }>());
 

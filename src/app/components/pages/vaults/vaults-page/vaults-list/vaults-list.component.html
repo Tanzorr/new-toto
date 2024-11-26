@@ -1,5 +1,8 @@
-<app-vaults-list-table [paginatedVaultsResponse]="vaultsPaginateResponse$ | async"
-                       (selectedVaultId)="gitVaultId($event)"
-                        (pageParams)="getVaultsWithParams($event)"
+<ng-container *ngIf="(vaultsPaginateResponse$ | async) as vaultsPaginateResponse ">
+  <app-vaults-list-table [paginatedVaultsResponse]="vaultsPaginateResponse"
+                         (selectedVaultId)="gitVaultId($event)"
+                         (pageParams)="getVaultsWithParams($event)"
 
-></app-vaults-list-table>
+  ></app-vaults-list-table>
+</ng-container>
+

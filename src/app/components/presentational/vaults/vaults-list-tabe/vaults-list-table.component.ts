@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { PaginatedVaultsResponse, Vault } from '../../../../models/vault';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
