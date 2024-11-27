@@ -53,7 +53,14 @@ export const passwordsReducer = createReducer(
   }),
 
   on(updatePasswordSuccess, (state, action) => {
-    return { ...state, password: action.value };
+    console.log('update password', action.value.password);
+    const updatedPassword = action.value.password;
+    return {
+      ...state,
+      passwords: state.passwords.map((password) =>
+        password.id === updatedPassword.id ? updatedPassword : password
+      ),
+    };
   }),
 
   on(updatePasswordFailure, (state, action) => {

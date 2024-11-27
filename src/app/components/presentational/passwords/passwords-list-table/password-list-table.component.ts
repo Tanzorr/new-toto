@@ -10,9 +10,14 @@ import { Password } from '../../../../models/password';
 export class PasswordListTableComponent {
   @Input() passwordList: Password[] | null = [];
   @Output() deletePassword = new EventEmitter<Password['id']>();
+  @Output() updatePassword = new EventEmitter<Password>();
   constructor() {}
 
   deletePasswordById(id: Password['id']): void {
     this.deletePassword.emit(id);
+  }
+
+  updatePasswordById(value: Password): void {
+    this.updatePassword.emit(value);
   }
 }

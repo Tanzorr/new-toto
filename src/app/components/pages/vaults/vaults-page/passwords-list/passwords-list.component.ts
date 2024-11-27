@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPasswordModalComponent } from '../../../../presentational/passwords/add-password-modal/add-password-modal.component';
 import { CreatePassword } from '../../../../../models/password';
+import { EditPasswordModalComponent } from '../../../../presentational/passwords/edit-password-modal/edit-password-modal.component';
 
 @Component({
   selector: 'app-passwords-list',
@@ -25,7 +26,7 @@ export class PasswordsListComponent {
     this.passwords$ = this.passwordService.passwords$;
   }
 
-  openAddPasswordModal() {
+  addPasswordModal() {
     const modalRef = this.ngbModalService.open(AddPasswordModalComponent);
 
     modalRef.result
@@ -35,6 +36,27 @@ export class PasswordsListComponent {
 
           if (addPasswordData) {
             this.passwordService.addPassword(addPasswordData);
+          }
+        },
+        () => {
+          console.log('Modal dismissed');
+        }
+      )
+      .catch((error) => {
+        console.log({ error });
+      });
+  }
+
+  updatePasswordModal(passwordData: Password): void {
+    const modalRef = this.ngbModalService.open(EditPasswordModalComponent);
+
+    modalRef.componentInstance.setPassData(passwordData);
+
+    modalRef.result
+      .then(
+        (passwordData: Password) => {
+          if (passwordData) {
+            this.passwordService.updatePassword(passwordData);
           }
         },
         () => {

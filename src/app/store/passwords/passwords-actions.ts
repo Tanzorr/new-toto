@@ -32,7 +32,10 @@ export const addPasswordFailure = createAction(
   props<{ value: any }>()
 );
 
-export const updatePassword = createAction('[Passwords] Update Password', props<{ value: any }>());
+export const updatePassword = createAction(
+  '[Passwords] Update Password',
+  props<{ value: Password }>()
+);
 
 export const updatePasswordSuccess = createAction(
   '[Passwords] Update Password Success',

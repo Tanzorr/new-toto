@@ -4,14 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-edit-vault',
-  templateUrl: './edit-vault.component.html',
-  styleUrls: ['./edit-vault.component.scss'],
+  selector: 'app-edit-vault-modal',
+  templateUrl: './edit-vault-modal.component.html',
+  styleUrls: ['./edit-vault-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditVaultComponent {
+export class EditVaultModalComponent {
   vaultForm: FormGroup;
-  _vaultData: Vault | null = null;
   @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   errorMessage: { [key: string]: { [key: string]: string } } = {
