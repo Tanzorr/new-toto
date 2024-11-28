@@ -1,5 +1,5 @@
 <div class="form-group mb-3">
-  <label [for]="controlName">{{ label }}:</label>
+  <label *ngIf="label" [for]="controlName">{{ label }}:</label>
 
   <ng-content></ng-content>
 

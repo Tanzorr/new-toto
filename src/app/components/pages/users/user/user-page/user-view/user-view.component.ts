@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { UserViewService } from './services/user-view.service';
 
 @Component({
   selector: 'app-user-view',
@@ -9,7 +9,7 @@ import { UserService } from './services/user.service';
 })
 export class UserViewComponent {
   user$ = this.userService.user$;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserViewService) {
     this.userService.getUser();
   }
 }

@@ -60,7 +60,11 @@ export const usersReducer = createReducer(
   }),
 
   on(getUsersFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return {
+      ...state,
+      paginationResponse: initialState.paginationResponse,
+      errorMessage: action.value,
+    };
   }),
 
   on(addUserSuccess, (state, action) => {
