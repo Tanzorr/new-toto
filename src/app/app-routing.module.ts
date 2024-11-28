@@ -15,6 +15,12 @@ const routes: Routes = [
         (m) => m.UserLoginModule
       ),
   },
+  {
+    path: 'vaults',
+    loadChildren: () =>
+      import('./components/pages/vaults/vaults.module').then((m) => m.VaultsModule),
+    canActivate: [authGuard],
+  },
   { path: '', redirectTo: '/users', pathMatch: 'full' },
 ];
 

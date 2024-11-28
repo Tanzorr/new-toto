@@ -33,8 +33,6 @@ export class UsersListTableComponent {
   @Output() delete = new EventEmitter<number>();
   @Output() pageParams = new EventEmitter<string | null>();
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
   deleteUser(index: number) {
     this.delete.emit(index);
   }

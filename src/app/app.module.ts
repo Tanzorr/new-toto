@@ -12,8 +12,8 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/custom-serializer';
 import { NavigationModule } from './components/presentational/navigation/navigation.module';
 import { usersReducer } from './store/users/users-reducers';
-import { UsersEffects } from './store/users/users-efects';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UsersEffects } from './store/users/users-effects';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from './services/ui/modal.service';
 import { AlertService } from './services/ui/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
@@ -22,6 +22,10 @@ import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
 import { authReducer } from './store/auth/auth-reducers';
 import { AuthEffects } from './store/auth/auth-efects';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { vaultsReducer } from './store/valuts/vaults-reducers';
+import { VaultsEffects } from './store/valuts/vaults-effects';
+import { PasswordsEffects } from './store/passwords/passwords-effects';
+import { passwordsReducer } from './store/passwords/passwords-reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,9 +36,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     StoreModule.forRoot({
       usersState: usersReducer,
       router: routerReducer,
+      vaultsState: vaultsReducer,
+      passwordsState: passwordsReducer,
       authState: authReducer,
     }),
-    EffectsModule.forRoot([UsersEffects, AuthEffects]),
+    EffectsModule.forRoot([UsersEffects, AuthEffects, VaultsEffects, PasswordsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
@@ -50,6 +56,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ModalService,
     AlertService,
     SpinnerLoaderService,
+    NgbActiveModal,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

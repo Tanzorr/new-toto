@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vault of vaults; let i = index">
+      <td>
+        {{ vault.name }}
+      </td>
+    </tr>
+  </tbody>
+</table>

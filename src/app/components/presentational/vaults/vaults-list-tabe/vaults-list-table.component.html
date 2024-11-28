@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vault of paginatedVaultsResponse.data; let i = index">
+      <td (click)="getVault(vault.id)">
+        {{ vault.name }}
+      </td>
+    </tr>
+  </tbody>
+</table>

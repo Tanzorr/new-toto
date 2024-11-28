@@ -1,7 +1,12 @@
 <h2>User view</h2>
 
-<div *ngIf="user$ | async as user">
-  <p>ID: {{ user.id }}</p>
-  <p>{{ user.name }}</p>
-  <p>{{ user.email }}</p>
+<div *ngIf="user$ | async as user" class="row">
+  <div class="col-lg-6">
+    <p>ID: {{ user.id }}</p>
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+  </div>
+  <div class="col-lg-6">
+    <app-static-vaults-list [vaults]="user.vaults"></app-static-vaults-list>
+  </div>
 </div>

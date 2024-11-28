@@ -115,19 +115,21 @@ export class UsersEffects {
     )
   );
 
-  deleteUser = createEffect(() =>
-    this.actions$.pipe(
-      ofType(deleteUser),
-      switchMap((action) => {
-        return this.usersApiService.deleteUser(action.id).pipe(
-          switchMap(() => [deleteUserSuccess({ value: action.id })]),
-          catchError((error: ServerError) => {
-            this.serverErrorDisplayService.displayError(error.message);
-            return of(deleteUserFail({ value: error.message }));
-          })
-        );
-      })
-    )
+  deleteUser = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(deleteUser),
+        switchMap((action) => {
+          return this.usersApiService.deleteUser(action.id).pipe(
+            map(() => deleteUserSuccess({ value: action.id })),
+            catchError((error: ServerError) => {
+              this.serverErrorDisplayService.displayError(error.message);
+              return of(deleteUserFail({ value: error.message }));
+            })
+          );
+        })
+      ),
+    { dispatch: true }
   );
 
   constructor(

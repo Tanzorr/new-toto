@@ -20,6 +20,7 @@ export class AuthEffects {
           map((loginResponse: LoginResponse) => {
             this.spinnerLoaderService.show();
             localStorage.setItem('access_token', loginResponse.authToken);
+            localStorage.setItem('logged_user', JSON.stringify(loginResponse.loggedUser));
             this.router.navigate(['/users']).then((r) => console.log('Navigate:', r));
 
             return loginSuccess({ value: loginResponse });
