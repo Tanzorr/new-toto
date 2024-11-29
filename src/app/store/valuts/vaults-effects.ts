@@ -31,9 +31,9 @@ export class VaultsEffects {
     () =>
       this.actions$.pipe(
         ofType(getVaults),
-        switchMap(() => {
+        switchMap((action) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVaults().pipe(
+          return this.vaultsApiService.getVaults(action.queryParams).pipe(
             map((vaultsData: PaginatedVaultsResponse) => getVaultsSuccess({ value: vaultsData })),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);
@@ -95,9 +95,9 @@ export class VaultsEffects {
           this.spinnerLoaderService.show();
           return this.vaultsApiService.updateVault(action.value).pipe(
             map(() => addVaultSuccess({ value: action.value })),
-            catchError((error: any) => {
+            catchError((error: ServerError) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(addVaultFailure({ value: error }));
+              return of(addVaultFailure({ value: error.message }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
           );

@@ -21,8 +21,14 @@ export class UsersListComponent {
     this.paginatedUsersResponse$ = this._usersService.paginatedUsersResponse$;
   }
 
-  gerUsersWithParams(url: string | null): void {
-    this._usersService.getUsers(url);
+  getUsersWithParams({
+    url = null,
+    queryParams = {},
+  }: {
+    url?: string | null;
+    queryParams?: any;
+  }): void {
+    this._usersService.getUsers(url, queryParams);
     this.currentUrl = url;
   }
 
@@ -44,5 +50,9 @@ export class UsersListComponent {
       .catch((error: number): void => {
         console.log('Error:', error);
       });
+  }
+
+  getSearchValue(searchValue: string): void {
+    this.getUsersWithParams({ queryParams: { search: searchValue } });
   }
 }

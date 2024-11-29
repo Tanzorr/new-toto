@@ -88,4 +88,8 @@ export class PasswordsListComponent {
         console.log('Error:', error);
       });
   }
+
+  getSearch(vale: string) {
+    this.passwordService.searchPassword(vale);
+  }
 }

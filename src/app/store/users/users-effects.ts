@@ -39,7 +39,7 @@ export class UsersEffects {
         withLatestFrom(this.store.select(usersSelector)),
         switchMap((action) => {
           this.spinnerLoaderService.show();
-          return this.usersApiService.getUsers(action[0].url).pipe(
+          return this.usersApiService.getUsers(action[0].url, action[0].queryParams).pipe(
             map((usersData: PaginatedUsersResponse) => {
               this.spinnerLoaderService.hide();
               this.store.dispatch(getUsersSuccess({ value: usersData }));

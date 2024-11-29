@@ -47,11 +47,16 @@ export class VaultsListComponent implements OnInit, OnDestroy {
   }
 
   getVaultsWithParams(url: string | null): void {
-    this.vaultsListService.getVaults(url);
+    // @ts-ignore
+    this.vaultsListService.getVaults();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  getSearchValue(searchValue: string): void {
+    this.vaultsListService.getVaults({ search: searchValue });
   }
 }

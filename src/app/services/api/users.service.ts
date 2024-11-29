@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CreateUserResponse, User } from '../../models/user';
 import { Observable } from 'rxjs';
 import { PaginatedUsersResponse } from '../../models/paginate-users-response';
+import { QueryParams } from '../../models/query-params';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,13 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(url: string | null = null): Observable<PaginatedUsersResponse> {
+  getUsers(
+    url: string | null = null,
+    queryParams?: QueryParams
+  ): Observable<PaginatedUsersResponse> {
     let urlParams = url ? url : this.baseUrl + 'users';
 
-    return this.http.get<PaginatedUsersResponse>(urlParams);
+    return this.http.get<PaginatedUsersResponse>(urlParams, { params: queryParams });
   }
 
   getUser(id: string | null): Observable<User> {
