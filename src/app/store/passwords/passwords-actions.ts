@@ -64,3 +64,8 @@ export const deletePasswordFailure = createAction(
   '[Passwords] Delete Password Fail',
   props<{ value: string }>()
 );
+
+export const searchPassword = createAction(
+  '[Passwords] Search Passwords',
+  props<{ value: string }>()
+);

@@ -1,3 +1,4 @@
+<app-search (search)="getSearchValue($event)"></app-search>
 <app-vaults-list-table
   [paginatedVaultsResponse]="vaultsPaginateResponse"
   (selectedVaultId)="getVaultById($event)"
