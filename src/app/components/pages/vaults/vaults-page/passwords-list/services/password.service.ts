@@ -7,6 +7,8 @@ import {
   addPassword,
   deletePassword,
   updatePassword,
+  searchPassword,
+  getPasswordsSuccess,
 } from '../../../../../../store/passwords/passwords-actions';
 
 @Injectable({
@@ -26,5 +28,9 @@ export class PasswordService {
 
   updatePassword(passwordData: Password) {
     this.store.dispatch(updatePassword({ value: passwordData }));
+  }
+
+  searchPassword(searchTerm: string) {
+    this.store.dispatch(searchPassword({ value: searchTerm }));
   }
 }

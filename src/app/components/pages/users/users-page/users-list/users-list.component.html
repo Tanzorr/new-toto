@@ -1,8 +1,7 @@
-<h3>Users list</h3>
 <a routerLink="create" class="btn btn-primary">Add User</a>
-
+<app-search (search)="getSearchValue($event)" customClass="w-50 mt-3 mb-3"></app-search>
 <app-users-list-table
   [paginatedUsersResponse]="paginatedUsersResponse$ | async"
-  (pageParams)="gerUsersWithParams($event)"
+  (pageParams)="getUsersWithParams({ url: $event })"
   (delete)="deleteUser($event)"
 ></app-users-list-table>

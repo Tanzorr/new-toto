@@ -15,17 +15,17 @@ import { User } from '../../../../../models/user';
 })
 export class VaultComponent {
   vault$ = this.vaultService.vault$;
-  loggedUser$ = this.vaultService.loggedUser$;
+
   constructor(
     private vaultService: VaultService,
     private modalService: ModalService,
-    private assModalService: NgbModal
+    private addModalService: NgbModal
   ) {
     this.vault$ = this.vaultService.vault$;
   }
 
   openAddVaultModal(): void {
-    const modalRef = this.assModalService.open(AddVaultModalComponent);
+    const modalRef = this.addModalService.open(AddVaultModalComponent);
     modalRef.result
       .then(
         (vaultData: CreateVault) => {
@@ -47,7 +47,7 @@ export class VaultComponent {
   }
 
   openEditVaultModal(vaultData: Vault): void {
-    const modalRef = this.assModalService.open(EditVaultModalComponent);
+    const modalRef = this.addModalService.open(EditVaultModalComponent);
 
     modalRef.componentInstance.vaultData = vaultData;
 

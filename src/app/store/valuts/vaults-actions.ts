@@ -1,8 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { CreateVault, PaginatedVaultsResponse, Vault } from '../../models/vault';
 import { Password } from '../../models/password';
+import { QueryParams } from '../../models/query-params';
 
-export const getVaults = createAction('[Vaults] Get Vaults', props<{ url?: string | null }>());
+export const getVaults = createAction(
+  '[Vaults] Get Vaults',
+  props<{ queryParams?: QueryParams }>()
+);
 
 export const getVaultsSuccess = createAction(
   '[Vaults] Get Vaults Success',

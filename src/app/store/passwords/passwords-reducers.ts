@@ -8,12 +8,14 @@ import {
   getPasswordFailure,
   getPasswordsSuccess,
   getPasswordSuccess,
+  searchPassword,
   updatePasswordFailure,
   updatePasswordSuccess,
 } from './passwords-actions';
 
 export interface PasswordStateModel {
   passwords: Password[];
+  allPasswords: Password[];
   password: Password | null;
   selectedPassword: Password | null;
   errorMessage: string;
@@ -25,6 +27,7 @@ export interface PasswordState {
 
 const initialState: PasswordStateModel = {
   passwords: [],
+  allPasswords: [],
   password: null,
   selectedPassword: null,
   errorMessage: '',
@@ -33,7 +36,11 @@ const initialState: PasswordStateModel = {
 export const passwordsReducer = createReducer(
   initialState,
   on(getPasswordsSuccess, (state, action) => {
-    return { ...state, passwords: action.passwords };
+    return {
+      ...state,
+      passwords: action.passwords,
+      allPasswords: action.passwords,
+    };
   }),
 
   on(getPasswordSuccess, (state, action) => {
@@ -45,7 +52,11 @@ export const passwordsReducer = createReducer(
   }),
 
   on(addPasswordSuccess, (state, action) => {
-    return { ...state, passwords: [action.value, ...state.passwords] };
+    return {
+      ...state,
+      passwords: [action.value, ...state.passwords],
+      allPasswords: [action.value, ...state.allPasswords],
+    };
   }),
 
   on(addPasswordFailure, (state, action) => {
@@ -58,6 +69,7 @@ export const passwordsReducer = createReducer(
       passwords: state.passwords.map((password) =>
         password.id === action.value.id ? action.value : password
       ),
+      allPasswords: state.passwords,
     };
   }),
 
@@ -71,5 +83,14 @@ export const passwordsReducer = createReducer(
 
   on(deletePasswordFailure, (state, action) => {
     return { ...state, errorMessage: action.value };
+  }),
+
+  on(searchPassword, (state, action) => {
+    return {
+      ...state,
+      passwords: action.value
+        ? state.allPasswords.filter((password) => password.name.includes(action.value))
+        : [...state.allPasswords], // Повертаємо копію оригінального списку, якщо value порожній
+    };
   })
 );

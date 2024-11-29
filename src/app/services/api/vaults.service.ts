@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
+import { QueryParams } from '../../models/query-params';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ export class VaultsService {
 
   constructor(private http: HttpClient) {}
 
-  getVaults(): Observable<PaginatedVaultsResponse> {
-    return this.http.get<PaginatedVaultsResponse>(this.baseUrl);
+  getVaults(queryParams?: QueryParams): Observable<PaginatedVaultsResponse> {
+    return this.http.get<PaginatedVaultsResponse>(this.baseUrl, { params: queryParams });
   }
 
   getVault(id: number | string): Observable<Vault> {
