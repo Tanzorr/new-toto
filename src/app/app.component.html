@@ -1,7 +1,8 @@
 <div class="container card mt-5 mb-5 p-5">
-  <h1>My Pass manager</h1>
+  <app-header title="My Pass manager" [userName]="user.name">
+    <app-navigation></app-navigation>
+  </app-header>
   <app-alert></app-alert>
   <app-spinner [isLoading]="isLoading"></app-spinner>
-  <app-navigation></app-navigation>
   <router-outlet></router-outlet>
 </div>

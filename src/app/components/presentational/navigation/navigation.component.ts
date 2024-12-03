@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { LogoutService } from './services/logout.service';
+import { authService } from './services/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -9,10 +9,10 @@ import { LogoutService } from './services/logout.service';
 })
 export class NavigationComponent {
   isLogged = true;
-  constructor(private logoutService: LogoutService) {}
+  constructor(private authService: authService) {}
 
   logout(): void {
-    this.logoutService.logout();
+    this.authService.logout();
   }
 
   protected readonly localStorage = localStorage;

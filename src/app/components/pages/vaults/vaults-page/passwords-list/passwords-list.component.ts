@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Password } from '../../../../../models/password';
 import { PasswordService } from './services/password.service';
 import { ModalService } from '../../../../../services/ui/modal.service';
@@ -15,6 +15,7 @@ import { EditPasswordModalComponent } from '../../../../presentational/passwords
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordsListComponent {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   @Input() vaultId!: string | number;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
 
@@ -87,5 +88,16 @@ export class PasswordsListComponent {
       .catch((error: number): void => {
         console.log('Error:', error);
       });
+  }
+
+  getSearch(vale: string) {
+    this.passwordService.searchPassword(vale);
+    this.scrollToTop();
+  }
+
+  private scrollToTop() {
+    if (this.scrollContainer) {
+      this.scrollContainer.nativeElement.scrollTop = 0;
+    }
   }
 }

@@ -6,7 +6,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let vault of paginatedVaultsResponse.data; let i = index">
-      <td (click)="getVault(vault.id)">
+      <td (click)="getVault(vault.id)" class="vault-item">
         {{ vault.name }}
       </td>
     </tr>

@@ -1,4 +1,5 @@
 <div *ngIf="vault$ | async as vault" class="controls d-flex justify-content-end gap-3">
+  <button class="btn btn-primary">Share access</button>
   <button class="btn btn-success" (click)="openAddVaultModal()">Add Vault</button>
   <button class="btn btn-primary" (click)="openEditVaultModal(vault)">Edit</button>
   <button class="btn btn-danger" (click)="deleteVault(vault.id)">Delete</button>
@@ -7,14 +8,15 @@
 <hr />
 
 <div *ngIf="vault$ | async as vault" class="vault-content">
-  <h3>Vault name: {{ vault.name }}</h3>
+  <h5>Vault name: {{ vault.name }}</h5>
 
-  <h4>Vault Description</h4>
+  <h5>Vault Description</h5>
   <p>
     {{ vault.description }}
   </p>
 
-  <h3>Password list</h3>
+  <h5>Password list</h5>
+
   <app-passwords-list [vaultId]="vault.id"></app-passwords-list>
 </div>
 

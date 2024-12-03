@@ -1,8 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../../models/user';
 import { PaginatedUsersResponse } from '../../models/paginate-users-response';
+import { QueryParams } from '../../models/query-params';
 
-export const getUsers = createAction('[Users] Get Users', props<{ url?: string | null }>());
+export const getUsers = createAction(
+  '[Users] Get Users',
+  props<{ url?: string | null; queryParams?: QueryParams }>()
+);
 
 export const getUsersSuccess = createAction(
   '[Users] Get Users Success',

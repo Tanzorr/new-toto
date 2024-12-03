@@ -26,6 +26,7 @@ import { vaultsReducer } from './store/valuts/vaults-reducers';
 import { VaultsEffects } from './store/valuts/vaults-effects';
 import { PasswordsEffects } from './store/passwords/passwords-effects';
 import { passwordsReducer } from './store/passwords/passwords-reducers';
+import { HeaderModule } from './components/presentational/header/header.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,6 +52,7 @@ import { passwordsReducer } from './store/passwords/passwords-reducers';
     NgbModule,
     AlertModule,
     SpinnerModule,
+    HeaderModule,
   ],
   providers: [
     ModalService,

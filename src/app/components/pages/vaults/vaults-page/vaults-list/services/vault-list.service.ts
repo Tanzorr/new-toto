@@ -4,6 +4,7 @@ import { getVault, getVaults } from '../../../../../../store/valuts/vaults-actio
 import { vaultsSelector } from '../../../../../../store/valuts/vautls-selecotors';
 import { Vault } from '../../../../../../models/vault';
 import { VaultsState } from '../../../../../../store/valuts/vaults-reducers';
+import { QueryParams } from '../../../../../../models/query-params';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ export class VaultListService {
 
   constructor(private store: Store<VaultsState>) {}
 
-  getVaults(url?: string | null): void {
-    this.store.dispatch(getVaults({ url }));
+  getVaults(queryParams?: QueryParams): void {
+    this.store.dispatch(getVaults({ queryParams }));
   }
 
   getVault(id: Vault['id']): void {
