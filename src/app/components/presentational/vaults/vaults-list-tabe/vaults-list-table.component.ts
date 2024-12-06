@@ -29,11 +29,11 @@ export class VaultsListTableComponent {
     return <PaginatedVaultsResponse>this._paginatedVaultsResponse;
   }
 
-  getVault(id: Vault['id']): void {
-    this.selectedVaultId.emit(id);
-  }
-
   getPageParams($event: PageChangedEvent) {
     this.pageParams.emit($event.page.toString());
+  }
+
+  selectVault(id: Vault['id']) {
+    this.selectedVaultId.emit(id);
   }
 }

@@ -5,7 +5,7 @@ import { AuthState } from '../../../../store/auth/auth-reducers';
 @Injectable({
   providedIn: 'root',
 })
-export class authService {
+export class AuthService {
   constructor(private store: Store<AuthState>) {}
 
   logout() {

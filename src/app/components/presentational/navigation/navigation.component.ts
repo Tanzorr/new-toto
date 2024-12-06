@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { authService } from './services/auth.service';
+import { AuthService } from './services/auth.service';
+import { LocalStorageService } from '../../../services/storage/local-storage.service';
 
 @Component({
   selector: 'app-navigation',
@@ -9,7 +10,13 @@ import { authService } from './services/auth.service';
 })
 export class NavigationComponent {
   isLogged = true;
-  constructor(private authService: authService) {}
+  loggedUserId!: string | null;
+  constructor(
+    private authService: AuthService,
+    private localStorageService: LocalStorageService
+  ) {
+    this.loggedUserId = JSON.parse(<string>this.localStorageService.get('logged_user')).id;
+  }
 
   logout(): void {
     this.authService.logout();

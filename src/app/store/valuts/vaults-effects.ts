@@ -14,7 +14,15 @@ import {
   getVaultSuccess,
   updateVault,
 } from './vaults-actions';
-import { catchError, finalize, map, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  finalize,
+  map,
+  switchMap,
+  takeWhile,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 import { VaultsService } from '../../services/api/vaults.service';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
@@ -24,6 +32,9 @@ import { getPasswordsSuccess } from '../passwords/passwords-actions';
 import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
 import { ServerError } from '../../models/server-error';
+import { Router } from '@angular/router';
+import { routerSelector } from '../router/router-selector';
+import { VaultsState } from './vaults-reducers';
 
 @Injectable()
 export class VaultsEffects {
@@ -69,9 +80,10 @@ export class VaultsEffects {
     () =>
       this.actions$.pipe(
         ofType(getVault),
-        switchMap((action) => {
+        withLatestFrom(this.store.select(routerSelector)),
+        switchMap(([action, route]) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVault(action.id).pipe(
+          return this.vaultsApiService.getVault(route.state.params['id']).pipe(
             map((vaultData: Vault) => {
               this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
               return getVaultSuccess({ value: vaultData });
@@ -128,6 +140,7 @@ export class VaultsEffects {
     private vaultsApiService: VaultsService,
     private passwordStore: Store<PasswordState>,
     private spinnerLoaderService: SpinnerLoaderService,
-    private serverErrorDisplayService: ServerErrorDisplayService
+    private serverErrorDisplayService: ServerErrorDisplayService,
+    private store: Store<VaultsState>
   ) {}
 }

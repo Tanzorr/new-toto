@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { VaultsListComponent } from './vaults-list.component';
+import { VaultsComponent } from '../../vaults.component';
+import { VaultComponent } from './vault.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: VaultsListComponent,
+    component: VaultComponent,
   },
 ];
 
@@ -14,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class VaultsListRoutesModule {}
+export class VaultRoutesModule {}

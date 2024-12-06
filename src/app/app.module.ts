@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterState } from '@angular/router';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CustomSerializer } from './store/router/custom-serializer';
 import { NavigationModule } from './components/presentational/navigation/navigation.module';
@@ -47,7 +47,9 @@ import { HeaderModule } from './components/presentational/header/header.module';
       logOnly: false,
     }),
     RouterModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomSerializer,
+    }),
     NavigationModule,
     NgbModule,
     AlertModule,

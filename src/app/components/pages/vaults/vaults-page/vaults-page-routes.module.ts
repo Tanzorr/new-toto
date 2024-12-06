@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VaultsPageComponent } from './vaults-page.component';
+import { VaultsListComponent } from './vaults-list/vaults-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: VaultsPageComponent,
-    loadChildren: () => import('./vaults-list/vaults-list.module').then((m) => m.VaultsListModule),
+    children: [
+      {
+        path: ':id',
+        loadChildren: () => import('./vault/vault.module').then((m) => m.VaultModule),
+      },
+    ],
   },
 ];
 

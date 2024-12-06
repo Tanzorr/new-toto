@@ -8,6 +8,8 @@ import {
 import { VaultListService } from './services/vault-list.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../../../../models/vault';
+import { ActivatedRoute, Router } from '@angular/router';
+import { getVault } from '../../../../../store/valuts/vaults-actions';
 
 @Component({
   selector: 'app-vaults-list',
@@ -21,7 +23,9 @@ export class VaultsListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   constructor(
     private vaultsListService: VaultListService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {
     this.vaultsPaginateResponse$ = this.vaultsListService.paginatedVaultsResponse$;
     this.vaultsListService.getVaults();
@@ -35,20 +39,24 @@ export class VaultsListComponent implements OnInit, OnDestroy {
         const vaultId = response.data[0]?.id;
 
         if (vaultId) {
-          this.getVaultById(vaultId);
+          this.router.navigate(['/vaults', vaultId]);
+          this.vaultsListService.getVault();
         }
 
         this.changeDetectorRef.markForCheck();
       });
-  }
 
-  getVaultById(id: Vault['id']): void {
-    this.vaultsListService.getVault(id);
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.vaultsListService.getVault();
+    });
   }
 
   getVaultsWithParams(url: string | null): void {
-    // @ts-ignore
     this.vaultsListService.getVaults();
+  }
+
+  getVault(): void {
+    getVault();
   }
 
   ngOnDestroy(): void {
@@ -59,4 +67,6 @@ export class VaultsListComponent implements OnInit, OnDestroy {
   getSearchValue(searchValue: string): void {
     this.vaultsListService.getVaults({ search: searchValue });
   }
+
+  protected readonly event = event;
 }
