@@ -16,6 +16,7 @@ import { PasswordListRoutesModule } from './password-list-routes.module';
     AddPasswordModalModule,
     EditPasswordModalModule,
     SearchModule,
+    PasswordListRoutesModule,
   ],
 })
 export class PasswordsListModule {}

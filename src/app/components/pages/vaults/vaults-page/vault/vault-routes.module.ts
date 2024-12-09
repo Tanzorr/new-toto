@@ -13,11 +13,15 @@ const routes: Routes = [
     children: [
       {
         path: 'passwords-list',
-        component: PasswordsListComponent,
+        loadChildren: () =>
+          import('./passwords-list/passwords-list.module').then((m) => m.PasswordsListModule),
       },
       {
         path: 'shared-access',
-        component: VaultSharedAccessComponent,
+        loadChildren: () =>
+          import('./vault-shared-access/vault-shared-access.module').then(
+            (m) => m.VaultSharedAccessModule
+          ),
       },
     ],
   },
