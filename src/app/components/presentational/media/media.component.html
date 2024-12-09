@@ -1,0 +1,6 @@
+<app-attach-media-collection [medias]="medias$ | async"
+                      (search)="getSearchValue($event)"
+                      (attachMediaId)="attach($event)"
+                      (deleteMediaId)="delete($event)"
+></app-attach-media-collection>
+<app-attach-file (fileData)="handleFileInput($event)"></app-attach-file>

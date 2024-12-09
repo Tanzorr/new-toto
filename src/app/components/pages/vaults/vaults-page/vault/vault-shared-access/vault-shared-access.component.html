@@ -1,0 +1,41 @@
+<h4>Not accessed users lists</h4>
+
+<app-search (search)="searchNotAccessedUsers($event)" customClass="w-50 mt-3 mb-3"></app-search>
+
+<app-table
+  [data]="notAccessedUsers$ | async"
+  [columns]="columns"
+  [fragment]="addControlTemplate"
+></app-table>
+
+<ng-template #addControlTemplate let-user>
+  <div class="d-flex justify-content-between">
+
+    <button class="btn btn-primary" (click)="addSharedAccess(user.id)">Add Access</button>
+    <input type="date"
+           class="bg-success date"
+           [value]="getExpiredDate(user.id)"
+           (change)="setExpiredDate($event, user.id)"
+    />
+  </div>
+</ng-template>
+
+<h4>Accessed users lists</h4>
+<div appScrollable [scrollThreshold]="10">
+  <app-table
+    [data]="accessUsers$ | async"
+    [columns]="columns"
+    [fragment]="deleteControlTemplate"
+  ></app-table>
+</div>
+
+<ng-template #deleteControlTemplate let-user>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-primary" (click)="deleteSharedAccess(user)">Delete Access</button>
+    <input type="date"
+           class="bg-success date"
+           [value]="getExpiredDate(user.id)"
+           (change)="setExpiredDate($event, user.id)"
+    />
+  </div>
+</ng-template>

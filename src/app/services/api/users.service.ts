@@ -9,32 +9,37 @@ import { QueryParams } from '../../models/query-params';
   providedIn: 'root',
 })
 export class UsersService {
-  private baseUrl = 'http://127.0.0.1:8000/api/';
+  private baseUrl = '/api/users/';
 
   constructor(private http: HttpClient) {}
 
-  getUsers(
-    url: string | null = null,
-    queryParams?: QueryParams
-  ): Observable<PaginatedUsersResponse> {
-    let urlParams = url ? url : this.baseUrl + 'users';
-
-    return this.http.get<PaginatedUsersResponse>(urlParams, { params: queryParams });
+  getUsers(queryParams?: QueryParams): Observable<PaginatedUsersResponse> {
+    return this.http.get<PaginatedUsersResponse>(this.baseUrl, { params: queryParams });
   }
 
   getUser(id: string | null): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'users/' + id);
+    return this.http.get<User>(this.baseUrl + id);
   }
 
   addUser(user: User) {
-    return this.http.post<CreateUserResponse>(this.baseUrl + 'users', user);
+    return this.http.post<CreateUserResponse>(this.baseUrl, user);
   }
 
   deleteUser(id: number) {
-    return this.http.delete(this.baseUrl + 'users/' + id);
+    return this.http.delete(this.baseUrl + id);
   }
 
   updateUser(value: User): Observable<User> {
-    return this.http.put<User>(this.baseUrl + 'users/' + value.id, value);
+    return this.http.put<User>(this.baseUrl + value.id, value);
+  }
+
+  getNotAccessedUsers(
+    entityName: string,
+    entityId: number | string,
+    queryParams?: QueryParams
+  ): Observable<any> {
+    return this.http.get(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
+      params: queryParams,
+    });
   }
 }

@@ -1,0 +1,9 @@
+<form [formGroup]="mediaForm" enctype="multipart/form-data" >
+  <input type="file"
+         name="media"
+         class="form-control"
+         formControlName="media"
+         (change)="handleFileInput($event)"
+         id="media"
+  />
+</form>

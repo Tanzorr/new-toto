@@ -1,0 +1,12 @@
+<div *ngFor="let media of medias" class="image-container w-25">
+  <app-image [media]="media"></app-image>
+  <app-media-control [mediaTitle]="media?.file_name">
+    <button
+      class="btn btn-danger btn-sm"
+      (click)="detachMedia(media.id)"
+      aria-label="Detach media"
+    >
+      Detach
+    </button>
+  </app-media-control>
+</div>

@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsersListService } from './services/users-list.service';
 import { ModalService } from '../../../../../services/ui/modal.service';
 import { PaginatedUsersResponse } from '../../../../../models/paginate-users-response';
+import { Columns } from '../../../../../models/columns';
+import { LocalStorageService } from '../../../../../services/storage/local-storage.service';
+import { User } from '../../../../../models/user';
 
 @Component({
   selector: 'app-users-list',
@@ -10,26 +13,31 @@ import { PaginatedUsersResponse } from '../../../../../models/paginate-users-res
   styleUrls: ['./users-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UsersListComponent {
+export class UsersListComponent implements AfterViewInit {
+  loggedUser!: User;
   paginatedUsersResponse$: Observable<PaginatedUsersResponse>;
-  currentUrl: string | null = null;
+
+  columns!: Columns[];
+
   constructor(
     private _usersService: UsersListService,
-    private _modalService: ModalService
+    private _modalService: ModalService,
+    private storageService: LocalStorageService
   ) {
     this._usersService.getUsers();
     this.paginatedUsersResponse$ = this._usersService.paginatedUsersResponse$;
+    this.loggedUser = JSON.parse(this.storageService.get('logged_user') || '{}');
   }
 
-  getUsersWithParams({
-    url = null,
-    queryParams = {},
-  }: {
-    url?: string | null;
-    queryParams?: any;
-  }): void {
-    this._usersService.getUsers(url, queryParams);
-    this.currentUrl = url;
+  ngAfterViewInit(): void {
+    this.columns = [
+      { header: 'Name', field: 'name' },
+      { header: 'Actions', template: true },
+    ];
+  }
+
+  getUsersWithParams(params: any): void {
+    this._usersService.getUsers(params);
   }
 
   deleteUser(id: number): void {
@@ -53,6 +61,6 @@ export class UsersListComponent {
   }
 
   getSearchValue(searchValue: string): void {
-    this.getUsersWithParams({ queryParams: { search: searchValue } });
+    this.getUsersWithParams({ search: searchValue });
   }
 }

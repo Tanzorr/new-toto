@@ -5,6 +5,7 @@ export interface Password {
   createdAt: Date | '';
   updatedAt: Date | '';
   vault_id: string | number;
+  media?: string | File;
 }
 
 export class CreatePassword {

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserViewService } from './services/user-view.service';
+import { Columns } from '../../../../../../models/columns';
 
 @Component({
   selector: 'app-user-view',
@@ -9,7 +10,12 @@ import { UserViewService } from './services/user-view.service';
 })
 export class UserViewComponent {
   user$ = this.userService.user$;
+
+  columns: Columns[] = [];
+
   constructor(private userService: UserViewService) {
     this.userService.getUser();
+
+    this.columns = [{ header: 'Vault name', field: 'name' }];
   }
 }

@@ -18,7 +18,7 @@ export class VaultListService {
     this.store.dispatch(getVaults({ queryParams }));
   }
 
-  getVault(): void {
-    this.store.dispatch(getVault());
+  getVault(id: Vault['id']): void {
+    this.store.dispatch(getVault({ id }));
   }
 }

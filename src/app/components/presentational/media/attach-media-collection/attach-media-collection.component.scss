@@ -1,0 +1,10 @@
+.media{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    list-style: none;
+    width: 100%;
+    max-width: 1200px;
+}

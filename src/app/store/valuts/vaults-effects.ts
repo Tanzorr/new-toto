@@ -35,6 +35,13 @@ import { ServerError } from '../../models/server-error';
 import { Router } from '@angular/router';
 import { routerSelector } from '../router/router-selector';
 import { VaultsState } from './vaults-reducers';
+import {
+  getAccessedUsers,
+  getAccessedUsersSuccess,
+  getNotAccessedUsers,
+  getSharedAccessSuccesses,
+} from '../shared-access/shared-access-actions';
+import { SharedAccessState } from '../shared-access/shared-access-reducers';
 
 @Injectable()
 export class VaultsEffects {
@@ -64,9 +71,12 @@ export class VaultsEffects {
         switchMap((action) => {
           this.spinnerLoaderService.show();
           return this.vaultsApiService.addVault(action.value).pipe(
-            map(() => addVaultSuccess({ value: action.value })),
+            map(() => {
+              this.store.dispatch(getVaults({}));
+              return addVaultSuccess({ value: action.value });
+            }),
             catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.message);
+              this.serverErrorDisplayService.displayError(error.error.message);
               return of(addVaultFailure({ value: error }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
@@ -83,9 +93,15 @@ export class VaultsEffects {
         withLatestFrom(this.store.select(routerSelector)),
         switchMap(([action, route]) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVault(route.state.params['id']).pipe(
+          return this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
               this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
+              this.sharedAccessStore.dispatch(
+                getAccessedUsersSuccess({ value: vaultData.accessed_users })
+              );
+              this.sharedAccessStore.dispatch(
+                getSharedAccessSuccesses({ value: vaultData.shared_access })
+              );
               return getVaultSuccess({ value: vaultData });
             }),
             catchError((error: any) => {
@@ -139,6 +155,7 @@ export class VaultsEffects {
     private actions$: Actions,
     private vaultsApiService: VaultsService,
     private passwordStore: Store<PasswordState>,
+    private sharedAccessStore: Store<SharedAccessState>,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
     private store: Store<VaultsState>
