@@ -83,7 +83,7 @@ export class VaultsEffects {
         withLatestFrom(this.store.select(routerSelector)),
         switchMap(([action, route]) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVault(route.state.params['id']).pipe(
+          return this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
               this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
               return getVaultSuccess({ value: vaultData });

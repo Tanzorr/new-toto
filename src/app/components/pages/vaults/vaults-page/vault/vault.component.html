@@ -14,12 +14,14 @@
   <p>
     {{ vault.description }}
   </p>
-  <a routerLink="passwords-list" class="btn btn-primary">Passwords</a>
-  <a routerLink="access-users-list" class="btn btn-primary">Accessed users</a>
 
-  <h5>Password list</h5>
+  <a routerLink="shared-access">Shared access</a>
+  <a routerLink="passwords-list">Passwords</a>
+   <router-outlet></router-outlet>
 
-  <app-passwords-list [vaultId]="vault.id"></app-passwords-list>
+<!--  <h5>Password list</h5>-->
+
+<!--  <app-passwords-list [vaultId]="vault.id"></app-passwords-list>-->
 
 </div>
 

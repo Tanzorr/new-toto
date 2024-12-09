@@ -24,8 +24,7 @@ export class VaultsListComponent implements OnInit, OnDestroy {
   constructor(
     private vaultsListService: VaultListService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router,
-    private activeRoute: ActivatedRoute
+    private router: Router
   ) {
     this.vaultsPaginateResponse$ = this.vaultsListService.paginatedVaultsResponse$;
     this.vaultsListService.getVaults();
@@ -39,24 +38,20 @@ export class VaultsListComponent implements OnInit, OnDestroy {
         const vaultId = response.data[0]?.id;
 
         if (vaultId) {
-          this.router.navigate(['/vaults', vaultId]);
-          this.vaultsListService.getVault();
+          this.getVault(vaultId);
         }
 
         this.changeDetectorRef.markForCheck();
       });
-
-    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.vaultsListService.getVault();
-    });
   }
 
   getVaultsWithParams(url: string | null): void {
     this.vaultsListService.getVaults();
   }
 
-  getVault(): void {
-    getVault();
+  getVault(id: Vault['id']): void {
+    this.vaultsListService.getVault(id);
+    this.router.navigate([`/vaults/${id}/passwords-list`]).then((r) => console.log(r));
   }
 
   ngOnDestroy(): void {
@@ -67,6 +62,4 @@ export class VaultsListComponent implements OnInit, OnDestroy {
   getSearchValue(searchValue: string): void {
     this.vaultsListService.getVaults({ search: searchValue });
   }
-
-  protected readonly event = event;
 }
