@@ -15,8 +15,11 @@
     {{ vault.description }}
   </p>
 
-  <a routerLink="passwords-list" class="btn btn-primary">Passwords</a>
-  <a routerLink="shared-access" class="btn btn-primary">Shared access</a>
+  <div class="d-flex gap-3">
+    <a routerLink="passwords-list" routerLinkActive="active btn-primary" class="btn mr-1">Passwords</a>
+    <a routerLink="shared-access" routerLinkActive="active btn-primary" class="btn ml-1">Shared access</a>
+  </div>
+
 
    <router-outlet></router-outlet>
 
