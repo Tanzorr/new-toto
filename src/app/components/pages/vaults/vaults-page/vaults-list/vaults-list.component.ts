@@ -8,17 +8,24 @@ import {
 import { VaultListService } from './services/vault-list.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../../../../models/vault';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { VaultsListTableModule } from '../../../../presentational/vaults/vaults-list-tabe/vaults-list-table.module';
+import { SearchModule } from '../../../../libs/search/search.module';
+
 @Component({
   selector: 'app-vaults-list',
   templateUrl: './vaults-list.component.html',
   styleUrls: ['./vaults-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, VaultsListTableModule, SearchModule],
 })
 export class VaultsListComponent implements OnInit, OnDestroy {
   vaultsPaginateResponse!: PaginatedVaultsResponse;
   vaultsPaginateResponse$!: Observable<PaginatedVaultsResponse>;
   private destroy$ = new Subject<void>();
+  private passwordsListUrl = 'passwords-list';
   constructor(
     private vaultsListService: VaultListService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -41,6 +48,12 @@ export class VaultsListComponent implements OnInit, OnDestroy {
 
         this.changeDetectorRef.markForCheck();
       });
+
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+      if (event instanceof NavigationEnd && this.router.url === '/vaults') {
+        this.vaultsListService.getVaults();
+      }
+    });
   }
 
   getVaultsWithParams(url: string | null): void {
@@ -49,7 +62,10 @@ export class VaultsListComponent implements OnInit, OnDestroy {
 
   getVault(id: Vault['id']): void {
     this.vaultsListService.getVault(id);
-    this.router.navigate([`/vaults/${id}/passwords-list`]).then((r) => console.log(r));
+
+    this.router
+      .navigate([`/vaults/${id}/${this.getActiveListUrl(this.router.url)}`])
+      .then((r) => console.log(r));
   }
 
   ngOnDestroy(): void {
@@ -59,5 +75,10 @@ export class VaultsListComponent implements OnInit, OnDestroy {
 
   getSearchValue(searchValue: string): void {
     this.vaultsListService.getVaults({ search: searchValue });
+  }
+
+  private getActiveListUrl(currentUlr: string): string {
+    const currentUrlArray = currentUlr.split('/');
+    return currentUrlArray[3] || this.passwordsListUrl;
   }
 }

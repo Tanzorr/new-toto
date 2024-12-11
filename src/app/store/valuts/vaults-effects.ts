@@ -65,9 +65,12 @@ export class VaultsEffects {
         switchMap((action) => {
           this.spinnerLoaderService.show();
           return this.vaultsApiService.addVault(action.value).pipe(
-            map(() => addVaultSuccess({ value: action.value })),
+            map(() => {
+              this.store.dispatch(getVaults({}));
+              return addVaultSuccess({ value: action.value });
+            }),
             catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.message);
+              this.serverErrorDisplayService.displayError(error.error.message);
               return of(addVaultFailure({ value: error }));
             }),
             finalize(() => this.spinnerLoaderService.hide())

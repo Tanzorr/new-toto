@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryParams } from '../../models/query-params';
+import { SharedAccessData } from '../../models/shared-access';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedAccessService {
-  private baseUrl = 'http://127.0.0.1:8000/api/shared-accesses-not-accessed-users/';
+  private baseUrl = 'http://127.0.0.1:8000/api/';
+
   constructor(private http: HttpClient) {}
 
   getNotAccessedUsers(
@@ -15,10 +18,21 @@ export class SharedAccessService {
     entityId: number | string,
     queryParams?: QueryParams
   ): Observable<any> {
-    return this.http.get(`${this.baseUrl}${entityName}/${entityId}`, { params: queryParams });
+    return this.http.get(
+      `${this.baseUrl}shared-accesses-not-accessed-users/${entityName}/${entityId}`,
+      { params: queryParams }
+    );
   }
 
-  getAccessedUsers(vaultId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/not-access/${vaultId}`);
+  getAccessedUsers(entityName: string, entityId: number | string): Observable<any> {
+    return this.http.get(`${this.baseUrl}shared-accesses-accessed-users/${entityName}/${entityId}`);
+  }
+
+  addSharedAccess(data: SharedAccessData): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}shared-accesses/`, data);
+  }
+
+  deleteSharedAccess(data: SharedAccessData) {
+    return this.http.delete(`${this.baseUrl}shared-accesses/1`, { body: data });
   }
 }

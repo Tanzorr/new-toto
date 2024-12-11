@@ -23,7 +23,7 @@ export class AppComponent implements OnDestroy {
       this.isLoading = loading;
     });
 
-    this.user = JSON.parse(<string>this.localStorage.get('logged_user'));
+    this.user = JSON.parse(<string>this.localStorage.get('logged_user')) || {};
   }
 
   ngOnDestroy(): void {

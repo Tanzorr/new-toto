@@ -1,5 +1,4 @@
 <div *ngIf="vault$ | async as vault" class="controls d-flex justify-content-end gap-3">
-  <button class="btn btn-primary">Share access</button>
   <button class="btn btn-success" (click)="openAddVaultModal()">Add Vault</button>
   <button class="btn btn-primary" (click)="openEditVaultModal(vault)">Edit</button>
   <button class="btn btn-danger" (click)="deleteVault(vault.id)">Delete</button>
@@ -16,13 +15,15 @@
   </p>
 
   <div class="d-flex gap-3">
-    <a routerLink="passwords-list" routerLinkActive="active btn-primary" class="btn mr-1">Passwords</a>
-    <a routerLink="shared-access" routerLinkActive="active btn-primary" class="btn ml-1">Shared access</a>
+    <a routerLink="passwords-list" routerLinkActive="active btn-primary" class="btn mr-1"
+      >Passwords</a
+    >
+    <a routerLink="shared-access" routerLinkActive="active btn-primary" class="btn ml-1"
+      >Shared access</a
+    >
   </div>
 
-
-   <router-outlet></router-outlet>
-
+  <router-outlet></router-outlet>
 </div>
 
 <h2 *ngIf="!(vault$ | async)">Please Select Vault</h2>

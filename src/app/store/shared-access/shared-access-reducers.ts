@@ -2,14 +2,12 @@ import { SharedAccess } from '../../models/shared-access';
 import { User } from '../../models/user';
 import { createReducer, on } from '@ngrx/store';
 import {
-  addSharedAccess,
   addSharedAccessFailure,
   addSharedAccessSuccess,
   deleteSharedAccessFailure,
   deleteSharedAccessSuccess,
   getAccessedUsersFailure,
   getAccessedUsersSuccess,
-  getNotAccessedUsers,
   getNotAccessedUsersFailure,
   getNotAccessedUsersSuccess,
 } from './shared-access-actions';
@@ -37,7 +35,8 @@ export const sharedAccessReducer = createReducer(
   on(addSharedAccessSuccess, (state, action) => {
     return {
       ...state,
-      sharedAccesses: [...state.sharedAccesses, action.value],
+      accessedUsers: [...state.accessedUsers, action.accessUser],
+      notAccessedUses: state.notAccessedUses.filter((user) => user.id !== action.accessUser.id),
     };
   }),
 
@@ -51,7 +50,7 @@ export const sharedAccessReducer = createReducer(
   on(deleteSharedAccessSuccess, (state, action) => {
     return {
       ...state,
-      sharedAccesses: state.sharedAccesses.filter((access) => access.id !== action.value),
+      accessedUsers: state.accessedUsers.filter((user) => user.id !== action.userId),
     };
   }),
 
@@ -65,7 +64,7 @@ export const sharedAccessReducer = createReducer(
   on(getAccessedUsersSuccess, (state, action) => {
     return {
       ...state,
-      sharedAccesses: action.value || [],
+      accessedUsers: action.value || [],
     };
   }),
 

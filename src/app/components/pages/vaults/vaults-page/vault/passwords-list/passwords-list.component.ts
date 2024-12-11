@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPasswordModalComponent } from '../../../../../presentational/passwords/add-password-modal/add-password-modal.component';
 import { CreatePassword } from '../../../../../../models/password';
 import { EditPasswordModalComponent } from '../../../../../presentational/passwords/edit-password-modal/edit-password-modal.component';
+import { Columns } from '../../../../../../models/columns';
 
 @Component({
   selector: 'app-passwords-list',
@@ -15,6 +16,7 @@ import { EditPasswordModalComponent } from '../../../../../presentational/passwo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordsListComponent {
+  columns!: Columns[];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   @Input() vaultId!: string | number;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
@@ -25,6 +27,10 @@ export class PasswordsListComponent {
     private ngbModalService: NgbModal
   ) {
     this.passwords$ = this.passwordService.passwords$;
+    this.columns = [
+      { header: 'Name', field: 'name' },
+      { header: 'Actions', field: 'actions', template: true },
+    ];
   }
 
   addPasswordModal() {

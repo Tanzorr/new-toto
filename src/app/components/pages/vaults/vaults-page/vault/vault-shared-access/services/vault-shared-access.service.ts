@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
 import { SharedAccessState } from '../../../../../../../store/shared-access/shared-access-reducers';
 import { Store } from '@ngrx/store';
-import { notAccessedUsersSelector } from '../../../../../../../store/shared-access/shared-access-selectors';
-import { getNotAccessedUsers } from '../../../../../../../store/shared-access/shared-access-actions';
+import {
+  accessedUsersSelector,
+  notAccessedUsersSelector,
+} from '../../../../../../../store/shared-access/shared-access-selectors';
+import {
+  addSharedAccess,
+  deleteSharedAccess,
+  getAccessedUsers,
+  getNotAccessedUsers,
+} from '../../../../../../../store/shared-access/shared-access-actions';
 import { QueryParams } from '../../../../../../../models/query-params';
 import { VaultService } from '../../services/vault.service';
+import { SharedAccess, SharedAccessData } from '../../../../../../../models/shared-access';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VaultSharedAccessService {
   notAccessedUsers$ = this.store.select(notAccessedUsersSelector);
+  accessedUsers$ = this.store.select(accessedUsersSelector);
+
   vault$ = this.vaultService.vault$;
   constructor(
     private store: Store<SharedAccessState>,
@@ -19,5 +30,17 @@ export class VaultSharedAccessService {
 
   getNotAccessedUsers(id: number, params?: QueryParams): void {
     this.store.dispatch(getNotAccessedUsers({ id, params }));
+  }
+
+  getAccessedUsers(id: number): void {
+    this.store.dispatch(getAccessedUsers({ id }));
+  }
+
+  addSharedAccess(data: SharedAccessData): void {
+    this.store.dispatch(addSharedAccess({ data }));
+  }
+
+  deleteSharedAccess(data: SharedAccessData): void {
+    this.store.dispatch(deleteSharedAccess({ data }));
   }
 }
