@@ -14,6 +14,8 @@ import { catchError, finalize, map, switchMap, withLatestFrom } from 'rxjs/opera
 import { of } from 'rxjs';
 import { routerSelector } from '../router/router-selector';
 
+const EntityName = 'vault';
+
 @Injectable()
 export class SharedAccessEffects {
   getNotAccessedUsers$ = createEffect(
@@ -22,10 +24,8 @@ export class SharedAccessEffects {
         ofType(getNotAccessedUsers),
         withLatestFrom(this.store.select(routerSelector)),
         switchMap((action) => {
-          this.spinnerLoaderService.show();
-          console.log(action[0]);
           return this.sharedApiAccessService
-            .getNotAccessedUsers(action[0].id, action[0].params)
+            .getNotAccessedUsers(EntityName, action[0].id, action[0].params)
             .pipe(
               map((usersData: any) => {
                 this.spinnerLoaderService.hide();

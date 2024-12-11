@@ -87,7 +87,6 @@ export class VaultsEffects {
           return this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
               this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
-              this.store.dispatch(getNotAccessedUsers({ id: action.id, params: { search: '' } }));
               return getVaultSuccess({ value: vaultData });
             }),
             catchError((error: any) => {

@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VaultSharedAccessComponent } from './vault-shared-access.component';
 import { VaultSharedAccessRoutesModule } from './vault-shared-access-routes.module';
+import { FormGroupModule } from '../../../../../libs/form-group/form-group.module';
+import { SearchModule } from '../../../../../libs/search/search.module';
 
 @NgModule({
   declarations: [VaultSharedAccessComponent],
-  imports: [CommonModule, VaultSharedAccessRoutesModule],
+  imports: [CommonModule, VaultSharedAccessRoutesModule, FormGroupModule, SearchModule],
 })
 export class VaultSharedAccessModule {}

@@ -22,7 +22,7 @@ export interface SharedAccessStateModel {
 }
 
 export interface SharedAccessState {
-  sharedAccessState: SharedAccessStateModel;
+  accessState: SharedAccessStateModel;
 }
 
 const initialState: SharedAccessStateModel = {

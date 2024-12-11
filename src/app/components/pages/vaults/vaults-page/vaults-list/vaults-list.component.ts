@@ -8,9 +8,7 @@ import {
 import { VaultListService } from './services/vault-list.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../../../../models/vault';
-import { ActivatedRoute, Router } from '@angular/router';
-import { getVault } from '../../../../../store/valuts/vaults-actions';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-vaults-list',
   templateUrl: './vaults-list.component.html',

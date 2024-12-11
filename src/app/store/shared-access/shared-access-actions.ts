@@ -75,7 +75,7 @@ export const getAccessedUsersFailure = createAction(
 
 export const getNotAccessedUsers = createAction(
   '[SharedAccess] Get Not Accessed Users',
-  props<{ id: string | number; params: QueryParams }>()
+  props<{ id: string | number; params: QueryParams | undefined }>()
 );
 
 export const getNotAccessedUsersSuccess = createAction(
