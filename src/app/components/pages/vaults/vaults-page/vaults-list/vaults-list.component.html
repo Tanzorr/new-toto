@@ -1,6 +1,6 @@
 <app-search (search)="getSearchValue($event)"></app-search>
 <app-vaults-list-table
   [paginatedVaultsResponse]="vaultsPaginateResponse"
-  (selectedVaultId)="getVault()"
+  (selectedVaultId)="getVault($event)"
   (pageParams)="getVaultsWithParams($event)"
 ></app-vaults-list-table>

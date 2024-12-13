@@ -4,6 +4,7 @@ import { deleteUser, getUsers } from '../../../../../../store/users/users-action
 import { usersSelector } from '../../../../../../store/users/users-selectors';
 import { UsersState } from '../../../../../../store/users/users-reducers';
 import { QueryParams } from '../../../../../../models/query-params';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +14,8 @@ export class UsersListService {
 
   constructor(private store: Store<UsersState>) {}
 
-  getUsers(url?: string | null, queryParams?: QueryParams): void {
-    this.store.dispatch(getUsers({ url, queryParams }));
+  getUsers(queryParams?: QueryParams): void {
+    this.store.dispatch(getUsers({ queryParams }));
   }
 
   deleteUser(id: number) {

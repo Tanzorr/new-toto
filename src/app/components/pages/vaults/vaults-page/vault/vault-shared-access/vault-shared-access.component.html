@@ -1,0 +1,29 @@
+<h4>Not accessed users lists</h4>
+
+<app-search (search)="getSearchValue($event)" customClass="w-50 mt-3 mb-3"></app-search>
+
+<app-table
+  [data]="notAccessedUsers$ | async"
+  [columns]="columns"
+  [fragment]="addControlTemplate"
+></app-table>
+
+<ng-template #addControlTemplate let-user>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-primary" (click)="addSharedAccess(user.id)">Add Access</button>
+  </div>
+</ng-template>
+
+<h4>Accessed users lists</h4>
+
+<app-table
+  [data]="accessUsers$ | async"
+  [columns]="columns"
+  [fragment]="deleteControlTemplate"
+></app-table>
+
+<ng-template #deleteControlTemplate let-user>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-primary" (click)="deleteSharedAccess(user.id)">Delete Access</button>
+  </div>
+</ng-template>

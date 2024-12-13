@@ -7,6 +7,6 @@
     <p>{{ user.email }}</p>
   </div>
   <div class="col-lg-6">
-    <app-static-vaults-list [vaults]="user.vaults"></app-static-vaults-list>
+    <app-table [columns]="columns" [data]="user.vaults"></app-table>
   </div>
 </div>

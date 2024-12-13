@@ -27,6 +27,8 @@ import { VaultsEffects } from './store/valuts/vaults-effects';
 import { PasswordsEffects } from './store/passwords/passwords-effects';
 import { passwordsReducer } from './store/passwords/passwords-reducers';
 import { HeaderModule } from './components/presentational/header/header.module';
+import { sharedAccessReducer } from './store/shared-access/shared-access-reducers';
+import { SharedAccessEffects } from './store/shared-access/sharred-access-effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,8 +42,15 @@ import { HeaderModule } from './components/presentational/header/header.module';
       vaultsState: vaultsReducer,
       passwordsState: passwordsReducer,
       authState: authReducer,
+      accessState: sharedAccessReducer,
     }),
-    EffectsModule.forRoot([UsersEffects, AuthEffects, VaultsEffects, PasswordsEffects]),
+    EffectsModule.forRoot([
+      UsersEffects,
+      AuthEffects,
+      VaultsEffects,
+      PasswordsEffects,
+      SharedAccessEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,
