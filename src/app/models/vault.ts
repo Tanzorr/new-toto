@@ -1,4 +1,5 @@
 import { Password } from './password';
+import { User } from './user';
 
 export interface Vault {
   id: number;
@@ -8,6 +9,7 @@ export interface Vault {
   created_at: string;
   updated_at: string;
   passwords: Password[];
+  accessed_users: User[];
 }
 
 export interface CreateVault {

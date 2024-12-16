@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { QueryParams } from '../../models/query-params';
 import { User } from '../../models/user';
-import { SharedAccessData } from '../../models/shared-access';
+import { SharedAccess, SharedAccessData } from '../../models/shared-access';
 
 export const getShareAccess = createAction('[SharedAccess] Get Shared Access');
 
@@ -32,7 +32,7 @@ export const addSharedAccessFailure = createAction(
 
 export const deleteSharedAccess = createAction(
   '[SharedAccess] Delete Shared Access',
-  props<{ data: SharedAccessData }>()
+  props<{ value: User }>()
 );
 
 export const deleteSharedAccessSuccess = createAction(

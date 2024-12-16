@@ -14,6 +14,7 @@ import {
 import { QueryParams } from '../../../../../../../models/query-params';
 import { VaultService } from '../../services/vault.service';
 import { SharedAccess, SharedAccessData } from '../../../../../../../models/shared-access';
+import { User } from '../../../../../../../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class VaultSharedAccessService {
     this.store.dispatch(addSharedAccess({ data }));
   }
 
-  deleteSharedAccess(data: SharedAccessData): void {
-    this.store.dispatch(deleteSharedAccess({ data }));
+  deleteSharedAccess(user: User): void {
+    this.store.dispatch(deleteSharedAccess({ value: user }));
   }
 }

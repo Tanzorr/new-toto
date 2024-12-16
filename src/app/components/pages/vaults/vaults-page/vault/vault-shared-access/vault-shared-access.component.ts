@@ -14,10 +14,10 @@ import { Columns } from '../../../../../../models/columns';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VaultSharedAccessComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   notAccessedUsers$: Observable<User[]>;
   accessUsers$: Observable<User[]>;
   vaultId!: Vault['id'];
-  private destroy$ = new Subject<void>();
   columns!: Columns[];
 
   constructor(private vaultSharedAccessService: VaultSharedAccessService) {
@@ -57,13 +57,7 @@ export class VaultSharedAccessComponent implements OnInit, OnDestroy {
     this.vaultSharedAccessService.addSharedAccess(accessData);
   }
 
-  deleteSharedAccess(userId: User['id']): void {
-    const accessData: SharedAccessData = {
-      accessible_id: this.vaultId,
-      accessible_type: EntityType.VAULT,
-      user_id: userId,
-    };
-
-    this.vaultSharedAccessService.deleteSharedAccess(accessData);
+  deleteSharedAccess(user: User): void {
+    this.vaultSharedAccessService.deleteSharedAccess(user);
   }
 }

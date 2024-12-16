@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryParams } from '../../models/query-params';
-import { SharedAccessData } from '../../models/shared-access';
+import { SharedAccess, SharedAccessData } from '../../models/shared-access';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class SharedAccessService {
     return this.http.post<User>(`${this.baseUrl}shared-accesses/`, data);
   }
 
-  deleteSharedAccess(data: SharedAccessData) {
-    return this.http.delete(`${this.baseUrl}shared-accesses/1`, { body: data });
+  deleteSharedAccess(id: User['shared_access_id']): Observable<any> {
+    return this.http.delete(`${this.baseUrl}shared-accesses/${id}`);
   }
 }

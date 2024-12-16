@@ -1,4 +1,5 @@
 import { Vault } from './vault';
+import { SharedAccess } from './shared-access';
 
 export interface User {
   id: number;
@@ -10,9 +11,16 @@ export interface User {
   created_at?: string;
   updated_at?: string;
   vaults?: Vault[];
+  shared_access_id?: SharedAccess['id'] | undefined;
+  pivot?: Pivot;
 }
 
 export interface CreateUserResponse {
   message: string;
   user: User;
 }
+
+type Pivot = {
+  user_id: number;
+  accessible_id: number;
+};

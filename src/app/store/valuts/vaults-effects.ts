@@ -35,7 +35,12 @@ import { ServerError } from '../../models/server-error';
 import { Router } from '@angular/router';
 import { routerSelector } from '../router/router-selector';
 import { VaultsState } from './vaults-reducers';
-import { getAccessedUsers, getNotAccessedUsers } from '../shared-access/shared-access-actions';
+import {
+  getAccessedUsers,
+  getAccessedUsersSuccess,
+  getNotAccessedUsers,
+} from '../shared-access/shared-access-actions';
+import { SharedAccessState } from '../shared-access/shared-access-reducers';
 
 @Injectable()
 export class VaultsEffects {
@@ -90,6 +95,9 @@ export class VaultsEffects {
           return this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
               this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
+              this.sharedAccessStore.dispatch(
+                getAccessedUsersSuccess({ value: vaultData.accessed_users })
+              );
               return getVaultSuccess({ value: vaultData });
             }),
             catchError((error: any) => {
@@ -143,6 +151,7 @@ export class VaultsEffects {
     private actions$: Actions,
     private vaultsApiService: VaultsService,
     private passwordStore: Store<PasswordState>,
+    private sharedAccessStore: Store<SharedAccessState>,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
     private store: Store<VaultsState>

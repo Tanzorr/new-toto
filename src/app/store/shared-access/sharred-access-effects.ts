@@ -52,30 +52,6 @@ export class SharedAccessEffects {
     { dispatch: false }
   );
 
-  geAccessedUsers$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(getAccessedUsers),
-        withLatestFrom(this.store.select(routerSelector)),
-        switchMap((action) => {
-          return this.sharedApiAccessService.getAccessedUsers(EntityType.VAULT, action[0].id).pipe(
-            map((usersData: any) => {
-              this.spinnerLoaderService.hide();
-              this.store.dispatch(getAccessedUsersSuccess({ value: usersData }));
-            }),
-            catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.message);
-              return of(getNotAccessedUsersFailure({ value: error.message }));
-            }),
-            finalize(() => {
-              this.spinnerLoaderService.hide();
-            })
-          );
-        })
-      ),
-    { dispatch: false }
-  );
-
   addAccess$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -104,10 +80,10 @@ export class SharedAccessEffects {
       this.actions$.pipe(
         ofType(deleteSharedAccess),
         switchMap((action) => {
-          return this.sharedApiAccessService.deleteSharedAccess(action.data).pipe(
+          return this.sharedApiAccessService.deleteSharedAccess(action.value.shared_access_id).pipe(
             map(() => {
               this.spinnerLoaderService.hide();
-              this.store.dispatch(deleteSharedAccessSuccess({ userId: action.data.user_id }));
+              this.store.dispatch(deleteSharedAccessSuccess({ userId: action.value.id }));
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);

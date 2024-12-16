@@ -30,6 +30,6 @@ export class UsersService {
   }
 
   updateUser(value: User): Observable<User> {
-    return this.http.put<User>(this.baseUrl + 'users/' + value.id, value);
+    return this.http.put<User>(this.baseUrl + value.id, value);
   }
 }

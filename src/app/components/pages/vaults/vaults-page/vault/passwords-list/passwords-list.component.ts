@@ -1,13 +1,20 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Password } from '../../../../../../models/password';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { CreatePassword, Password } from '../../../../../../models/password';
 import { PasswordService } from './services/password.service';
 import { ModalService } from '../../../../../../services/ui/modal.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddPasswordModalComponent } from '../../../../../presentational/passwords/add-password-modal/add-password-modal.component';
-import { CreatePassword } from '../../../../../../models/password';
 import { EditPasswordModalComponent } from '../../../../../presentational/passwords/edit-password-modal/edit-password-modal.component';
 import { Columns } from '../../../../../../models/columns';
+import { Vault } from '../../../../../../models/vault';
 
 @Component({
   selector: 'app-passwords-list',
@@ -15,10 +22,11 @@ import { Columns } from '../../../../../../models/columns';
   styleUrls: ['./passwords-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PasswordsListComponent {
+export class PasswordsListComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
   columns!: Columns[];
+  vaultId!: Vault['id'];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
-  @Input() vaultId!: string | number;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
 
   constructor(
@@ -32,6 +40,17 @@ export class PasswordsListComponent {
       { header: 'Actions', field: 'actions', template: true },
     ];
   }
+  ngOnInit(): void {
+    this.passwordService.vault$.subscribe((vault) => {
+      // @ts-ignore
+      this.vaultId = vault.id;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   addPasswordModal() {
     const modalRef = this.ngbModalService.open(AddPasswordModalComponent);
@@ -39,7 +58,7 @@ export class PasswordsListComponent {
     modalRef.result
       .then(
         (passwordData: CreatePassword) => {
-          const addPasswordData = { ...passwordData, vault_id: this.vaultId };
+          const addPasswordData: CreatePassword = { ...passwordData, vault_id: this.vaultId };
 
           if (addPasswordData) {
             this.passwordService.addPassword(addPasswordData);
