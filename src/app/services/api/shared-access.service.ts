@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { QueryParams } from '../../models/query-params';
-import { SharedAccess, SharedAccessData } from '../../models/shared-access';
+import { SharedAccessData } from '../../models/shared-access';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -22,10 +22,6 @@ export class SharedAccessService {
       `${this.baseUrl}shared-accesses-not-accessed-users/${entityName}/${entityId}`,
       { params: queryParams }
     );
-  }
-
-  getAccessedUsers(entityName: string, entityId: number | string): Observable<any> {
-    return this.http.get(`${this.baseUrl}shared-accesses-accessed-users/${entityName}/${entityId}`);
   }
 
   addSharedAccess(data: SharedAccessData): Observable<User> {

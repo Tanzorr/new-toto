@@ -12,8 +12,6 @@ import {
   deleteSharedAccess,
   deleteSharedAccessFailure,
   deleteSharedAccessSuccess,
-  getAccessedUsers,
-  getAccessedUsersSuccess,
   getNotAccessedUsers,
   getNotAccessedUsersFailure,
   getNotAccessedUsersSuccess,
@@ -23,6 +21,7 @@ import { of } from 'rxjs';
 import { routerSelector } from '../router/router-selector';
 import { User } from '../../models/user';
 import { EntityType } from '../../constans/entity-type';
+import { UsersService } from '../../services/api/users.service';
 
 @Injectable()
 export class SharedAccessEffects {
@@ -32,7 +31,7 @@ export class SharedAccessEffects {
         ofType(getNotAccessedUsers),
         withLatestFrom(this.store.select(routerSelector)),
         switchMap((action) => {
-          return this.sharedApiAccessService
+          return this.usersApiService
             .getNotAccessedUsers(EntityType.VAULT, action[0].id, action[0].params)
             .pipe(
               map((usersData: any) => {
@@ -102,6 +101,7 @@ export class SharedAccessEffects {
     private actions$: Actions,
     private store: Store<SharedAccessState>,
     private sharedApiAccessService: SharedAccessService,
+    private usersApiService: UsersService,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService
   ) {}

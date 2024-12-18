@@ -7,6 +7,7 @@ import { EditPasswordModalModule } from '../../../../../presentational/passwords
 import { SearchModule } from '../../../../../libs/search/search.module';
 import { PasswordListRoutesModule } from './password-list-routes.module';
 import { TableComponent } from '../../../../../libs/table/table.component';
+import { ScrollableModule } from '../../../../../libs/scrollable/scrollable.module';
 
 @NgModule({
   declarations: [PasswordsListComponent],
@@ -17,6 +18,7 @@ import { TableComponent } from '../../../../../libs/table/table.component';
     SearchModule,
     PasswordListRoutesModule,
     TableComponent,
+    ScrollableModule,
   ],
 })
 export class PasswordsListModule {}

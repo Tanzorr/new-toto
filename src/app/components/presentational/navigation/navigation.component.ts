@@ -32,4 +32,10 @@ export class NavigationComponent implements OnInit {
   logout(): void {
     this.authService.logout();
   }
+
+  mobileMenuToggle(): void {
+    console.log('mobileMenuToggle');
+    const nav = document.getElementById('navbarNav');
+    nav?.classList.toggle('show');
+  }
 }

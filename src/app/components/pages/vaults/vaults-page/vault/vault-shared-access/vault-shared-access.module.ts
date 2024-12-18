@@ -5,6 +5,7 @@ import { VaultSharedAccessRoutesModule } from './vault-shared-access-routes.modu
 import { FormGroupModule } from '../../../../../libs/form-group/form-group.module';
 import { SearchModule } from '../../../../../libs/search/search.module';
 import { TableComponent } from '../../../../../libs/table/table.component';
+import { ScrollableModule } from '../../../../../libs/scrollable/scrollable.module';
 
 @NgModule({
   declarations: [VaultSharedAccessComponent],
@@ -14,6 +15,7 @@ import { TableComponent } from '../../../../../libs/table/table.component';
     FormGroupModule,
     SearchModule,
     TableComponent,
+    ScrollableModule,
   ],
 })
 export class VaultSharedAccessModule {}

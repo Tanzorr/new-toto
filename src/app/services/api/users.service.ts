@@ -32,4 +32,14 @@ export class UsersService {
   updateUser(value: User): Observable<User> {
     return this.http.put<User>(this.baseUrl + value.id, value);
   }
+
+  getNotAccessedUsers(
+    entityName: string,
+    entityId: number | string,
+    queryParams?: QueryParams
+  ): Observable<any> {
+    return this.http.get(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
+      params: queryParams,
+    });
+  }
 }

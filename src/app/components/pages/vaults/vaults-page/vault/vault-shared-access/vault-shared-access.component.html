@@ -15,12 +15,13 @@
 </ng-template>
 
 <h4>Accessed users lists</h4>
-
-<app-table
-  [data]="accessUsers$ | async"
-  [columns]="columns"
-  [fragment]="deleteControlTemplate"
-></app-table>
+<div appScrollable [scrollThreshold]="10">
+  <app-table
+    [data]="accessUsers$ | async"
+    [columns]="columns"
+    [fragment]="deleteControlTemplate"
+  ></app-table>
+</div>
 
 <ng-template #deleteControlTemplate let-user>
   <div class="d-flex justify-content-between">

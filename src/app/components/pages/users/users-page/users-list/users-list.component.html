@@ -1,4 +1,4 @@
-<a routerLink="create" class="btn btn-primary">Add User</a>
+<a routerLink="create" class="btn btn-primary mt-3">Add User</a>
 <app-search (search)="getSearchValue($event)" customClass="w-50 mt-3 mb-3"></app-search>
 <ng-container *ngIf="paginatedUsersResponse$ | async as paginatedUsersResponse">
   <app-table

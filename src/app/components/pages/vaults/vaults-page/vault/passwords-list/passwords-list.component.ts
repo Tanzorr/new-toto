@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { CreatePassword, Password } from '../../../../../../models/password';
 import { PasswordService } from './services/password.service';
 import { ModalService } from '../../../../../../services/ui/modal.service';
@@ -26,7 +19,6 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   columns!: Columns[];
   vaultId!: Vault['id'];
-  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
 
   constructor(
@@ -117,12 +109,5 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
 
   getSearch(vale: string) {
     this.passwordService.searchPassword(vale);
-    this.scrollToTop();
-  }
-
-  private scrollToTop() {
-    if (this.scrollContainer) {
-      this.scrollContainer.nativeElement.scrollTop = 0;
-    }
   }
 }
