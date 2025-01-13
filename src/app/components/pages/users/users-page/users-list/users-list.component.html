@@ -24,7 +24,7 @@
 
 <ng-template #actionsTemplate let-user>
   <div class="d-flex justify-content-between">
-    <a class="btn btn-success" [routerLink]="user.id">View</a>
+    <a class="btn btn-success " [routerLink]="user.id">View</a>
     <a *ngIf="loggedUser.role === 'admin'" class="btn btn-primary" [routerLink]="[user.id, 'edit']">Edit</a>
     <button *ngIf="loggedUser.role === 'admin'"  class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
   </div>

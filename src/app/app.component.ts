@@ -12,7 +12,7 @@ import { LocalStorageService } from './services/storage/local-storage.service';
 })
 export class AppComponent implements OnDestroy {
   isLoading = true;
-  user!: User;
+  userName: User['name'] = '';
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -23,7 +23,11 @@ export class AppComponent implements OnDestroy {
       this.isLoading = loading;
     });
 
-    this.user = JSON.parse(<string>this.localStorage.get('logged_user')) || {};
+    const loggedUser = this.localStorage.get('logged_user');
+
+    if (loggedUser !== 'undefined' && loggedUser !== null) {
+      this.userName = JSON.parse(<string>loggedUser).name;
+    }
   }
 
   ngOnDestroy(): void {

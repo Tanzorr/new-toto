@@ -26,7 +26,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.localStorageService.get('access_token');
-    this.loggedUserId = +JSON.parse(<string>this.localStorageService?.get('logged_user')).id;
+    this.loggedUserId = +JSON.parse(<string>this.localStorageService?.get('logged_user'))?.id;
   }
 
   logout(): void {

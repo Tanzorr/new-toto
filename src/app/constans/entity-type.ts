@@ -1,5 +1,5 @@
 export const EntityType = {
   USER: 'user',
-  VAULT: 'vault',
-  PASSWORD: 'password',
+  VAULT: 'VaultModel',
+  PASSWORD: 'PasswordModel',
 };

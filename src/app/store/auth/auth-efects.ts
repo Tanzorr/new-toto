@@ -23,11 +23,16 @@ export class AuthEffects {
         return this.authService.login(action.value).pipe(
           map((loginResponse: LoginResponse) => {
             this.spinnerLoaderService.show();
-            this.localStorage.set('access_token', loginResponse.authToken);
-            this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
-            this.router.navigate(['/users']).then((r) => {
-              window.location.reload();
-            });
+            if (loginResponse.loggedUser) {
+              this.localStorage.set('access_token', loginResponse.authToken);
+              this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
+              this.router.navigate(['/users']).then((r) => {
+                location.reload();
+              });
+            } else {
+              // @ts-ignore
+              this.serverErrorDisplayService.displayError(loginResponse.original.message);
+            }
 
             return loginSuccess({ value: loginResponse });
           }),
