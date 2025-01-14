@@ -8,24 +8,28 @@ import {
 import { VaultListService } from './services/vault-list.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../../../../models/vault';
-import { ActivatedRoute, Router } from '@angular/router';
-import { getVault } from '../../../../../store/valuts/vaults-actions';
+import { NavigationEnd, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { VaultsListTableModule } from '../../../../presentational/vaults/vaults-list-tabe/vaults-list-table.module';
+import { SearchModule } from '../../../../libs/search/search.module';
 
 @Component({
   selector: 'app-vaults-list',
   templateUrl: './vaults-list.component.html',
   styleUrls: ['./vaults-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, VaultsListTableModule, SearchModule],
 })
 export class VaultsListComponent implements OnInit, OnDestroy {
   vaultsPaginateResponse!: PaginatedVaultsResponse;
   vaultsPaginateResponse$!: Observable<PaginatedVaultsResponse>;
   private destroy$ = new Subject<void>();
+  private passwordsListUrl = 'passwords-list';
   constructor(
     private vaultsListService: VaultListService,
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router,
-    private activeRoute: ActivatedRoute
+    private router: Router
   ) {
     this.vaultsPaginateResponse$ = this.vaultsListService.paginatedVaultsResponse$;
     this.vaultsListService.getVaults();
@@ -39,24 +43,25 @@ export class VaultsListComponent implements OnInit, OnDestroy {
         const vaultId = response.data[0]?.id;
 
         if (vaultId) {
-          this.router.navigate(['/vaults', vaultId]);
-          this.vaultsListService.getVault();
+          this.getVault(vaultId);
         }
 
         this.changeDetectorRef.markForCheck();
       });
 
-    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.vaultsListService.getVault();
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
+      if (event instanceof NavigationEnd && this.router.url === '/vaults') {
+        this.vaultsListService.getVaults();
+      }
     });
   }
 
-  getVaultsWithParams(url: string | null): void {
-    this.vaultsListService.getVaults();
-  }
+  getVault(id: Vault['id']): void {
+    this.vaultsListService.getVault(id);
 
-  getVault(): void {
-    getVault();
+    this.router
+      .navigate([`/vaults/${id}/${this.getActiveListUrl(this.router.url)}`])
+      .then((r) => console.log(r));
   }
 
   ngOnDestroy(): void {
@@ -68,5 +73,8 @@ export class VaultsListComponent implements OnInit, OnDestroy {
     this.vaultsListService.getVaults({ search: searchValue });
   }
 
-  protected readonly event = event;
+  private getActiveListUrl(currentUlr: string): string {
+    const currentUrlArray = currentUlr.split('/');
+    return currentUrlArray[3] || this.passwordsListUrl;
+  }
 }

@@ -7,7 +7,7 @@ import { CreatePassword, Password } from '../../models/password';
   providedIn: 'root',
 })
 export class PasswordService {
-  private baseUrl = 'http://127.0.0.1:8000/api/passwords';
+  private baseUrl = '/api/passwords';
 
   constructor(private http: HttpClient) {}
 

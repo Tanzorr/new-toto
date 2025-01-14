@@ -2,11 +2,9 @@ import { createAction, props } from '@ngrx/store';
 import { User } from '../../models/user';
 import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 import { QueryParams } from '../../models/query-params';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
-export const getUsers = createAction(
-  '[Users] Get Users',
-  props<{ url?: string | null; queryParams?: QueryParams }>()
-);
+export const getUsers = createAction('[Users] Get Users', props<{ queryParams?: QueryParams }>());
 
 export const getUsersSuccess = createAction(
   '[Users] Get Users Success',

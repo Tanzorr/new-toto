@@ -1,0 +1,12 @@
+<div class="p-3">
+  <h4>Media</h4>
+  <app-search (search)="getSearch($event)"/>
+</div>
+
+<div class="media"
+     appScrollable
+    [scrollThreshold]="10">
+  <ng-container *ngFor="let media of medias">
+    <app-attach-media-item [media]="media" (deleteMediaId)="delete($event)" (attachMediaId)="attach($event)"></app-attach-media-item>
+  </ng-container>
+</div>

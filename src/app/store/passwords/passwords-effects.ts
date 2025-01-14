@@ -72,6 +72,7 @@ export class PasswordsEffects {
         ofType(addPassword),
         switchMap((action) => {
           this.spinnerLoaderService.show();
+          console.log('add password', action.value);
           return this.passwordsApiService.addPassword(action.value).pipe(
             map(() => {
               return addPasswordSuccess({ value: action.value });

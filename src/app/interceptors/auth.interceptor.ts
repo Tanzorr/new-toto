@@ -15,7 +15,9 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (this.token) {
       const authReq = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${this.token}`),
+        headers: request.headers
+          .set('Authorization', `Bearer ${this.token}`)
+          .append('Access-Control-Allow-Origin', 'http://localhost:4200'),
       });
       return next.handle(authReq);
     }

@@ -1,4 +1,4 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userForm" enctype="multipart/form-data"  (ngSubmit)="onSubmit()">
   <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
     <input type="text" formControlName="name" class="form-control" id="name" />
     <input type="hidden" formControlName="id" class="form-control" id="id" />
@@ -13,6 +13,10 @@
   </app-form-group>
 
   <app-form-group>
-    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
+    <button (click)="selectMedia()" class="btn btn-sm btn-success">add media</button>
+  </app-form-group>
+
+  <app-form-group>
+    <button type="submit" class="btn btn-primary" [disabled]="!isCanSubmit()">Submit</button>
   </app-form-group>
 </form>

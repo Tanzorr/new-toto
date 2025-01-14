@@ -1,7 +1,31 @@
-<a routerLink="create" class="btn btn-primary">Add User</a>
+<a routerLink="create" class="btn btn-primary mt-3">Add User</a>
 <app-search (search)="getSearchValue($event)" customClass="w-50 mt-3 mb-3"></app-search>
-<app-users-list-table
-  [paginatedUsersResponse]="paginatedUsersResponse$ | async"
-  (pageParams)="getUsersWithParams({ url: $event })"
-  (delete)="deleteUser($event)"
-></app-users-list-table>
+<ng-container *ngIf="paginatedUsersResponse$ | async as paginatedUsersResponse">
+  <app-table
+    [columns]="columns"
+    [data]="paginatedUsersResponse.data"
+    [fragment]="actionsTemplate"
+  ></app-table>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+      [totalItems]="paginatedUsersResponse.total"
+      (pageChanged)="getUsersWithParams($event)"
+      [itemsPerPage]="paginatedUsersResponse.per_page"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+</ng-container>
+
+<ng-template #actionsTemplate let-user>
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-success " [routerLink]="user.id">View</a>
+    <a *ngIf="loggedUser.role === 'admin'" class="btn btn-primary" [routerLink]="[user.id, 'edit']">Edit</a>
+    <button *ngIf="loggedUser.role === 'admin'"  class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+  </div>
+</ng-template>

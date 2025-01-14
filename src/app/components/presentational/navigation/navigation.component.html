@@ -8,32 +8,33 @@
     aria-controls="navbarNav"
     aria-expanded="false"
     aria-label="Toggle navigation"
+    (click)="mobileMenuToggle()"
   >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/users">Users</a>
+      <li class="nav-item" *ngFor="let link of navLinks">
+        <a
+          routerLinkActive="active"
+          class="nav-link"
+          routerLink="{{ link.url }}"
+          *ngIf="!link.authRequired || isLoggedIn"
+        >
+          {{ link.label }}
+        </a>
       </li>
       <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/vaults">Vaults</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/users/{{ loggedUserId }}">My Profile</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="#">About Us</a>
-      </li>
-      <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="#">Contacts</a>
+        <a routerLinkActive="active" class="nav-link" routerLink="/users/{{ loggedUserId }}"
+          >My Profile</a
+        >
       </li>
     </ul>
     <ul class="navbar-nav">
-      <li *ngIf="localStorage.getItem('access_token')" class="nav-item">
+      <li *ngIf="isLoggedIn" class="nav-item">
         <a routerLinkActive="active" class="nav-link" (click)="logout()">Log Out</a>
       </li>
-      <li *ngIf="!localStorage.getItem('access_token')" class="nav-item">
+      <li *ngIf="!isLoggedIn" class="nav-item">
         <a routerLinkActive="active" class="nav-link" routerLink="/login">Log In</a>
       </li>
     </ul>

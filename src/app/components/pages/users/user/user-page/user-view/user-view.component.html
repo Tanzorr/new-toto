@@ -7,6 +7,9 @@
     <p>{{ user.email }}</p>
   </div>
   <div class="col-lg-6">
-    <app-static-vaults-list [vaults]="user.vaults"></app-static-vaults-list>
+    <h4>Own Vaults List</h4>
+    <app-table [columns]="columns" [data]="user.ownVaults" trExtraClasses="own-table-bordered"></app-table>
+    <h4>Shared Vaults List</h4>
+    <app-table [columns]="columns" [data]="user.sharedVaults" trExtraClasses="shared-table-bordered"></app-table>
   </div>
 </div>

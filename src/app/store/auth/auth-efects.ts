@@ -9,6 +9,10 @@ import { ServerErrorDisplayService } from '../../services/api/server-error-displ
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../models/login-response';
+import { LocalStorageService } from '../../services/storage/local-storage.service';
+import { Store } from '@ngrx/store';
+import { UsersState } from '../users/users-reducers';
+import { getUsers } from '../users/users-actions';
 
 @Injectable()
 export class AuthEffects {
@@ -19,9 +23,16 @@ export class AuthEffects {
         return this.authService.login(action.value).pipe(
           map((loginResponse: LoginResponse) => {
             this.spinnerLoaderService.show();
-            localStorage.setItem('access_token', loginResponse.authToken);
-            localStorage.setItem('logged_user', JSON.stringify(loginResponse.loggedUser));
-            this.router.navigate(['/users']).then((r) => console.log('Navigate:', r));
+            if (loginResponse.loggedUser) {
+              this.localStorage.set('access_token', loginResponse.authToken);
+              this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
+              this.router.navigate(['/users']).then((r) => {
+                location.reload();
+              });
+            } else {
+              // @ts-ignore
+              this.serverErrorDisplayService.displayError(loginResponse.original.message);
+            }
 
             return loginSuccess({ value: loginResponse });
           }),
@@ -44,8 +55,10 @@ export class AuthEffects {
         this.spinnerLoaderService.show();
         return this.authService.logout().pipe(
           map(() => {
-            localStorage.removeItem('access_token');
-            this.router.navigate(['/login']).then((r) => console.log('Navigate:', r));
+            this.localStorage.delete('access_token');
+            this.router.navigate(['/login']).then((r) => {
+              window.location.reload();
+            });
             return logoutSuccess({ message: 'Logout successful' });
           }),
           catchError((error: ServerError) => {
@@ -65,6 +78,8 @@ export class AuthEffects {
     private authService: AuthService,
     private router: Router,
     private spinnerLoaderService: SpinnerLoaderService,
-    private serverErrorDisplayService: ServerErrorDisplayService
+    private serverErrorDisplayService: ServerErrorDisplayService,
+    private localStorage: LocalStorageService,
+    private usersStore: Store<UsersState>
   ) {}
 }

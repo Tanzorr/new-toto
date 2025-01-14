@@ -1,0 +1,18 @@
+ <app-image [media]="media"></app-image>
+  <app-media-control [mediaTitle]="media?.file_name">
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="attach(media?.id)"
+            aria-label="Attach media"
+          >
+            Attach
+          </button>
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="delete(media?.id)"
+            aria-label="Delete media"
+          >
+            Delete
+          </button>
+  </app-media-control>
+

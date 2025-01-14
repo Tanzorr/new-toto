@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
+import { adminGuard } from '../../../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
         path: 'create',
         loadChildren: () =>
           import('./user/user-page/user-create/user-create.module').then((m) => m.UserCreateModule),
+        canActivate: [adminGuard],
       },
       {
         path: ':id',
@@ -24,6 +26,7 @@ const routes: Routes = [
         path: ':id/edit',
         loadChildren: () =>
           import('./user/user-page/user-edit/user-edit.module').then((m) => m.UserEditModule),
+        canActivate: [adminGuard],
       },
     ],
   },

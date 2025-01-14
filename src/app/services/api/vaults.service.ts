@@ -8,7 +8,7 @@ import { QueryParams } from '../../models/query-params';
   providedIn: 'root',
 })
 export class VaultsService {
-  private baseUrl = 'http://127.0.0.1:8000/api/vaults';
+  private baseUrl = '/api/vaults';
 
   constructor(private http: HttpClient) {}
 

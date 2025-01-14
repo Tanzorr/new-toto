@@ -18,24 +18,18 @@ import { userErrorMessages } from '../../../../constans/error-messages';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserFormComponent implements OnChanges {
-  userForm: FormGroup;
-
+  originalImageUrl: string | File | undefined = '';
   @Input() userData!: User;
-  @Output() formSubmit: EventEmitter<User> = new EventEmitter<User>();
+  @Output() formSubmit = new EventEmitter<User>();
+  @Output() addMedia = new EventEmitter<void>();
+  userForm: FormGroup = this.fb.group({
+    id: [null],
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
+    image: [null],
+  });
 
-  constructor(private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      id: [null],
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-    });
-  }
-
-  onSubmit(): void {
-    if (this.userForm.valid && this.userForm.dirty) {
-      this.formSubmit.emit(this.userForm.value);
-    }
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userData'].currentValue) {
@@ -43,13 +37,31 @@ export class EditUserFormComponent implements OnChanges {
     }
   }
 
+  onSubmit(): void {
+    if (this.userForm.valid && this.userForm.dirty) {
+      this.formSubmit.emit(this.userForm.value);
+    }
+  }
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
-
     if (control?.touched && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return userErrorMessages[controlName][firstErrorKey];
     }
     return null;
+  }
+
+  isFormChanged(): boolean {
+    const { image } = this.userForm.value;
+    const isImageChanged = image && image !== this.originalImageUrl;
+    return this.userForm.dirty || isImageChanged;
+  }
+
+  isCanSubmit(): boolean {
+    return this.userForm.valid && this.isFormChanged();
+  }
+
+  selectMedia(): void {
+    this.addMedia.emit();
   }
 }
