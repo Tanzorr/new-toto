@@ -26,7 +26,6 @@ export class EditUserFormComponent implements OnChanges {
     id: [null],
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    image: [null],
   });
 
   constructor(private fb: FormBuilder) {}

@@ -36,9 +36,7 @@ import { Router } from '@angular/router';
 import { routerSelector } from '../router/router-selector';
 import { VaultsState } from './vaults-reducers';
 import {
-  getAccessedUsers,
   getAccessedUsersSuccess,
-  getNotAccessedUsers,
   getSharedAccessSuccesses,
 } from '../shared-access/shared-access-actions';
 import { SharedAccessState } from '../shared-access/shared-access-reducers';

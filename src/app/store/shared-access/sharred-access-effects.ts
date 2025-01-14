@@ -26,6 +26,8 @@ import { User } from '../../models/user';
 import { EntityType } from '../../constans/entity-type';
 import { UsersService } from '../../services/api/users.service';
 import { SharedAccess } from '../../models/shared-access';
+import { VaultsState } from '../valuts/vaults-reducers';
+import { getVault } from '../valuts/vaults-actions';
 
 @Injectable()
 export class SharedAccessEffects {
@@ -62,7 +64,7 @@ export class SharedAccessEffects {
         switchMap((action) => {
           return this.sharedApiAccessService.addSharedAccess(action.data).pipe(
             map((user: User) => {
-              this.spinnerLoaderService.hide();
+              this.vaultStore.dispatch(getVault({ id: action.data.accessible_id }));
               this.store.dispatch(addSharedAccessSuccess({ accessUser: user }));
             }),
             catchError((error: any) => {
@@ -127,6 +129,7 @@ export class SharedAccessEffects {
   constructor(
     private actions$: Actions,
     private store: Store<SharedAccessState>,
+    private vaultStore: Store<VaultsState>,
     private sharedApiAccessService: SharedAccessService,
     private usersApiService: UsersService,
     private spinnerLoaderService: SpinnerLoaderService,
