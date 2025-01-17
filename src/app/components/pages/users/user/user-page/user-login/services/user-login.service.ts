@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../../../../../../store/auth/auth-reducers';
 import { login } from '../../../../../../../store/auth/auth-actions';
-import { ILoginData } from '../../../../../../../models/ilogin-data';
+import { AuthLoginData } from '../../../../../../../models/auth-login-data';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { ILoginData } from '../../../../../../../models/ilogin-data';
 export class UserLoginService {
   constructor(private store: Store<AuthState>) {}
 
-  login(data: ILoginData) {
+  login(data: AuthLoginData) {
     this.store.dispatch(login({ value: data }));
   }
 }

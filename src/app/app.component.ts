@@ -24,7 +24,7 @@ export class AppComponent {
   private initializeUser(): void {
     const loggedUserString: string | null = this.localStorageService.get('logged_user');
 
-    if (loggedUserString) {
+    if (loggedUserString !== 'undefined' && loggedUserString !== null) {
       this.userName = JSON.parse(loggedUserString).name;
     }
   }

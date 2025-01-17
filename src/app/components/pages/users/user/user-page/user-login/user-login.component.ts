@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserLoginService } from './services/user-login.service';
-import { ILoginData } from '../../../../../../models/ilogin-data';
+import { AuthLoginData } from '../../../../../../models/auth-login-data';
 
 @Component({
   selector: 'app-user-login',
@@ -11,7 +11,7 @@ import { ILoginData } from '../../../../../../models/ilogin-data';
 export class UserLoginComponent {
   constructor(private userLoginService: UserLoginService) {}
 
-  onSubmit(loginData: ILoginData): void {
+  onSubmit(loginData: AuthLoginData): void {
     this.userLoginService.login(loginData);
   }
 }
