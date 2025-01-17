@@ -13,7 +13,7 @@ export class EntityMediaService {
 
   attachMedia(
     entityType: string,
-    entityId: number,
+    entityId: string,
     mediaId: Media['id']
   ): Observable<AttachMediaResponse> {
     return this.http.post<AttachMediaResponse>(`/api/entities/media/attach`, {

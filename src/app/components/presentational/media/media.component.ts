@@ -12,7 +12,7 @@ export class MediaComponent {
   medias$ = this.mediaService.medias$;
 
   @Input() entityType!: string;
-  @Input() entityId!: number;
+  @Input() entityId!: string;
 
   constructor(private mediaService: MediaService) {
     this.mediaService.getMedias({ search: '' });

@@ -31,7 +31,7 @@ export class MediaService {
     this.store.dispatch(deleteMedia({ id }));
   }
 
-  attachMedia(mediaId: Media['id'], entityType: string, entityId: number) {
+  attachMedia(mediaId: Media['id'], entityType: string, entityId: string) {
     this.store.dispatch(attachMedia({ mediaId, entityType, entityId }));
   }
 

@@ -1,13 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { Media } from '../../models/media';
 import {
-  deleteMediaFailure,
   deleteMediaSuccess,
   getMedias,
   getMediasFailure,
   getMediasSuccess,
   addMediaSuccess,
-  addMediaFailure,
 } from './media-actions';
 
 export interface MediaStateModel {
@@ -46,14 +44,12 @@ export const mediaReducer = createReducer(
     medias,
     loading: false,
   })),
-  on(getMediasFailure, (state, { error }) => setErrorMessage(state, error)),
 
   // Add media
   on(addMediaSuccess, (state) => ({
     ...state,
     loading: false,
   })),
-  on(addMediaFailure, (state, { error }) => setErrorMessage(state, error)),
 
   // Delete media
   on(deleteMediaSuccess, (state, { id }) => ({
@@ -61,5 +57,6 @@ export const mediaReducer = createReducer(
     medias: state.medias.filter((media) => media.id !== id),
     loading: false,
   })),
-  on(deleteMediaFailure, (state, { error }) => setErrorMessage(state, error))
+
+  on(getMediasFailure, (state, { error }) => setErrorMessage(state, error))
 );
