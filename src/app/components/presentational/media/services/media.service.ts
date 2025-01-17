@@ -24,7 +24,7 @@ export class MediaService {
   }
 
   addMedia(formData: FormData) {
-    this.store.dispatch(addMedia({ value: formData }));
+    this.store.dispatch(addMedia({ media: formData }));
   }
 
   deleteMedia(id: Media['id']) {

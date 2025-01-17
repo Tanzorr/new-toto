@@ -3,6 +3,7 @@ import { Media } from '../../models/media';
 import {
   deleteMediaFailure,
   deleteMediaSuccess,
+  getMedias,
   getMediasFailure,
   getMediasSuccess,
   addMediaSuccess,
@@ -25,30 +26,40 @@ const initialState: MediaStateModel = {
   loading: false,
 };
 
+const setErrorMessage = (state: MediaStateModel, errorMessage: string): MediaStateModel => ({
+  ...state,
+  errorMessage,
+  loading: false,
+});
+
 export const mediaReducer = createReducer(
   initialState,
-  on(getMediasSuccess, (state, { value }) => ({
+
+  // Fetch medias
+  on(getMedias, (state) => ({
     ...state,
-    medias: value,
+    loading: true,
+    errorMessage: '',
   })),
-  on(getMediasFailure, (state, { value }) => ({
+  on(getMediasSuccess, (state, { medias }) => ({
     ...state,
-    errorMessage: value,
+    medias,
+    loading: false,
   })),
-  on(addMediaSuccess, (state, { value }) => ({
+  on(getMediasFailure, (state, { error }) => setErrorMessage(state, error)),
+
+  // Add media
+  on(addMediaSuccess, (state) => ({
     ...state,
-    medias: [value, ...state.medias],
+    loading: false,
   })),
-  on(addMediaFailure, (state, { value }) => ({
-    ...state,
-    errorMessage: value,
-  })),
+  on(addMediaFailure, (state, { error }) => setErrorMessage(state, error)),
+
+  // Delete media
   on(deleteMediaSuccess, (state, { id }) => ({
     ...state,
     medias: state.medias.filter((media) => media.id !== id),
+    loading: false,
   })),
-  on(deleteMediaFailure, (state, { value }) => ({
-    ...state,
-    errorMessage: value,
-  }))
+  on(deleteMediaFailure, (state, { error }) => setErrorMessage(state, error))
 );
