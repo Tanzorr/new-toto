@@ -13,16 +13,9 @@ import {
   getVaultsSuccess,
   getVaultSuccess,
   updateVault,
+  updateVaultSuccess,
 } from './vaults-actions';
-import {
-  catchError,
-  filter,
-  finalize,
-  map,
-  switchMap,
-  takeWhile,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { catchError, finalize, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { VaultsService } from '../../services/api/vaults.service';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
@@ -32,7 +25,6 @@ import { getPasswordsSuccess } from '../passwords/passwords-actions';
 import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
 import { ServerError } from '../../models/server-error';
-import { Router } from '@angular/router';
 import { routerSelector } from '../router/router-selector';
 import { VaultsState } from './vaults-reducers';
 import {
@@ -50,10 +42,12 @@ export class VaultsEffects {
         switchMap((action) => {
           this.spinnerLoaderService.show();
           return this.vaultsApiService.getVaults(action.queryParams).pipe(
-            map((vaultsData: PaginatedVaultsResponse) => getVaultsSuccess({ value: vaultsData })),
+            map((vaultsData: PaginatedVaultsResponse) =>
+              getVaultsSuccess({ paginatedVaults: vaultsData })
+            ),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(getVaultsFailure({ value: error }));
+              return of(getVaultsFailure({ error }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
           );
@@ -68,14 +62,14 @@ export class VaultsEffects {
         ofType(addVault),
         switchMap((action) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.addVault(action.value).pipe(
+          return this.vaultsApiService.addVault(action.vaultData).pipe(
             map(() => {
               this.store.dispatch(getVaults({}));
-              return addVaultSuccess({ value: action.value });
+              return addVaultSuccess();
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.error.message);
-              return of(addVaultFailure({ value: error }));
+              return of(addVaultFailure({ error }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
           );
@@ -100,11 +94,11 @@ export class VaultsEffects {
               this.sharedAccessStore.dispatch(
                 getSharedAccessSuccesses({ value: vaultData.shared_access })
               );
-              return getVaultSuccess({ value: vaultData });
+              return getVaultSuccess({ vault: vaultData });
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(getVaultsFailure({ value: error }));
+              return of(getVaultsFailure({ error }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
           );
@@ -119,11 +113,11 @@ export class VaultsEffects {
         ofType(updateVault),
         switchMap((action) => {
           this.spinnerLoaderService.show();
-          return this.vaultsApiService.updateVault(action.value).pipe(
-            map(() => addVaultSuccess({ value: action.value })),
+          return this.vaultsApiService.updateVault(action.vault).pipe(
+            map(() => updateVaultSuccess({ updatedVault: action.vault })),
             catchError((error: ServerError) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(addVaultFailure({ value: error.message }));
+              return of(addVaultFailure({ error: error.message }));
             }),
             finalize(() => this.spinnerLoaderService.hide())
           );
@@ -138,10 +132,10 @@ export class VaultsEffects {
         ofType(deleteVault),
         switchMap((action) => {
           return this.vaultsApiService.deleteVault(action.id).pipe(
-            map(() => deleteVaultSuccess({ id: action.id })),
+            map(() => deleteVaultSuccess({ deletedVaultId: action.id })),
             catchError((error: ServerError) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(deleteVaultFailure({ value: error.message }));
+              return of(deleteVaultFailure({ error: error.message }));
             })
           );
         })

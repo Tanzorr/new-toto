@@ -12,8 +12,6 @@ import {
   updateVaultSuccess,
 } from './vaults-actions';
 
-import { deletePasswordSuccess } from '../passwords/passwords-actions';
-
 export interface VaultsStateModel {
   vault: Vault | null;
   vaults: Vault[];
@@ -53,34 +51,30 @@ export const vaultsReducer = createReducer(
   on(getVaultsSuccess, (state, action) => {
     return {
       ...state,
-      paginationResponse: { ...state.paginationResponse, ...(action.value || {}) },
+      paginationResponse: { ...state.paginationResponse, ...(action.paginatedVaults || {}) },
     };
   }),
 
   on(getVaultsFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(addVaultSuccess, (state, action) => {
     return {
       ...state,
-      paginationResponse: {
-        ...state.paginationResponse,
-        data: [action.value, ...state.paginationResponse.data],
-      },
     };
   }),
 
   on(addVaultFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(getVaultSuccess, (state, action) => {
-    return { ...state, vault: action.value };
+    return { ...state, vault: action.vault };
   }),
 
   on(getVaultFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(updateVaultSuccess, (state, action) => {
@@ -89,10 +83,10 @@ export const vaultsReducer = createReducer(
       paginationResponse: {
         ...state.paginationResponse,
         data: state.paginationResponse.data.map((vault: Vault) =>
-          vault.id === action.value.id ? action.value : vault
+          vault.id === action.updatedVault.id ? action.updatedVault : vault
         ),
       },
-      vault: action.value,
+      vault: action.updatedVault,
     };
   }),
 
@@ -101,12 +95,14 @@ export const vaultsReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: state.paginationResponse.data.filter((vault: Vault) => vault.id !== action.id),
+        data: state.paginationResponse.data.filter(
+          (vault: Vault) => vault.id !== action.deletedVaultId
+        ),
       },
     };
   }),
 
   on(deleteVaultFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   })
 );
