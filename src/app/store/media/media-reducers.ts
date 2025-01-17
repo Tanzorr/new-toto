@@ -8,6 +8,7 @@ import {
   addMediaSuccess,
   addMediaFailure,
 } from './media-actions';
+
 export interface MediaStateModel {
   medias: Media[];
   errorMessage: string;
@@ -26,45 +27,28 @@ const initialState: MediaStateModel = {
 
 export const mediaReducer = createReducer(
   initialState,
-  on(getMediasSuccess, (state, action) => {
-    return {
-      ...state,
-      medias: action.value,
-    };
-  }),
-
-  on(getMediasFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.value,
-    };
-  }),
-
-  on(addMediaSuccess, (state, action) => {
-    return {
-      ...state,
-      medias: [action.value, ...state.medias],
-    };
-  }),
-
-  on(addMediaFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.value,
-    };
-  }),
-
-  on(deleteMediaSuccess, (state, action) => {
-    return {
-      ...state,
-      medias: state.medias.filter((media) => media.id !== action.id),
-    };
-  }),
-
-  on(deleteMediaFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.value,
-    };
-  })
+  on(getMediasSuccess, (state, { value }) => ({
+    ...state,
+    medias: value,
+  })),
+  on(getMediasFailure, (state, { value }) => ({
+    ...state,
+    errorMessage: value,
+  })),
+  on(addMediaSuccess, (state, { value }) => ({
+    ...state,
+    medias: [value, ...state.medias],
+  })),
+  on(addMediaFailure, (state, { value }) => ({
+    ...state,
+    errorMessage: value,
+  })),
+  on(deleteMediaSuccess, (state, { id }) => ({
+    ...state,
+    medias: state.medias.filter((media) => media.id !== id),
+  })),
+  on(deleteMediaFailure, (state, { value }) => ({
+    ...state,
+    errorMessage: value,
+  }))
 );

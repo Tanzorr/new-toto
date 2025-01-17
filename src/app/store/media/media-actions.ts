@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Media, MediasResponse } from '../../models/media';
+import { Media } from '../../models/media';
 import { QueryParams } from '../../models/query-params';
 export const getMedias = createAction('[Media] Get Medias', props<{ queryParams?: QueryParams }>());
 
