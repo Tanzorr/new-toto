@@ -42,11 +42,11 @@ export class UsersEffects {
           return this.usersApiService.getUsers(action[0].queryParams).pipe(
             map((usersData: PaginatedUsersResponse) => {
               this.spinnerLoaderService.hide();
-              this.store.dispatch(getUsersSuccess({ value: usersData }));
+              this.store.dispatch(getUsersSuccess({ users: usersData }));
             }),
             catchError((error: ServerError) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(addUserFail({ value: error.message }));
+              return of(addUserFail({ error: error.message }));
             }),
             finalize(() => {
               this.spinnerLoaderService.hide();
@@ -63,14 +63,14 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(addUser),
       switchMap((action) => {
-        return this.usersApiService.addUser(action.value).pipe(
+        return this.usersApiService.addUser(action.user).pipe(
           map((userResponse: CreateUserResponse) => {
             this.router.navigate(['/users']).then((r) => console.log('Navigate:', r));
-            return addUserSuccess({ value: userResponse.user });
+            return addUserSuccess({ user: userResponse.user });
           }),
           catchError((error: ServerError) => {
             this.serverErrorDisplayService.displayError(error.message);
-            return of(addUserFail({ value: error.message }));
+            return of(addUserFail({ error: error.message }));
           })
         );
       })
@@ -84,10 +84,10 @@ export class UsersEffects {
       switchMap(([action, route]) => {
         this.spinnerLoaderService.show();
         return this.usersApiService.getUser(route.state.params['id']).pipe(
-          map((user: User) => getUserSuccess({ value: user })),
+          map((user: User) => getUserSuccess({ user: user })),
           catchError((error: ServerError) => {
             this.serverErrorDisplayService.displayError(error.message);
-            return of(getUserFail({ value: error.message }));
+            return of(getUserFail({ error: error.message }));
           }),
           finalize(() => this.spinnerLoaderService.hide())
         );
@@ -100,14 +100,14 @@ export class UsersEffects {
       ofType(updateUser),
       switchMap((action) => {
         this.spinnerLoaderService.show();
-        return this.usersApiService.updateUser(action.value).pipe(
+        return this.usersApiService.updateUser(action.user).pipe(
           map((user: User) => {
             this.router.navigate(['/users']).then((r) => console.log('Navigate:', r));
-            return updateUserSuccess({ value: user });
+            return updateUserSuccess({ user: user });
           }),
           catchError((error: ServerError) => {
             this.serverErrorDisplayService.displayError(error.message);
-            return of(updateUserFail({ value: error.message }));
+            return of(updateUserFail({ error: error.message }));
           }),
           finalize(() => this.spinnerLoaderService.hide())
         );
@@ -121,10 +121,10 @@ export class UsersEffects {
         ofType(deleteUser),
         switchMap((action) => {
           return this.usersApiService.deleteUser(action.id).pipe(
-            map(() => deleteUserSuccess({ value: action.id })),
+            map(() => deleteUserSuccess({ id: action.id })),
             catchError((error: ServerError) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(deleteUserFail({ value: error.message }));
+              return of(deleteUserFail({ error: error.message }));
             })
           );
         })

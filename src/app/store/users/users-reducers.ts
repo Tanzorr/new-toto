@@ -55,7 +55,7 @@ export const usersReducer = createReducer(
   on(getUsersSuccess, (state, action) => {
     return {
       ...state,
-      paginationResponse: { ...state.paginationResponse, ...(action.value || {}) },
+      paginationResponse: { ...state.paginationResponse, ...(action.users || {}) },
     };
   }),
 
@@ -63,7 +63,7 @@ export const usersReducer = createReducer(
     return {
       ...state,
       paginationResponse: initialState.paginationResponse,
-      errorMessage: action.value,
+      errorMessage: action.error,
     };
   }),
 
@@ -72,21 +72,21 @@ export const usersReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: [action.value, ...state.paginationResponse.data],
+        data: [action.user, ...state.paginationResponse.data],
       },
     };
   }),
 
   on(addUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(getUserSuccess, (state, action) => {
-    return { ...state, user: action.value };
+    return { ...state, user: action.user };
   }),
 
   on(getUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(updateUserSuccess, (state, action) => {
@@ -95,14 +95,14 @@ export const usersReducer = createReducer(
       paginationResponse: {
         ...state.paginationResponse,
         data: state.paginationResponse.data.map((user) =>
-          user.id === action.value.id ? action.value : user
+          user.id === action.user.id ? action.user : user
         ),
       },
     };
   }),
 
   on(updateUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   }),
 
   on(deleteUserSuccess, (state, action) => {
@@ -110,12 +110,12 @@ export const usersReducer = createReducer(
       ...state,
       paginationResponse: {
         ...state.paginationResponse,
-        data: state.paginationResponse.data.filter((user) => user.id !== action.value),
+        data: state.paginationResponse.data.filter((user) => user.id !== action.id),
       },
     };
   }),
 
   on(deleteUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
+    return { ...state, errorMessage: action.error };
   })
 );

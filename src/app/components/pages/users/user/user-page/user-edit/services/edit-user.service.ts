@@ -24,7 +24,7 @@ export class EditUserService {
   }
 
   updateUser(user: User): void {
-    this.store.dispatch(updateUser({ value: user }));
+    this.store.dispatch(updateUser({ user: user }));
   }
 
   detachMedia(type: string, typeId: string | number, mediaId: Media['id']): void {
