@@ -3,6 +3,6 @@
     <app-navigation></app-navigation>
   </app-header>
   <app-alert></app-alert>
-  <app-spinner [isLoading]="isLoading"></app-spinner>
+  <app-spinner [isLoading]="isLoading$ | async "></app-spinner>
   <router-outlet></router-outlet>
 </div>

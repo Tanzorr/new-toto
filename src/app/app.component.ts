@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
-import { Subject, takeUntil } from 'rxjs';
 import { User } from './models/user';
 import { LocalStorageService } from './services/storage/local-storage.service';
 
@@ -10,28 +9,23 @@ import { LocalStorageService } from './services/storage/local-storage.service';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnDestroy {
-  isLoading = true;
+export class AppComponent {
   userName: User['name'] = '';
-  private destroy$ = new Subject<void>();
+
+  isLoading$ = this.loaderService.loader$;
 
   constructor(
     private loaderService: SpinnerLoaderService,
-    private localStorage: LocalStorageService
+    private localStorageService: LocalStorageService
   ) {
-    this.loaderService.loader$.pipe(takeUntil(this.destroy$)).subscribe((loading) => {
-      this.isLoading = loading;
-    });
-
-    const loggedUser = this.localStorage.get('logged_user');
-
-    if (loggedUser !== 'undefined' && loggedUser !== null) {
-      this.userName = JSON.parse(<string>loggedUser).name;
-    }
+    this.initializeUser();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  private initializeUser(): void {
+    const loggedUserString: string | null = this.localStorageService.get('logged_user');
+
+    if (loggedUserString) {
+      this.userName = JSON.parse(loggedUserString).name;
+    }
   }
 }

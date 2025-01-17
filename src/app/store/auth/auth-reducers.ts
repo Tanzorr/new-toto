@@ -23,7 +23,6 @@ const initialState: AuthStateModel = {
 export const authReducer = createReducer(
   initialState,
   on(loginSuccess, (state, action: any) => {
-    console.log('Login Success:', action);
     return {
       ...state,
       isAuthenticated: true,

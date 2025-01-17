@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../../models/user';
 import { ILoginData } from '../../models/ilogin-data';
 import { LoginResponse } from '../../models/login-response';
 

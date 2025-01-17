@@ -10,8 +10,6 @@ import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../models/login-response';
 import { LocalStorageService } from '../../services/storage/local-storage.service';
-import { Store } from '@ngrx/store';
-import { UsersState } from '../users/users-reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -26,13 +24,12 @@ export class AuthEffects {
               this.localStorage.set('access_token', loginResponse.authToken);
               this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
               if (this.localStorage.get('access_token')) {
-                this.router.navigate(['/users']).then((r) => {
-                  //location.reload();
-                });
+                this.router.navigate(['/users']).then((r) => {});
               }
             } else {
-              // @ts-ignore
-              this.serverErrorDisplayService.displayError(loginResponse.original.message);
+              this.serverErrorDisplayService.displayError(
+                loginResponse.original?.message as string
+              );
             }
 
             return loginSuccess({ value: loginResponse });
