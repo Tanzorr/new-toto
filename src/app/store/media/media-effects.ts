@@ -22,6 +22,8 @@ import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
 import { MediaResponse, PaginatedMediasResponse } from '../../models/media';
 import { EntityMediaService } from '../../services/api/entity-media.service';
+import { UsersState } from '../users/users-reducers';
+import { getUser } from '../users/users-actions';
 
 @Injectable()
 export class MediaEffects {
@@ -98,7 +100,8 @@ export class MediaEffects {
             .attachMedia(action.entityType, action.entityId, action.mediaId)
             .pipe(
               map(() => {
-                location.reload();
+                //location.reload();
+                this.usersStore.dispatch(getUser());
                 return addMediaSuccess({ value: action.mediaId });
               }),
               catchError((error: any) => {
@@ -141,6 +144,7 @@ export class MediaEffects {
     private entityMediaService: EntityMediaService,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
-    private store: Store<MediaState>
+    private store: Store<MediaState>,
+    private usersStore: Store<UsersState>
   ) {}
 }

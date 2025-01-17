@@ -12,7 +12,6 @@ import { LoginResponse } from '../../models/login-response';
 import { LocalStorageService } from '../../services/storage/local-storage.service';
 import { Store } from '@ngrx/store';
 import { UsersState } from '../users/users-reducers';
-import { getUsers } from '../users/users-actions';
 
 @Injectable()
 export class AuthEffects {
@@ -26,9 +25,11 @@ export class AuthEffects {
             if (loginResponse.loggedUser) {
               this.localStorage.set('access_token', loginResponse.authToken);
               this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
-              this.router.navigate(['/users']).then((r) => {
-                location.reload();
-              });
+              if (this.localStorage.get('access_token')) {
+                this.router.navigate(['/users']).then((r) => {
+                  //location.reload();
+                });
+              }
             } else {
               // @ts-ignore
               this.serverErrorDisplayService.displayError(loginResponse.original.message);
@@ -79,7 +80,6 @@ export class AuthEffects {
     private router: Router,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
-    private localStorage: LocalStorageService,
-    private usersStore: Store<UsersState>
+    private localStorage: LocalStorageService
   ) {}
 }

@@ -23,6 +23,8 @@ export const getUser = createAction('[Users] Get User');
 
 export const getUserSuccess = createAction('[Users] Get User Success', props<{ value: User }>());
 
+export const attachUserMedia = createAction('[Users] Attach User', props<{ value: User }>());
+
 export const getUserFail = createAction('[Users] Get User Fail', props<{ value: string }>());
 
 export const updateUser = createAction('[Users] Update User', props<{ value: User }>());
