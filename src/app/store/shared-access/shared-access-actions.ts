@@ -3,16 +3,9 @@ import { QueryParams } from '../../models/query-params';
 import { User } from '../../models/user';
 import { SharedAccess, SharedAccessData } from '../../models/shared-access';
 
-export const getShareAccesses = createAction('[SharedAccess] Get Shared Accesses');
-
 export const getSharedAccessSuccesses = createAction(
   '[SharedAccess] Get Shared Access Successes',
   props<{ value: SharedAccess[] }>()
-);
-
-export const getSharedAccessFailure = createAction(
-  '[SharedAccess] Get Shared Accesses Failure',
-  props<{ value: any }>()
 );
 
 export const addSharedAccess = createAction(

@@ -8,7 +8,7 @@ import { Media } from '../../models/media';
   providedIn: 'root',
 })
 export class EntityMediaService {
-  private baseUrl = 'api/entities/';
+  private baseUrl = 'api/entities/media/';
   constructor(private http: HttpClient) {}
 
   attachMedia(
@@ -16,7 +16,7 @@ export class EntityMediaService {
     entityId: string,
     mediaId: Media['id']
   ): Observable<AttachMediaResponse> {
-    return this.http.post<AttachMediaResponse>(`/api/entities/media/attach`, {
+    return this.http.post<AttachMediaResponse>(`${this.baseUrl}attach`, {
       media_id: mediaId,
       mediable_type: entityType,
       mediable_id: entityId,
@@ -28,7 +28,7 @@ export class EntityMediaService {
     entityId: number | string,
     mediaId: Media['id']
   ): Observable<AttachMediaResponse> {
-    return this.http.post<AttachMediaResponse>(`/api/entities/media/detach`, {
+    return this.http.post<AttachMediaResponse>(`${this.baseUrl}detach`, {
       media_id: mediaId,
       mediable_type: entityType,
       mediable_id: entityId,

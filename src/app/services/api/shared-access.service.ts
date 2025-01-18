@@ -13,17 +13,6 @@ export class SharedAccessService {
 
   constructor(private http: HttpClient) {}
 
-  getNotAccessedUsers(
-    entityName: string,
-    entityId: number | string,
-    queryParams?: QueryParams
-  ): Observable<any> {
-    return this.http.get(
-      `${this.baseUrl}shared-accesses-not-accessed-users/${entityName}/${entityId}`,
-      { params: queryParams }
-    );
-  }
-
   addSharedAccess(data: SharedAccessData): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}shared-accesses/`, data);
   }
