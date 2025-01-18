@@ -33,7 +33,6 @@ const setErrorMessage = (state: MediaStateModel, errorMessage: string): MediaSta
 export const mediaReducer = createReducer(
   initialState,
 
-  // Fetch medias
   on(getMedias, (state) => ({
     ...state,
     loading: true,
@@ -45,13 +44,11 @@ export const mediaReducer = createReducer(
     loading: false,
   })),
 
-  // Add media
   on(addMediaSuccess, (state) => ({
     ...state,
     loading: false,
   })),
 
-  // Delete media
   on(deleteMediaSuccess, (state, { id }) => ({
     ...state,
     medias: state.medias.filter((media) => media.id !== id),

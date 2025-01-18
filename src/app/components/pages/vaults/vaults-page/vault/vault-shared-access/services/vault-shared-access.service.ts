@@ -38,11 +38,11 @@ export class VaultSharedAccessService {
     this.getNotAccessedUsers(vaultId);
     this.getAccessedUsers(vaultId);
   }
-  getNotAccessedUsers(id: number, params?: QueryParams): void {
+  getNotAccessedUsers(id: string, params?: QueryParams): void {
     this.store.dispatch(getNotAccessedUsers({ id, params }));
   }
 
-  getAccessedUsers(id: number): void {
+  getAccessedUsers(id: string): void {
     this.store.dispatch(getAccessedUsers({ id }));
   }
 
@@ -51,7 +51,7 @@ export class VaultSharedAccessService {
   }
 
   deleteSharedAccess(user: User): void {
-    this.store.dispatch(deleteSharedAccess({ value: user }));
+    this.store.dispatch(deleteSharedAccess({ user }));
   }
 
   handleAddSharedAccess(userId: User['id'], vault: Vault): void {
@@ -92,8 +92,8 @@ export class VaultSharedAccessService {
     }
   }
 
-  updateSharedAccess(value: SharedAccess): void {
-    this.store.dispatch(updateSharedAccess({ value }));
+  updateSharedAccess(sharedAccess: SharedAccess): void {
+    this.store.dispatch(updateSharedAccess({ sharedAccess }));
   }
 
   formatDateToISOString(date: Date): string {

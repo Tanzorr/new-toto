@@ -3,8 +3,8 @@ import { User } from './user';
 import { SharedAccess } from './shared-access';
 
 export interface Vault {
-  id: number;
-  user_id: number;
+  id: string;
+  user_id: string;
   name: string;
   description: string;
   created_at: string;
@@ -16,7 +16,7 @@ export interface Vault {
 }
 
 export interface CreateVault {
-  user_id: number;
+  user_id: string;
   name: string;
   description: string;
 }

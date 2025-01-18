@@ -37,8 +37,8 @@ export class UsersService {
     entityName: string,
     entityId: number | string,
     queryParams?: QueryParams
-  ): Observable<any> {
-    return this.http.get(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
+  ): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
       params: queryParams,
     });
   }

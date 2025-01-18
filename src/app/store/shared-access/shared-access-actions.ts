@@ -20,12 +20,12 @@ export const addSharedAccessSuccess = createAction(
 
 export const addSharedAccessFailure = createAction(
   '[SharedAccess] Add Shared Access Failure',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const deleteSharedAccess = createAction(
   '[SharedAccess] Delete Shared Access',
-  props<{ value: User }>()
+  props<{ user: User }>()
 );
 
 export const deleteSharedAccessSuccess = createAction(
@@ -35,50 +35,50 @@ export const deleteSharedAccessSuccess = createAction(
 
 export const deleteSharedAccessFailure = createAction(
   '[SharedAccess] Delete Shared Access Failure',
-  props<{ value: any }>()
+  props<{ error: string }>()
 );
 
 export const updateSharedAccess = createAction(
   '[SharedAccess] Update Shared Access',
-  props<{ value: SharedAccess }>()
+  props<{ sharedAccess: SharedAccess }>()
 );
 
 export const updateSharedAccessSuccess = createAction(
   '[SharedAccess] Update Shared Access Success',
-  props<{ value: SharedAccess }>()
+  props<{ sharedAccess: SharedAccess }>()
 );
 
 export const updateSharedAccessFailure = createAction(
   '[SharedAccess] Update Shared Access Failure',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const getAccessedUsers = createAction(
   '[SharedAccess] Get Accessed Users',
-  props<{ id: number | string }>()
+  props<{ id: string }>()
 );
 
 export const getAccessedUsersSuccess = createAction(
   '[SharedAccess] Get Accessed Users Success',
-  props<{ value: any }>()
+  props<{ users: User[] }>()
 );
 
 export const getAccessedUsersFailure = createAction(
   '[SharedAccess] Get Accessed Users Failure',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const getNotAccessedUsers = createAction(
   '[SharedAccess] Get Not Accessed Users',
-  props<{ id: string | number; params: QueryParams | undefined }>()
+  props<{ id: string; params: QueryParams | undefined }>()
 );
 
 export const getNotAccessedUsersSuccess = createAction(
   '[SharedAccess] Get Not Accessed Users Success',
-  props<{ value: any }>()
+  props<{ users: User[] }>()
 );
 
 export const getNotAccessedUsersFailure = createAction(
   '[SharedAccess] Get Not Accessed Users Failure',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );

@@ -99,7 +99,7 @@ export class VaultsEffects {
           this.vaultsApiService.getVault(action.id).pipe(
             map((vaultData: Vault) => {
               this.store.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
-              this.store.dispatch(getAccessedUsersSuccess({ value: vaultData.accessed_users }));
+              this.store.dispatch(getAccessedUsersSuccess({ users: vaultData.accessed_users }));
               this.store.dispatch(getSharedAccessSuccesses({ value: vaultData.shared_access }));
               return getVaultSuccess({ vault: vaultData });
             })

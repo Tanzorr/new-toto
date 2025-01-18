@@ -48,7 +48,7 @@ export const deleteVault = createAction('[Vaults] Delete Vault', props<{ id: Vau
 
 export const deleteVaultSuccess = createAction(
   '[Vaults] Delete Vault Success',
-  props<{ deletedVaultId: number }>()
+  props<{ deletedVaultId: string }>()
 );
 
 export const deleteVaultFailure = createAction(

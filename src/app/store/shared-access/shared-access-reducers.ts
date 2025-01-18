@@ -44,7 +44,7 @@ export const sharedAccessReducer = createReducer(
   on(addSharedAccessFailure, (state, action) => {
     return {
       ...state,
-      errorMessage: action.value,
+      errorMessage: action.error,
     };
   }),
 
@@ -52,8 +52,8 @@ export const sharedAccessReducer = createReducer(
     return {
       ...state,
       sharedAccesses: state.sharedAccesses.map((access) => {
-        if (access.id === action.value.id) {
-          return action.value;
+        if (access.id === action.sharedAccess.id) {
+          return action.sharedAccess;
         }
         return access;
       }),
@@ -70,35 +70,35 @@ export const sharedAccessReducer = createReducer(
   on(deleteSharedAccessFailure, (state, action) => {
     return {
       ...state,
-      errorMessage: action.value,
+      errorMessage: action.error,
     };
   }),
 
   on(getAccessedUsersSuccess, (state, action) => {
     return {
       ...state,
-      accessedUsers: action.value || [],
+      accessedUsers: action.users || [],
     };
   }),
 
   on(getAccessedUsersFailure, (state, action) => {
     return {
       ...state,
-      errorMessage: action.value,
+      errorMessage: action.error,
     };
   }),
 
   on(getNotAccessedUsersSuccess, (state, action) => {
     return {
       ...state,
-      notAccessedUses: action.value || [],
+      notAccessedUses: action.users || [],
     };
   }),
 
   on(getNotAccessedUsersFailure, (state, action) => {
     return {
       ...state,
-      errorMessage: action.value,
+      errorMessage: action.error,
     };
   })
 );
