@@ -5,7 +5,7 @@ import { SharedAccess, SharedAccessData } from '../../models/shared-access';
 
 export const getSharedAccessSuccesses = createAction(
   '[SharedAccess] Get Shared Access Successes',
-  props<{ value: SharedAccess[] }>()
+  props<{ sharedAccesses: SharedAccess[] }>()
 );
 
 export const addSharedAccess = createAction(

@@ -33,72 +33,43 @@ const initialState: SharedAccessStateModel = {
 
 export const sharedAccessReducer = createReducer(
   initialState,
-  on(addSharedAccessSuccess, (state, action) => {
-    return {
-      ...state,
-      accessedUsers: [...state.accessedUsers, action.accessUser],
-      notAccessedUses: state.notAccessedUses.filter((user) => user.id !== action.accessUser.id),
-    };
-  }),
-
-  on(addSharedAccessFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.error,
-    };
-  }),
-
-  on(updateSharedAccessSuccess, (state, action) => {
-    return {
-      ...state,
-      sharedAccesses: state.sharedAccesses.map((access) => {
-        if (access.id === action.sharedAccess.id) {
-          return action.sharedAccess;
-        }
-        return access;
-      }),
-    };
-  }),
-
-  on(deleteSharedAccessSuccess, (state, action) => {
-    return {
-      ...state,
-      accessedUsers: state.accessedUsers.filter((user) => user.id !== action.userId),
-    };
-  }),
-
-  on(deleteSharedAccessFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.error,
-    };
-  }),
-
-  on(getAccessedUsersSuccess, (state, action) => {
-    return {
-      ...state,
-      accessedUsers: action.users || [],
-    };
-  }),
-
-  on(getAccessedUsersFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.error,
-    };
-  }),
-
-  on(getNotAccessedUsersSuccess, (state, action) => {
-    return {
-      ...state,
-      notAccessedUses: action.users || [],
-    };
-  }),
-
-  on(getNotAccessedUsersFailure, (state, action) => {
-    return {
-      ...state,
-      errorMessage: action.error,
-    };
-  })
+  on(addSharedAccessSuccess, (state, { accessUser }) => ({
+    ...state,
+    accessedUsers: [...state.accessedUsers, accessUser],
+    notAccessedUses: state.notAccessedUses.filter((user) => user.id !== accessUser.id),
+  })),
+  on(addSharedAccessFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(updateSharedAccessSuccess, (state, { sharedAccess }) => ({
+    ...state,
+    sharedAccesses: state.sharedAccesses.map((access) =>
+      access.id === sharedAccess.id ? sharedAccess : access
+    ),
+  })),
+  on(deleteSharedAccessSuccess, (state, { userId }) => ({
+    ...state,
+    accessedUsers: state.accessedUsers.filter((user) => user.id !== userId),
+  })),
+  on(deleteSharedAccessFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(getAccessedUsersSuccess, (state, { users }) => ({
+    ...state,
+    accessedUsers: users || [],
+  })),
+  on(getAccessedUsersFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(getNotAccessedUsersSuccess, (state, { users }) => ({
+    ...state,
+    notAccessedUses: users || [],
+  })),
+  on(getNotAccessedUsersFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  }))
 );
