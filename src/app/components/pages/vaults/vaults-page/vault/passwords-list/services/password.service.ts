@@ -28,11 +28,11 @@ export class PasswordService {
   }
 
   addPassword(passwordData: CreatePassword) {
-    this.store.dispatch(addPassword({ value: passwordData }));
+    this.store.dispatch(addPassword({ createPassword: passwordData }));
   }
 
   updatePassword(passwordData: Password) {
-    this.store.dispatch(updatePassword({ value: passwordData }));
+    this.store.dispatch(updatePassword({ password: passwordData }));
   }
 
   searchPassword(searchTerm: string) {
