@@ -1,3 +1,3 @@
-// @ts-ignore
-import { MediaState } from './media-reducer';
+import { MediaState } from './media-reducers';
+
 export const selectMedias = (state: MediaState) => state.mediaState.medias;

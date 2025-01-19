@@ -21,11 +21,11 @@ export class UsersService {
     return this.http.get<User>(this.baseUrl + id);
   }
 
-  addUser(user: User) {
+  addUser(user: User): Observable<CreateUserResponse> {
     return this.http.post<CreateUserResponse>(this.baseUrl, user);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string): Observable<{}> {
     return this.http.delete(this.baseUrl + id);
   }
 
@@ -37,8 +37,8 @@ export class UsersService {
     entityName: string,
     entityId: number | string,
     queryParams?: QueryParams
-  ): Observable<any> {
-    return this.http.get(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
+  ): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}not-access/${entityName}/${entityId}`, {
       params: queryParams,
     });
   }

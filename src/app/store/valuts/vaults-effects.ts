@@ -1,163 +1,141 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { VaultsService } from '../../services/api/vaults.service';
+import { Store } from '@ngrx/store';
+import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
+import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
+import { ServerError } from '../../models/server-error';
+import { Observable, catchError, of, switchMap, map } from 'rxjs';
+import { finalize, withLatestFrom } from 'rxjs/operators';
 import {
   addVault,
-  addVaultFailure,
   addVaultSuccess,
   deleteVault,
-  deleteVaultFailure,
   deleteVaultSuccess,
   getVault,
   getVaults,
-  getVaultsFailure,
   getVaultsSuccess,
   getVaultSuccess,
   updateVault,
+  updateVaultSuccess,
 } from './vaults-actions';
-import {
-  catchError,
-  filter,
-  finalize,
-  map,
-  switchMap,
-  takeWhile,
-  withLatestFrom,
-} from 'rxjs/operators';
-import { of } from 'rxjs';
-import { VaultsService } from '../../services/api/vaults.service';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
-import { Store } from '@ngrx/store';
-import { PasswordState } from '../passwords/passwords-reducers';
-import { getPasswordsSuccess } from '../passwords/passwords-actions';
-import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
-import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
-import { ServerError } from '../../models/server-error';
-import { Router } from '@angular/router';
 import { routerSelector } from '../router/router-selector';
-import { VaultsState } from './vaults-reducers';
+import { getPasswordsSuccess } from '../passwords/passwords-actions';
 import {
-  getAccessedUsers,
   getAccessedUsersSuccess,
-  getNotAccessedUsers,
   getSharedAccessSuccesses,
 } from '../shared-access/shared-access-actions';
-import { SharedAccessState } from '../shared-access/shared-access-reducers';
 
 @Injectable()
 export class VaultsEffects {
-  getVaults$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(getVaults),
-        switchMap((action) => {
-          this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVaults(action.queryParams).pipe(
-            map((vaultsData: PaginatedVaultsResponse) => getVaultsSuccess({ value: vaultsData })),
-            catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.message);
-              return of(getVaultsFailure({ value: error }));
-            }),
-            finalize(() => this.spinnerLoaderService.hide())
-          );
-        })
-      ),
-    { dispatch: true }
-  );
-
-  addVault$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(addVault),
-        switchMap((action) => {
-          this.spinnerLoaderService.show();
-          return this.vaultsApiService.addVault(action.value).pipe(
-            map(() => {
-              this.store.dispatch(getVaults({}));
-              return addVaultSuccess({ value: action.value });
-            }),
-            catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.error.message);
-              return of(addVaultFailure({ value: error }));
-            }),
-            finalize(() => this.spinnerLoaderService.hide())
-          );
-        })
-      ),
-    { dispatch: true }
-  );
-
-  getVault$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(getVault),
-        withLatestFrom(this.store.select(routerSelector)),
-        switchMap(([action, route]) => {
-          this.spinnerLoaderService.show();
-          return this.vaultsApiService.getVault(action.id).pipe(
-            map((vaultData: Vault) => {
-              this.passwordStore.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
-              this.sharedAccessStore.dispatch(
-                getAccessedUsersSuccess({ value: vaultData.accessed_users })
-              );
-              this.sharedAccessStore.dispatch(
-                getSharedAccessSuccesses({ value: vaultData.shared_access })
-              );
-              return getVaultSuccess({ value: vaultData });
-            }),
-            catchError((error: any) => {
-              this.serverErrorDisplayService.displayError(error.message);
-              return of(getVaultsFailure({ value: error }));
-            }),
-            finalize(() => this.spinnerLoaderService.hide())
-          );
-        })
-      ),
-    { dispatch: true }
-  );
-
-  updateVault$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(updateVault),
-        switchMap((action) => {
-          this.spinnerLoaderService.show();
-          return this.vaultsApiService.updateVault(action.value).pipe(
-            map(() => addVaultSuccess({ value: action.value })),
-            catchError((error: ServerError) => {
-              this.serverErrorDisplayService.displayError(error.message);
-              return of(addVaultFailure({ value: error.message }));
-            }),
-            finalize(() => this.spinnerLoaderService.hide())
-          );
-        })
-      ),
-    { dispatch: true }
-  );
-
-  deleteVault$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(deleteVault),
-        switchMap((action) => {
-          return this.vaultsApiService.deleteVault(action.id).pipe(
-            map(() => deleteVaultSuccess({ id: action.id })),
-            catchError((error: ServerError) => {
-              this.serverErrorDisplayService.displayError(error.message);
-              return of(deleteVaultFailure({ value: error.message }));
-            })
-          );
-        })
-      ),
-    { dispatch: true }
-  );
-
   constructor(
     private actions$: Actions,
     private vaultsApiService: VaultsService,
-    private passwordStore: Store<PasswordState>,
-    private sharedAccessStore: Store<SharedAccessState>,
+    private store: Store,
     private spinnerLoaderService: SpinnerLoaderService,
-    private serverErrorDisplayService: ServerErrorDisplayService,
-    private store: Store<VaultsState>
+    private serverErrorDisplayService: ServerErrorDisplayService
   ) {}
+
+  private showSpinner = () => this.spinnerLoaderService.show();
+  private hideSpinner = () => this.spinnerLoaderService.hide();
+
+  private handleError = (error: ServerError, actionFail: any) => {
+    this.serverErrorDisplayService.displayError(error.message);
+    return of(actionFail({ error: error.message }));
+  };
+
+  private handleErrors = (observable: Observable<any>, actionFail: any) => {
+    return observable.pipe(
+      catchError((error: ServerError) => this.handleError(error, actionFail)),
+      finalize(this.hideSpinner)
+    );
+  };
+
+  getVaults$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getVaults),
+      switchMap((action) => {
+        this.showSpinner();
+        return this.handleErrors(
+          this.vaultsApiService
+            .getVaults(action.queryParams)
+            .pipe(
+              map((vaultsData: PaginatedVaultsResponse) =>
+                getVaultsSuccess({ paginatedVaults: vaultsData })
+              )
+            ),
+          getVaultsSuccess
+        );
+      })
+    )
+  );
+
+  addVault$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addVault),
+      switchMap((action) => {
+        this.showSpinner();
+        return this.handleErrors(
+          this.vaultsApiService.addVault(action.vaultData).pipe(
+            map(() => {
+              this.store.dispatch(getVaults({}));
+              return addVaultSuccess();
+            })
+          ),
+          addVaultSuccess
+        );
+      })
+    )
+  );
+
+  getVault$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getVault),
+      withLatestFrom(this.store.select(routerSelector)),
+      switchMap(([action]) => {
+        this.showSpinner();
+        return this.handleErrors(
+          this.vaultsApiService.getVault(action.id).pipe(
+            map((vaultData: Vault) => {
+              this.store.dispatch(getPasswordsSuccess({ passwords: vaultData.passwords }));
+              this.store.dispatch(getAccessedUsersSuccess({ users: vaultData.accessed_users }));
+              this.store.dispatch(
+                getSharedAccessSuccesses({ sharedAccesses: vaultData.shared_access })
+              );
+              return getVaultSuccess({ vault: vaultData });
+            })
+          ),
+          getVaultSuccess
+        );
+      })
+    )
+  );
+
+  updateVault$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateVault),
+      switchMap((action) =>
+        this.vaultsApiService
+          .updateVault(action.vault)
+          .pipe(map(() => updateVaultSuccess({ updatedVault: action.vault })))
+      )
+    )
+  );
+
+  deleteVault$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteVault),
+      switchMap((action) => {
+        this.showSpinner();
+        return this.handleErrors(
+          this.vaultsApiService.deleteVault(action.id).pipe(
+            map(() => deleteVaultSuccess({ deletedVaultId: action.id })),
+            catchError((error) => this.handleError(error, deleteVault))
+          ),
+          deleteVault
+        );
+      })
+    )
+  );
 }

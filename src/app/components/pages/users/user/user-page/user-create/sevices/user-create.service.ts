@@ -11,6 +11,6 @@ export class UserCreateService {
   constructor(private store: Store<UsersState>) {}
 
   addUser(user: User): void {
-    this.store.dispatch(addUser({ value: user }));
+    this.store.dispatch(addUser({ user: user }));
   }
 }

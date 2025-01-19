@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PaginatedVaultsResponse, Vault } from '../../../../models/vault';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-vaults-list-table',
@@ -29,11 +21,7 @@ export class VaultsListTableComponent {
     return <PaginatedVaultsResponse>this._paginatedVaultsResponse;
   }
 
-  getPageParams($event: PageChangedEvent) {
-    this.pageParams.emit($event.page.toString());
-  }
-
-  selectVault(id: Vault['id']) {
+  selectVault(id: Vault['id']): void {
     this.selectedVaultId.emit(id);
   }
 }

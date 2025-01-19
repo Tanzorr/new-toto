@@ -21,7 +21,7 @@
 </ng-template>
 
 <h4>Accessed users lists</h4>
-<div appScrollable [scrollThreshold]="10">
+<div appScrollable [scrollThreshold]="scrollableAriaHeight">
   <app-table
     [data]="accessUsers$ | async"
     [columns]="columns"

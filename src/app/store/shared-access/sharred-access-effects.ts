@@ -26,6 +26,8 @@ import { User } from '../../models/user';
 import { EntityType } from '../../constans/entity-type';
 import { UsersService } from '../../services/api/users.service';
 import { SharedAccess } from '../../models/shared-access';
+import { VaultsState } from '../valuts/vaults-reducers';
+import { getVault } from '../valuts/vaults-actions';
 
 @Injectable()
 export class SharedAccessEffects {
@@ -38,13 +40,13 @@ export class SharedAccessEffects {
           return this.usersApiService
             .getNotAccessedUsers(EntityType.VAULT, action[0].id, action[0].params)
             .pipe(
-              map((usersData: any) => {
+              map((usersData: User[]) => {
                 this.spinnerLoaderService.hide();
-                this.store.dispatch(getNotAccessedUsersSuccess({ value: usersData }));
+                this.store.dispatch(getNotAccessedUsersSuccess({ users: usersData }));
               }),
               catchError((error: any) => {
                 this.serverErrorDisplayService.displayError(error.message);
-                return of(getNotAccessedUsersFailure({ value: error.message }));
+                return of(getNotAccessedUsersFailure({ error: error.message }));
               }),
               finalize(() => {
                 this.spinnerLoaderService.hide();
@@ -62,12 +64,12 @@ export class SharedAccessEffects {
         switchMap((action) => {
           return this.sharedApiAccessService.addSharedAccess(action.data).pipe(
             map((user: User) => {
-              this.spinnerLoaderService.hide();
+              this.vaultStore.dispatch(getVault({ id: action.data.accessible_id }));
               this.store.dispatch(addSharedAccessSuccess({ accessUser: user }));
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.error.message);
-              return of(addSharedAccessFailure({ value: error.message }));
+              return of(addSharedAccessFailure({ error: error.message }));
             }),
             finalize(() => {
               this.spinnerLoaderService.hide();
@@ -83,14 +85,14 @@ export class SharedAccessEffects {
       this.actions$.pipe(
         ofType(updateSharedAccess),
         switchMap((action) => {
-          return this.sharedApiAccessService.updateSharedAccess(action.value).pipe(
+          return this.sharedApiAccessService.updateSharedAccess(action.sharedAccess).pipe(
             map((access: SharedAccess) => {
               this.spinnerLoaderService.hide();
-              this.store.dispatch(updateSharedAccessSuccess({ value: access }));
+              this.store.dispatch(updateSharedAccessSuccess({ sharedAccess: access }));
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(updateSharedAccessFailure({ value: error.message }));
+              return of(updateSharedAccessFailure({ error: error.message }));
             }),
             finalize(() => {
               this.spinnerLoaderService.hide();
@@ -106,14 +108,14 @@ export class SharedAccessEffects {
       this.actions$.pipe(
         ofType(deleteSharedAccess),
         switchMap((action) => {
-          return this.sharedApiAccessService.deleteSharedAccess(action.value.shared_access_id).pipe(
+          return this.sharedApiAccessService.deleteSharedAccess(action.user.shared_access_id).pipe(
             map(() => {
               this.spinnerLoaderService.hide();
-              this.store.dispatch(deleteSharedAccessSuccess({ userId: action.value.id }));
+              this.store.dispatch(deleteSharedAccessSuccess({ userId: action.user.id }));
             }),
             catchError((error: any) => {
               this.serverErrorDisplayService.displayError(error.message);
-              return of(deleteSharedAccessFailure({ value: error.message }));
+              return of(deleteSharedAccessFailure({ error: error.message }));
             }),
             finalize(() => {
               this.spinnerLoaderService.hide();
@@ -127,6 +129,7 @@ export class SharedAccessEffects {
   constructor(
     private actions$: Actions,
     private store: Store<SharedAccessState>,
+    private vaultStore: Store<VaultsState>,
     private sharedApiAccessService: SharedAccessService,
     private usersApiService: UsersService,
     private spinnerLoaderService: SpinnerLoaderService,

@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from '../../../services/storage/local-storage.service';
-import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements OnInit {
   isLoggedIn = true;
-  loggedUserId!: User['id'];
+  loggedUserId!: number;
 
   navLinks = [
     { label: 'Users', url: '/users', authRequired: false },
@@ -34,7 +32,6 @@ export class NavigationComponent implements OnInit {
   }
 
   mobileMenuToggle(): void {
-    console.log('mobileMenuToggle');
     const nav = document.getElementById('navbarNav');
     nav?.classList.toggle('show');
   }

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-attach-file',
   templateUrl: './attach-file.component.html',
-  styleUrls: ['./attach-file.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttachFileComponent {

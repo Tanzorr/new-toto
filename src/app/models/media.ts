@@ -1,18 +1,10 @@
 import { User } from './user';
 export interface Media {
-  id: number | string;
+  id: string;
   user_id: User['id'];
   file_path: string;
   file_name: string;
 }
-
-export type MediasResponse = {
-  medias: Media[];
-};
-
-export type MediaResponse = {
-  media: Media;
-};
 
 export interface PaginatedMediasResponse {
   current_page: number;

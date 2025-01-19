@@ -6,7 +6,6 @@ import { ModalData } from '../../../services/ui/modal.service';
 @Component({
   selector: 'app-modals',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {

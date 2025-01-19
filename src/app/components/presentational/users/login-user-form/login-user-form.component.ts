@@ -1,17 +1,16 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ILoginData } from '../../../../models/ilogin-data';
+import { AuthLoginData } from '../../../../models/auth-login-data';
 
 @Component({
   selector: 'app-login-user-form',
   templateUrl: './login-user-form.component.html',
-  styleUrls: ['./login-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginUserFormComponent {
   loginForm: FormGroup;
 
-  @Output() formSubmit: EventEmitter<ILoginData> = new EventEmitter<ILoginData>();
+  @Output() formSubmit: EventEmitter<AuthLoginData> = new EventEmitter<AuthLoginData>();
 
   errorMessages: { [key: string]: { [key: string]: string } } = {
     email: {

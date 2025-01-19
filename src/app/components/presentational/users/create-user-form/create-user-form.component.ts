@@ -24,7 +24,7 @@ export class CreateUserFormComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.userForm.valid) {
       this.formSubmit.emit(this.userForm.value);
     }

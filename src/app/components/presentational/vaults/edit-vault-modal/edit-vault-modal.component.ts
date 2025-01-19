@@ -7,7 +7,6 @@ import { vaultErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-edit-vault-modal',
   templateUrl: './edit-vault-modal.component.html',
-  styleUrls: ['./edit-vault-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditVaultModalComponent {

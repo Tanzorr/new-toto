@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { vaultErrorMessages } from '../../../../constans/error-messages';
-import { User } from '../../../../models/user';
 
 @Component({
   selector: 'app-add-vault-modal',
   templateUrl: './add-vault-modal.component.html',
-  styleUrls: ['./add-vault-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddVaultModalComponent {
@@ -29,7 +27,7 @@ export class AddVaultModalComponent {
     }
   }
 
-  close() {
+  close(): void {
     this.activeModal.dismiss();
   }
 

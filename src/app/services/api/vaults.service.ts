@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
 import { QueryParams } from '../../models/query-params';
+import { ResponseMessage } from '../../models/response-message';
 
 @Injectable({
   providedIn: 'root',
@@ -20,15 +21,15 @@ export class VaultsService {
     return this.http.get<Vault>(`${this.baseUrl}/${id}`);
   }
 
-  deleteVault(id: Vault['id']): Observable<any> {
+  deleteVault(id: Vault['id']): Observable<{}> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  addVault(value: any): Observable<any> {
-    return this.http.post(this.baseUrl, value);
+  addVault(value: any): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(this.baseUrl, value);
   }
 
-  updateVault(value: Vault): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${value.id}`, value);
+  updateVault(value: Vault): Observable<ResponseMessage> {
+    return this.http.put<ResponseMessage>(`${this.baseUrl}/${value.id}`, value);
   }
 }

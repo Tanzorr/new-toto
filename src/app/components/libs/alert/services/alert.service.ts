@@ -10,7 +10,7 @@ export interface AlertData {
   providedIn: 'root',
 })
 export class AlertService {
-  alertsSubject$ = new BehaviorSubject<AlertData[]>([]);
+  readonly alertsSubject$ = new BehaviorSubject<AlertData[]>([]);
   public alerts$ = this.alertsSubject$.asObservable();
 
   constructor() {}

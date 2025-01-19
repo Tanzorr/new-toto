@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { QueryParams } from '../../models/query-params';
 import { SharedAccess, SharedAccessData } from '../../models/shared-access';
 import { User } from '../../models/user';
 
@@ -13,22 +12,11 @@ export class SharedAccessService {
 
   constructor(private http: HttpClient) {}
 
-  getNotAccessedUsers(
-    entityName: string,
-    entityId: number | string,
-    queryParams?: QueryParams
-  ): Observable<any> {
-    return this.http.get(
-      `${this.baseUrl}shared-accesses-not-accessed-users/${entityName}/${entityId}`,
-      { params: queryParams }
-    );
-  }
-
   addSharedAccess(data: SharedAccessData): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}shared-accesses/`, data);
   }
 
-  deleteSharedAccess(id: User['shared_access_id']): Observable<any> {
+  deleteSharedAccess(id: User['shared_access_id']): Observable<{}> {
     return this.http.delete(`${this.baseUrl}shared-accesses/${id}`);
   }
 

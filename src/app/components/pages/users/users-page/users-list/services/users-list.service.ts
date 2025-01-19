@@ -4,13 +4,14 @@ import { deleteUser, getUsers } from '../../../../../../store/users/users-action
 import { usersSelector } from '../../../../../../store/users/users-selectors';
 import { UsersState } from '../../../../../../store/users/users-reducers';
 import { QueryParams } from '../../../../../../models/query-params';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { Observable } from 'rxjs';
+import { PaginatedUsersResponse } from '../../../../../../models/paginate-users-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersListService {
-  paginatedUsersResponse$ = this.store.select(usersSelector);
+  paginatedUsersResponse$: Observable<PaginatedUsersResponse> = this.store.select(usersSelector);
 
   constructor(private store: Store<UsersState>) {}
 
@@ -18,7 +19,7 @@ export class UsersListService {
     this.store.dispatch(getUsers({ queryParams }));
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string): void {
     this.store.dispatch(deleteUser({ id }));
   }
 }

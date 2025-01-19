@@ -1,85 +1,91 @@
-import { AuthService } from '../../services/api/auth.service';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { login, loginFail, loginSuccess, logoutFail, logoutSuccess, logout } from './auth-actions';
-import { catchError, finalize, map, switchMap } from 'rxjs/operators';
-import { ServerError } from '../../models/server-error';
+import { Router } from '@angular/router';
+import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+import { AuthService } from '../../services/api/auth.service';
+import { LocalStorageService } from '../../services/storage/local-storage.service';
 import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
-import { of } from 'rxjs';
-import { Injectable } from '@angular/core';
+
+import {
+  login,
+  loginFail,
+  loginSuccess,
+  logout,
+  logoutFailure,
+  logoutSuccess,
+} from './auth-actions';
 import { LoginResponse } from '../../models/login-response';
-import { LocalStorageService } from '../../services/storage/local-storage.service';
-import { Store } from '@ngrx/store';
-import { UsersState } from '../users/users-reducers';
-import { getUsers } from '../users/users-actions';
+import { ServerError } from '../../models/server-error';
 
 @Injectable()
 export class AuthEffects {
-  login = createEffect(() =>
+  login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(login),
-      switchMap((action) => {
-        return this.authService.login(action.value).pipe(
-          map((loginResponse: LoginResponse) => {
-            this.spinnerLoaderService.show();
-            if (loginResponse.loggedUser) {
-              this.localStorage.set('access_token', loginResponse.authToken);
-              this.localStorage.set('logged_user', JSON.stringify(loginResponse.loggedUser));
-              this.router.navigate(['/users']).then((r) => {
-                location.reload();
-              });
+      tap(() => this.spinnerLoaderService.show()), // Показати лоадер перед початком
+      switchMap(({ value }) =>
+        this.authService.login(value).pipe(
+          map((response: LoginResponse) => {
+            if (response.loggedUser) {
+              this.handleLoginSuccess(response);
+              return loginSuccess({ value: response });
             } else {
-              // @ts-ignore
-              this.serverErrorDisplayService.displayError(loginResponse.original.message);
+              this.serverErrorDisplayService.displayError('Invalid credentials');
+              return loginFail({ error: 'Invalid credentials' });
             }
-
-            return loginSuccess({ value: loginResponse });
           }),
           catchError((error: ServerError) => {
             this.serverErrorDisplayService.displayError(error.message);
             return of(loginFail({ error: error.message }));
           }),
-          finalize(() => {
-            this.spinnerLoaderService.hide();
-          })
-        );
-      })
+          finalize(() => this.spinnerLoaderService.hide()) // Приховати лоадер у будь-якому випадку
+        )
+      )
     )
   );
 
-  logout = createEffect(() =>
+  logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logout),
-      switchMap(() => {
-        this.spinnerLoaderService.show();
-        return this.authService.logout().pipe(
+      tap(() => this.spinnerLoaderService.show()),
+      switchMap(() =>
+        this.authService.logout().pipe(
           map(() => {
-            this.localStorage.delete('access_token');
-            this.router.navigate(['/login']).then((r) => {
-              window.location.reload();
-            });
+            this.handleLogoutSuccess();
             return logoutSuccess({ message: 'Logout successful' });
           }),
           catchError((error: ServerError) => {
             this.serverErrorDisplayService.displayError(error.message);
-            return of(logoutFail({ error: error.message }));
+            return of(logoutFailure({ error: error.message }));
           }),
-          finalize(() => {
-            this.spinnerLoaderService.hide();
-          })
-        );
-      })
+          finalize(() => this.spinnerLoaderService.hide())
+        )
+      )
     )
   );
 
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private localStorage: LocalStorageService,
     private router: Router,
     private spinnerLoaderService: SpinnerLoaderService,
-    private serverErrorDisplayService: ServerErrorDisplayService,
-    private localStorage: LocalStorageService,
-    private usersStore: Store<UsersState>
+    private serverErrorDisplayService: ServerErrorDisplayService
   ) {}
+
+  private handleLoginSuccess(response: LoginResponse): void {
+    this.localStorage.set('access_token', response.authToken);
+    this.localStorage.set('logged_user', JSON.stringify(response.loggedUser));
+    this.router.navigate(['/users']).then(() => {
+      console.log('Navigation to /users completed');
+    });
+  }
+
+  private handleLogoutSuccess(): void {
+    this.localStorage.delete('access_token');
+    this.router.navigate(['/login']).then(() => {});
+  }
 }

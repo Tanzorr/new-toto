@@ -35,62 +35,49 @@ const initialState: PasswordStateModel = {
 
 export const passwordsReducer = createReducer(
   initialState,
-  on(getPasswordsSuccess, (state, action) => {
-    return {
-      ...state,
-      passwords: action.passwords,
-      allPasswords: action.passwords,
-    };
-  }),
-
-  on(getPasswordSuccess, (state, action) => {
-    return { ...state, password: action.value };
-  }),
-
-  on(getPasswordFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
-
-  on(addPasswordSuccess, (state, action) => {
-    return {
-      ...state,
-      passwords: [action.value, ...state.passwords],
-      allPasswords: [action.value, ...state.allPasswords],
-    };
-  }),
-
-  on(addPasswordFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
-
-  on(updatePasswordSuccess, (state, action) => {
-    return {
-      ...state,
-      passwords: state.passwords.map((password) =>
-        password.id === action.value.id ? action.value : password
-      ),
-      allPasswords: state.passwords,
-    };
-  }),
-
-  on(updatePasswordFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
-
-  on(deletePasswordSuccess, (state, action) => {
-    return { ...state, passwords: state.passwords.filter((password) => password.id !== action.id) };
-  }),
-
-  on(deletePasswordFailure, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
-
-  on(searchPassword, (state, action) => {
-    return {
-      ...state,
-      passwords: action.value
-        ? state.allPasswords.filter((password) => password.name.includes(action.value))
-        : [...state.allPasswords], // Повертаємо копію оригінального списку, якщо value порожній
-    };
-  })
+  on(getPasswordsSuccess, (state, { passwords }) => ({
+    ...state,
+    passwords,
+    allPasswords: passwords,
+  })),
+  on(getPasswordSuccess, (state, { password }) => ({
+    ...state,
+    password,
+  })),
+  on(getPasswordFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(addPasswordSuccess, (state, { password }) => ({
+    ...state,
+    passwords: [password, ...state.passwords],
+    allPasswords: [password, ...state.allPasswords],
+  })),
+  on(addPasswordFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(updatePasswordSuccess, (state, { password }) => ({
+    ...state,
+    passwords: state.passwords.map((p) => (p.id === password.id ? password : p)),
+    allPasswords: state.passwords,
+  })),
+  on(updatePasswordFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(deletePasswordSuccess, (state, { id }) => ({
+    ...state,
+    passwords: state.passwords.filter((p) => p.id !== id),
+  })),
+  on(deletePasswordFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+  on(searchPassword, (state, { value }) => ({
+    ...state,
+    passwords: value
+      ? state.allPasswords.filter((p) => p.name.includes(value))
+      : [...state.allPasswords],
+  }))
 );

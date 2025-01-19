@@ -12,42 +12,42 @@ export const getPassword = createAction(
 
 export const getPasswordSuccess = createAction(
   '[Passwords] Get Password Success',
-  props<{ value: Password }>()
+  props<{ password: Password }>()
 );
 
 export const getPasswordFailure = createAction(
   '[Passwords] Get Password Failure',
-  props<{ value: any }>()
+  props<{ error: string }>()
 );
 
 export const addPassword = createAction(
   '[Passwords] Add Password',
-  props<{ value: CreatePassword }>()
+  props<{ createPassword: CreatePassword }>()
 );
 
 export const addPasswordSuccess = createAction(
   '[Passwords] Add Password Success',
-  props<{ value: any }>()
+  props<{ password: Password }>()
 );
 
 export const addPasswordFailure = createAction(
   '[Passwords] Add Password Fail',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const updatePassword = createAction(
   '[Passwords] Update Password',
-  props<{ value: Password }>()
+  props<{ password: Password }>()
 );
 
 export const updatePasswordSuccess = createAction(
   '[Passwords] Update Password Success',
-  props<{ value: Password }>()
+  props<{ password: Password }>()
 );
 
 export const updatePasswordFailure = createAction(
   '[Passwords] Update Password Fail',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const deletePassword = createAction(
@@ -62,7 +62,7 @@ export const deletePasswordSuccess = createAction(
 
 export const deletePasswordFailure = createAction(
   '[Passwords] Delete Password Fail',
-  props<{ value: string }>()
+  props<{ error: string }>()
 );
 
 export const searchPassword = createAction(

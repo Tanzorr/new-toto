@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertService } from '../ui/alert.service';
+import { AlertService } from '../../components/libs/alert/services/alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +7,7 @@ import { AlertService } from '../ui/alert.service';
 export class ServerErrorDisplayService {
   constructor(private alert: AlertService) {}
 
-  displayError(errorMessage: string) {
+  displayError(errorMessage: string): void {
     this.alert.showAlert({
       type: 'danger',
       message: errorMessage,

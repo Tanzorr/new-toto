@@ -10,7 +10,6 @@ import { User } from '../../../../../models/user';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements AfterViewInit {
@@ -40,7 +39,7 @@ export class UsersListComponent implements AfterViewInit {
     this._usersService.getUsers(params);
   }
 
-  deleteUser(id: number): void {
+  deleteUser(id: string): void {
     this._modalService
       .openModal({
         title: 'Delete user',

@@ -38,7 +38,7 @@ export class EditPasswordModalComponent {
     }
   }
 
-  close() {
+  close(): void {
     this.activeModal.dismiss();
   }
 
@@ -46,7 +46,7 @@ export class EditPasswordModalComponent {
     const control = this.passwordForm.get(controlName);
 
     if (control?.touched && control?.errors) {
-      const firstErrorKey = Object.keys(control.errors)[0];
+      const firstErrorKey: string = Object.keys(control.errors)[0];
       return passwordErrorMessages[controlName][firstErrorKey];
     }
     return null;

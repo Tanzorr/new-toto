@@ -15,7 +15,7 @@ import { usersReducer } from './store/users/users-reducers';
 import { UsersEffects } from './store/users/users-effects';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from './services/ui/modal.service';
-import { AlertService } from './services/ui/alert.service';
+import { AlertService } from './components/libs/alert/services/alert.service';
 import { AlertModule } from './components/libs/alert/alert.module';
 import { SpinnerModule } from './components/libs/spinner/spinner.module';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';

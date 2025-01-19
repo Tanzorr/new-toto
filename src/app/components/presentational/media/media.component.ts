@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MediaService } from './services/media.service';
 import { Media } from '../../../models/media';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaComponent {
-  medias$ = this.mediaService.medias$;
+  medias$: Observable<Media[]> = this.mediaService.medias$;
 
   @Input() entityType!: string;
-  @Input() entityId!: number;
+  @Input() entityId!: string;
 
   constructor(private mediaService: MediaService) {
     this.mediaService.getMedias({ search: '' });
@@ -22,15 +22,15 @@ export class MediaComponent {
     this.mediaService.getMedias({ search: searchValue });
   }
 
-  handleFileInput($event: Event) {
+  handleFileInput($event: Event): void {
     this.mediaService.addMedia(this.mediaService.prosedFormDataFile($event));
   }
 
-  delete($event: Media['id']) {
+  delete($event: Media['id']): void {
     this.mediaService.deleteMedia($event);
   }
 
-  attach($event: Media['id']) {
+  attach($event: Media['id']): void {
     this.mediaService.attachMedia($event, this.entityType, this.entityId);
   }
 }

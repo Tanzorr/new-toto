@@ -1,4 +1,3 @@
-import { User } from '../../models/user';
 import { createReducer, on } from '@ngrx/store';
 import {
   addUserFail,
@@ -12,6 +11,8 @@ import {
   updateUserFail,
   updateUserSuccess,
 } from './users-actions';
+import { initialState } from './users-state';
+import { User } from '../../models/user';
 import { PaginatedUsersResponse } from '../../models/paginate-users-response';
 
 export interface UsersStateModel {
@@ -24,98 +25,66 @@ export interface UsersState {
   usersState: UsersStateModel;
 }
 
-const initialState: UsersStateModel = {
-  user: {
-    id: 1,
-    name: 'User 1',
-    email: 'email@ukr.net',
-    password: 'password',
-    password_confirmation: 'password',
-  },
-  paginationResponse: {
-    current_page: 1,
-    data: [],
-    first_page_url: '',
-    from: 1,
-    last_page: 1,
-    last_page_url: '',
-    next_page_url: '',
-    links: [],
-    path: '',
-    per_page: 0,
-    prev_page_url: null,
-    to: 0,
-    total: 0,
-  },
-  errorMessage: '',
-};
-
 export const usersReducer = createReducer(
   initialState,
-  on(getUsersSuccess, (state, action) => {
-    return {
-      ...state,
-      paginationResponse: { ...state.paginationResponse, ...(action.value || {}) },
-    };
-  }),
 
-  on(getUsersFail, (state, action) => {
-    return {
-      ...state,
-      paginationResponse: initialState.paginationResponse,
-      errorMessage: action.value,
-    };
-  }),
+  on(getUsersSuccess, (state, { users }) => ({
+    ...state,
+    paginationResponse: { ...state.paginationResponse, ...users },
+  })),
 
-  on(addUserSuccess, (state, action) => {
-    return {
-      ...state,
-      paginationResponse: {
-        ...state.paginationResponse,
-        data: [action.value, ...state.paginationResponse.data],
-      },
-    };
-  }),
+  on(getUsersFail, (state, { error }) => ({
+    ...state,
+    paginationResponse: initialState.paginationResponse,
+    errorMessage: error,
+  })),
 
-  on(addUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
+  on(addUserSuccess, (state, { user }) => ({
+    ...state,
+    paginationResponse: {
+      ...state.paginationResponse,
+      data: [user, ...state.paginationResponse.data],
+    },
+  })),
 
-  on(getUserSuccess, (state, action) => {
-    return { ...state, user: action.value };
-  }),
+  on(addUserFail, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
 
-  on(getUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
+  on(getUserSuccess, (state, { user }) => ({
+    ...state,
+    user,
+  })),
 
-  on(updateUserSuccess, (state, action) => {
-    return {
-      ...state,
-      paginationResponse: {
-        ...state.paginationResponse,
-        data: state.paginationResponse.data.map((user) =>
-          user.id === action.value.id ? action.value : user
-        ),
-      },
-    };
-  }),
+  on(getUserFail, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
 
-  on(updateUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  }),
+  on(updateUserSuccess, (state, { user }) => ({
+    ...state,
+    paginationResponse: {
+      ...state.paginationResponse,
+      data: state.paginationResponse.data.map((u) => (u.id === user.id ? user : u)),
+    },
+  })),
 
-  on(deleteUserSuccess, (state, action) => {
-    return {
-      ...state,
-      paginationResponse: {
-        ...state.paginationResponse,
-        data: state.paginationResponse.data.filter((user) => user.id !== action.value),
-      },
-    };
-  }),
+  on(updateUserFail, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
 
-  on(deleteUserFail, (state, action) => {
-    return { ...state, errorMessage: action.value };
-  })
+  on(deleteUserSuccess, (state, { id }) => ({
+    ...state,
+    paginationResponse: {
+      ...state.paginationResponse,
+      data: state.paginationResponse.data.filter((u) => u.id !== id),
+    },
+  })),
+
+  on(deleteUserFail, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  }))
 );

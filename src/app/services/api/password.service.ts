@@ -19,7 +19,7 @@ export class PasswordService {
     return this.http.post<Password>(this.baseUrl, password);
   }
 
-  deletePassword(id: Password['id']): Observable<any> {
+  deletePassword(id: Password['id']): Observable<{}> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 

@@ -11,7 +11,6 @@ import { Media } from '../../../models/media';
 @Component({
   selector: 'app-attach-media-item',
   templateUrl: './attach-media-item.component.html',
-  styleUrls: ['./attach-media-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttachMediaItemComponent {

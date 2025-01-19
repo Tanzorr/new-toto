@@ -12,7 +12,6 @@ import { Vault } from '../../../../../../models/vault';
 @Component({
   selector: 'app-passwords-list',
   templateUrl: './passwords-list.component.html',
-  styleUrls: ['./passwords-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordsListComponent implements OnInit, OnDestroy {
@@ -44,7 +43,7 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  addPasswordModal() {
+  addPasswordModal(): void {
     const modalRef = this.ngbModalService.open(AddPasswordModalComponent);
 
     modalRef.result

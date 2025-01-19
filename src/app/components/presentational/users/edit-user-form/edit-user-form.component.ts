@@ -14,7 +14,6 @@ import { userErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-edit-user-form',
   templateUrl: './edit-user-form.component.html',
-  styleUrls: ['./edit-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserFormComponent implements OnChanges {
@@ -26,7 +25,6 @@ export class EditUserFormComponent implements OnChanges {
     id: [null],
     name: ['', [Validators.required, Validators.minLength(2)]],
     email: ['', [Validators.required, Validators.email]],
-    image: [null],
   });
 
   constructor(private fb: FormBuilder) {}

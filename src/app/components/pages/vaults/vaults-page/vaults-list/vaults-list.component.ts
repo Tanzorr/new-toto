@@ -16,7 +16,6 @@ import { SearchModule } from '../../../../libs/search/search.module';
 @Component({
   selector: 'app-vaults-list',
   templateUrl: './vaults-list.component.html',
-  styleUrls: ['./vaults-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CommonModule, VaultsListTableModule, SearchModule],
