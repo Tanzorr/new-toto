@@ -39,7 +39,7 @@ export class UsersListComponent implements AfterViewInit {
     this._usersService.getUsers(params);
   }
 
-  deleteUser(id: number): void {
+  deleteUser(id: string): void {
     this._modalService
       .openModal({
         title: 'Delete user',

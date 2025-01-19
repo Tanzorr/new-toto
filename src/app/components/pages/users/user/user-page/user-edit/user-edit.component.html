@@ -1,10 +1,9 @@
 <h3>Edit user</h3>
-<div *ngIf="user$ | async as userData">
-  {{ getUser(userData) }}
-  <app-attached-media-collection [medias]="userData?.media" (detachMediaId)="detachMedia($event)"></app-attached-media-collection>
-  <app-edit-user-form [userData]="userData"
+
+  <app-attached-media-collection [medias]="user?.media" (detachMediaId)="detachMedia($event)"></app-attached-media-collection>
+  <app-edit-user-form [userData]="user"
                       (formSubmit)="updateUser($event)"
-                      (addMedia)="selectMedia(type,userData.id)"
+                      (addMedia)="selectMedia(user.id)"
   ></app-edit-user-form>
-</div>
+
 

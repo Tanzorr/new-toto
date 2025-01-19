@@ -18,7 +18,7 @@ export class AttachedMediaCollectionComponent {
   @Output() detachMediaId: EventEmitter<Media['id']> = new EventEmitter<Media['id']>();
   @HostBinding('class') class = 'd-flex flex-wrap gap-3';
 
-  detachMedia(id: Media['id']) {
+  detachMedia(id: Media['id']): void {
     if (id) {
       this.detachMediaId.emit(id);
     }

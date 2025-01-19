@@ -27,7 +27,7 @@ export class AddVaultModalComponent {
     }
   }
 
-  close() {
+  close(): void {
     this.activeModal.dismiss();
   }
 

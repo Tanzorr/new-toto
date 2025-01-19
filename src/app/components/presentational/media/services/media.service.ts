@@ -23,15 +23,15 @@ export class MediaService {
     this.store.dispatch(getMedias({ queryParams }));
   }
 
-  addMedia(formData: FormData) {
+  addMedia(formData: FormData): void {
     this.store.dispatch(addMedia({ media: formData }));
   }
 
-  deleteMedia(id: Media['id']) {
+  deleteMedia(id: Media['id']): void {
     this.store.dispatch(deleteMedia({ id }));
   }
 
-  attachMedia(mediaId: Media['id'], entityType: string, entityId: string) {
+  attachMedia(mediaId: Media['id'], entityType: string, entityId: string): void {
     this.store.dispatch(attachMedia({ mediaId, entityType, entityId }));
   }
 

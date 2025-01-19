@@ -43,7 +43,7 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  addPasswordModal() {
+  addPasswordModal(): void {
     const modalRef = this.ngbModalService.open(AddPasswordModalComponent);
 
     modalRef.result

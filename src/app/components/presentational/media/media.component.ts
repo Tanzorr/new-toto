@@ -5,7 +5,6 @@ import { Media } from '../../../models/media';
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaComponent {
@@ -22,15 +21,15 @@ export class MediaComponent {
     this.mediaService.getMedias({ search: searchValue });
   }
 
-  handleFileInput($event: Event) {
+  handleFileInput($event: Event): void {
     this.mediaService.addMedia(this.mediaService.prosedFormDataFile($event));
   }
 
-  delete($event: Media['id']) {
+  delete($event: Media['id']): void {
     this.mediaService.deleteMedia($event);
   }
 
-  attach($event: Media['id']) {
+  attach($event: Media['id']): void {
     this.mediaService.attachMedia($event, this.entityType, this.entityId);
   }
 }

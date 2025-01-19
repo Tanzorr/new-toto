@@ -17,7 +17,7 @@ export class UsersListService {
     this.store.dispatch(getUsers({ queryParams }));
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string): void {
     this.store.dispatch(deleteUser({ id }));
   }
 }

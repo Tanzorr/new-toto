@@ -25,7 +25,7 @@ export class UsersService {
     return this.http.post<CreateUserResponse>(this.baseUrl, user);
   }
 
-  deleteUser(id: number): Observable<{}> {
+  deleteUser(id: string): Observable<{}> {
     return this.http.delete(this.baseUrl + id);
   }
 

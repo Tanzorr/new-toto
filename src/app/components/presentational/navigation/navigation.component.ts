@@ -10,7 +10,7 @@ import { User } from '../../../models/user';
 })
 export class NavigationComponent implements OnInit {
   isLoggedIn = true;
-  loggedUserId!: User['id'];
+  loggedUserId!: number;
 
   navLinks = [
     { label: 'Users', url: '/users', authRequired: false },
@@ -33,7 +33,6 @@ export class NavigationComponent implements OnInit {
   }
 
   mobileMenuToggle(): void {
-    console.log('mobileMenuToggle');
     const nav = document.getElementById('navbarNav');
     nav?.classList.toggle('show');
   }

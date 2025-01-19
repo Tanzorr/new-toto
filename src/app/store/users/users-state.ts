@@ -18,7 +18,7 @@ export const initialPaginationResponse: PaginatedUsersResponse = {
 };
 
 export const initialUser: User = {
-  id: 1,
+  id: '1',
   name: 'User 1',
   email: 'email@ukr.net',
   password: 'password',

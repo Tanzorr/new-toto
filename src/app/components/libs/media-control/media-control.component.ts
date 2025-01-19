@@ -4,7 +4,6 @@ import { Media } from '../../../models/media';
 @Component({
   selector: 'app-media-control',
   templateUrl: './media-control.component.html',
-  styleUrls: ['./media-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaControlComponent {
