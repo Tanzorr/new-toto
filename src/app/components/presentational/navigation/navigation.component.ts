@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from '../../../services/storage/local-storage.service';
-import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-navigation',

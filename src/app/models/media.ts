@@ -6,14 +6,6 @@ export interface Media {
   file_name: string;
 }
 
-export type MediasResponse = {
-  medias: Media[];
-};
-
-export type MediaResponse = {
-  media: Media;
-};
-
 export interface PaginatedMediasResponse {
   current_page: number;
   data: Media[];

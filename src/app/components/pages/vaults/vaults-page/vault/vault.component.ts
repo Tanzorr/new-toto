@@ -5,6 +5,7 @@ import { ModalService } from '../../../../../services/ui/modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddVaultModalComponent } from '../../../../presentational/vaults/add-vault-modal/add-vault-modal.component';
 import { EditVaultModalComponent } from '../../../../presentational/vaults/edit-vault-modal/edit-vault-modal.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-vault',
@@ -12,7 +13,7 @@ import { EditVaultModalComponent } from '../../../../presentational/vaults/edit-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VaultComponent {
-  vault$ = this.vaultService.vault$;
+  vault$: Observable<Vault | null> = this.vaultService.vault$;
 
   constructor(
     private vaultService: VaultService,

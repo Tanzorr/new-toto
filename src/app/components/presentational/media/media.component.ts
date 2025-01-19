@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MediaService } from './services/media.service';
 import { Media } from '../../../models/media';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-media',
@@ -8,7 +9,7 @@ import { Media } from '../../../models/media';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaComponent {
-  medias$ = this.mediaService.medias$;
+  medias$: Observable<Media[]> = this.mediaService.medias$;
 
   @Input() entityType!: string;
   @Input() entityId!: string;

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Media, PaginatedMediasResponse } from '../../models/media';
 import { QueryParams } from '../../models/query-params';
-import { MediaResponse } from '../../models/media-response';
+import { ResponseMessage } from '../../models/response-message';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,11 @@ export class MediaService {
     return this.http.get<PaginatedMediasResponse>(this.baseUrl, { params: queryParams });
   }
 
-  addMedia(media: FormData): Observable<MediaResponse> {
-    return this.http.post<MediaResponse>(this.baseUrl, media);
+  addMedia(media: FormData): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(this.baseUrl, media);
   }
 
-  deleteMedia(id: Media['id']): Observable<MediaResponse> {
-    return this.http.delete<MediaResponse>(`${this.baseUrl}/${id}`);
+  deleteMedia(id: Media['id']): Observable<ResponseMessage> {
+    return this.http.delete<ResponseMessage>(`${this.baseUrl}/${id}`);
   }
 }

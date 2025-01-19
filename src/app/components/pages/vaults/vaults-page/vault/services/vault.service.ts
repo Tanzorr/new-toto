@@ -6,17 +6,15 @@ import { vaultSelector } from '../../../../../../store/valuts/vautls-selecotors'
 import { CreateVault, Vault } from '../../../../../../models/vault';
 import { selectLoggedUser } from '../../../../../../store/auth/auth-selectors';
 import { AuthState } from '../../../../../../store/auth/auth-reducers';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VaultService {
-  vault$ = this.store.select(vaultSelector);
-  loggedUser$ = this.authStore.select(selectLoggedUser);
-  constructor(
-    private store: Store<VaultsState>,
-    private authStore: Store<AuthState>
-  ) {}
+  vault$: Observable<Vault | null> = this.store.select(vaultSelector);
+
+  constructor(private store: Store<VaultsState>) {}
 
   addVault(vaultData: CreateVault): void {
     this.store.dispatch(addVault({ vaultData }));

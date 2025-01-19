@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MediaResponse } from '../../models/media-response';
+import { ResponseMessage } from '../../models/response-message';
 import { Media } from '../../models/media';
 
 @Injectable({
@@ -15,8 +15,8 @@ export class EntityMediaService {
     entityType: string,
     entityId: string,
     mediaId: Media['id']
-  ): Observable<MediaResponse> {
-    return this.http.post<MediaResponse>(`${this.baseUrl}attach`, {
+  ): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(`${this.baseUrl}attach`, {
       media_id: mediaId,
       mediable_type: entityType,
       mediable_id: entityId,
@@ -27,8 +27,8 @@ export class EntityMediaService {
     entityType: string,
     entityId: number | string,
     mediaId: Media['id']
-  ): Observable<MediaResponse> {
-    return this.http.post<MediaResponse>(`${this.baseUrl}detach`, {
+  ): Observable<ResponseMessage> {
+    return this.http.post<ResponseMessage>(`${this.baseUrl}detach`, {
       media_id: mediaId,
       mediable_type: entityType,
       mediable_id: entityId,

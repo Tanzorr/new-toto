@@ -13,6 +13,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VaultSharedAccessComponent implements OnInit {
+  scrollableAriaHeight = 10;
   notAccessedUsers$: Observable<User[]>;
   accessUsers$: Observable<User[]>;
   vault!: Vault;

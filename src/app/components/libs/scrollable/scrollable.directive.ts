@@ -12,8 +12,9 @@ import {
   selector: '[appScrollable]',
 })
 export class ScrollableDirective {
-  @Input() scrollThreshold = 100; // Висота в пікселях до нижнього краю
-  @Output() reachedThreshold = new EventEmitter<void>();
+  scrollHeight = 100;
+  @Input() scrollThreshold: number = this.scrollHeight;
+  @Output() reachedThreshold: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private el: ElementRef) {}
   @HostBinding('class') class = 'scrollable';
