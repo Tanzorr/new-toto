@@ -1,6 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
-    <!--        <input type="text" formControlName="name" class="form-control" id="name">-->
     <input type="hidden" formControlName="id" class="form-control" id="id" />
     <app-custom-input formControlName="name"></app-custom-input>
   </app-form-group>

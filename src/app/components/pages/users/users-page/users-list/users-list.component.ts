@@ -10,7 +10,6 @@ import { User } from '../../../../../models/user';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements AfterViewInit {

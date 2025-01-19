@@ -21,11 +21,11 @@ export class UsersService {
     return this.http.get<User>(this.baseUrl + id);
   }
 
-  addUser(user: User) {
+  addUser(user: User): Observable<CreateUserResponse> {
     return this.http.post<CreateUserResponse>(this.baseUrl, user);
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number): Observable<{}> {
     return this.http.delete(this.baseUrl + id);
   }
 

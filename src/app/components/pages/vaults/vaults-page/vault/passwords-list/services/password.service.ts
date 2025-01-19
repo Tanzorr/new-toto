@@ -8,7 +8,6 @@ import {
   deletePassword,
   updatePassword,
   searchPassword,
-  getPasswordsSuccess,
 } from '../../../../../../../store/passwords/passwords-actions';
 import { VaultService } from '../../services/vault.service';
 

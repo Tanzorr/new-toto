@@ -104,7 +104,7 @@ export class MediaEffects {
             .attachMedia(action.entityType, action.entityId, action.mediaId)
             .pipe(
               map(() => {
-                this.usersStore.dispatch(getUser());
+                // this.usersStore.dispatch(getUser());
                 return addMediaSuccess();
               }),
               catchError((error: ErrorResponse) =>

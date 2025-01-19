@@ -6,6 +6,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaComponent } from '../../../../../presentational/media/media.component';
 import { EntityType } from '../../../../../../constans/entity-type';
 import { Media } from '../../../../../../models/media';
+import { Actions, ofType } from '@ngrx/effects';
+import { addMediaSuccess } from '../../../../../../store/media/media-actions';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,14 +22,17 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private editUserService: EditUserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private actions$: Actions
   ) {
     this.user$ = this.editUserService.user$;
     this.editUserService.getUser();
   }
 
   ngOnInit(): void {
-    //subscribe to attached media success
+    this.actions$.pipe(ofType(addMediaSuccess)).subscribe(() => {
+      this.editUserService.getUser();
+    });
   }
 
   updateUser(user: User): void {

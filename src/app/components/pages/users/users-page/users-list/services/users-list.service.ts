@@ -4,7 +4,6 @@ import { deleteUser, getUsers } from '../../../../../../store/users/users-action
 import { usersSelector } from '../../../../../../store/users/users-selectors';
 import { UsersState } from '../../../../../../store/users/users-reducers';
 import { QueryParams } from '../../../../../../models/query-params';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Injectable({
   providedIn: 'root',

@@ -11,7 +11,6 @@ import { Media } from '../../../../models/media';
 @Component({
   selector: 'app-attached-media-collection',
   templateUrl: './attached-media-collection.component.html',
-  styleUrls: ['./attached-media-collection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttachedMediaCollectionComponent {

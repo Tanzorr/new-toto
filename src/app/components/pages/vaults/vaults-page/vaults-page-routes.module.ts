@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VaultsPageComponent } from './vaults-page.component';
-import { VaultsListComponent } from './vaults-list/vaults-list.component';
 
 const routes: Routes = [
   {

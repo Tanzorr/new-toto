@@ -14,7 +14,6 @@ import { userErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-edit-user-form',
   templateUrl: './edit-user-form.component.html',
-  styleUrls: ['./edit-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditUserFormComponent implements OnChanges {

@@ -5,7 +5,6 @@ import { AuthLoginData } from '../../../../models/auth-login-data';
 @Component({
   selector: 'app-login-user-form',
   templateUrl: './login-user-form.component.html',
-  styleUrls: ['./login-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginUserFormComponent {

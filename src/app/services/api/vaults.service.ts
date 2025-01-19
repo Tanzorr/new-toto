@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginatedVaultsResponse, Vault } from '../../models/vault';
 import { QueryParams } from '../../models/query-params';
+import { MediaResponse } from '../../models/media-response';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,12 @@ export class VaultsService {
     return this.http.get<Vault>(`${this.baseUrl}/${id}`);
   }
 
-  deleteVault(id: Vault['id']): Observable<any> {
+  deleteVault(id: Vault['id']): Observable<{}> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
-  addVault(value: any): Observable<any> {
-    return this.http.post(this.baseUrl, value);
+  addVault(value: any): Observable<MediaResponse> {
+    return this.http.post<MediaResponse>(this.baseUrl, value);
   }
 
   updateVault(value: Vault): Observable<any> {

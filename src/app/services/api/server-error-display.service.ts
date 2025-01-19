@@ -7,7 +7,7 @@ import { AlertService } from '../ui/alert.service';
 export class ServerErrorDisplayService {
   constructor(private alert: AlertService) {}
 
-  displayError(errorMessage: string) {
+  displayError(errorMessage: string): void {
     this.alert.showAlert({
       type: 'danger',
       message: errorMessage,

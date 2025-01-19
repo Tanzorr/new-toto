@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AttachMediaCollectionComponent } from './attach-media-collection.component';
-import { AppModule } from '../../../../app.module';
 import { AttachMediaItemModule } from '../../../libs/media-item/attach-media-item.module';
 import { ScrollableModule } from '../../../libs/scrollable/scrollable.module';
 import { SearchModule } from '../../../libs/search/search.module';

@@ -10,7 +10,6 @@ import { User } from '../../../../../models/user';
 @Component({
   selector: 'app-vault',
   templateUrl: './vault.component.html',
-  styleUrls: ['./vault.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VaultComponent {

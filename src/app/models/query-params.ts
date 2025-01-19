@@ -5,10 +5,6 @@ export interface AngularQueryParamsOptions {
   fromObject: (params: AngularQueryParams) => string;
 }
 
-export interface AngularHttpParams {
-  new (options: AngularQueryParamsOptions): AngularQueryParams;
-}
-
 export interface QueryParams extends AngularQueryParams {
   search: string;
 }
