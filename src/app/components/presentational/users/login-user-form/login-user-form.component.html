@@ -4,7 +4,7 @@
     controlName="email"
     [errorMessage]="getErrorMessage('email')"
   >
-    <input type="email" formControlName="email" class="form-control" id="email" />
+    <app-custom-input formControlName="email"></app-custom-input>
   </app-form-group>
 
   <app-form-group
@@ -12,7 +12,7 @@
     controlName="password"
     [errorMessage]="getErrorMessage('password')"
   >
-    <input type="password" formControlName="password" class="form-control" id="password" />
+    <app-custom-input type="password" formControlName="password"></app-custom-input>
   </app-form-group>
 
   <app-form-group>

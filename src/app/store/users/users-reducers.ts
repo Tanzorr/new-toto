@@ -52,10 +52,16 @@ export const usersReducer = createReducer(
     errorMessage: error,
   })),
 
-  on(getUserSuccess, (state, { user }) => ({
-    ...state,
-    user,
-  })),
+  on(
+    getUserSuccess,
+    (state, { user }) => (
+      console.log('getUserSuccess', user),
+      {
+        ...state,
+        user,
+      }
+    )
+  ),
 
   on(getUserFail, (state, { error }) => ({
     ...state,

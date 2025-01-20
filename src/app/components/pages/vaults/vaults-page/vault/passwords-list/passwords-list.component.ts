@@ -106,7 +106,18 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
       });
   }
 
-  getSearch(vale: string) {
+  getSearch(vale: string): void {
     this.passwordService.searchPassword(vale);
+  }
+
+  copyToClipboard(value: string): void {
+    navigator.clipboard.writeText(value).then(
+      () => {
+        console.log('Password copied to clipboard');
+      },
+      (err) => {
+        console.error('Could not copy text: ', err);
+      }
+    );
   }
 }

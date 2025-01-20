@@ -1,0 +1,29 @@
+.scrollable {
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $success $light;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px;
+  background-color: $white;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: $light;
+  border-radius: 10px;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: $success;
+  border-radius: 10px;
+  border: 2px solid $light;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: $success;
+}

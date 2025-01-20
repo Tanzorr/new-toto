@@ -38,7 +38,7 @@ export class LoginUserFormComponent {
   getErrorMessage(controlName: string): string | null {
     const control = this.loginForm.get(controlName);
 
-    if (control?.touched && control?.errors) {
+    if (control?.dirty && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return this.errorMessages[controlName][firstErrorKey];
     }

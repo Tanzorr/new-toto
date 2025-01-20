@@ -16,7 +16,7 @@ import {
   updateUserFail,
   updateUserSuccess,
 } from './users-actions';
-import { catchError, map, switchMap, finalize, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, finalize, withLatestFrom, tap } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { CreateUserResponse, User } from '../../models/user';
@@ -86,6 +86,7 @@ export class UsersEffects {
       withLatestFrom(this.store.select(routerSelector)),
       switchMap(([action, route]) => {
         this.showSpinner();
+        console.log(route.state.params['id']);
         return this.usersApiService.getUser(route.state.params['id']).pipe(
           map((user: User) => getUserSuccess({ user })),
           catchError((error: ServerError) => this.handleError(error, getUserFail)),

@@ -6,7 +6,6 @@ import { passwordErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-add-password-modal',
   templateUrl: './add-password-modal.component.html',
-  styleUrls: ['./add-password-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddPasswordModalComponent {
@@ -36,7 +35,7 @@ export class AddPasswordModalComponent {
   getErrorMessage(controlName: string): string | null {
     const control = this.passwordForm.get(controlName);
 
-    if (control?.touched && control?.errors) {
+    if (control?.dirty && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return passwordErrorMessages[controlName][firstErrorKey];
     }
