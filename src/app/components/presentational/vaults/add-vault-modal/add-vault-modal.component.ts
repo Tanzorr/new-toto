@@ -34,7 +34,7 @@ export class AddVaultModalComponent {
   getErrorMessage(controlName: string): string | null {
     const control = this.vaultForm.get(controlName);
 
-    if (control?.touched && control?.errors) {
+    if (control?.dirty && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return vaultErrorMessages[controlName][firstErrorKey];
     }

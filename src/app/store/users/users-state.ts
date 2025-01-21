@@ -26,7 +26,7 @@ export const initialUser: User = {
 };
 
 export const initialState = {
-  user: initialUser,
+  user: null as User | null,
   paginationResponse: initialPaginationResponse,
   errorMessage: null as string | null,
 };

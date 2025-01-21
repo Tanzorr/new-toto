@@ -1,9 +1,11 @@
 <h3>Edit user</h3>
-
-  <app-attached-media-collection [medias]="user?.media" (detachMediaId)="detachMedia($event)"></app-attached-media-collection>
+<ng-container *ngIf="user$ | async as user">
+  <app-attached-media-collection [medias]="user?.media" (detachMediaId)="detachMedia($event, user.id)"></app-attached-media-collection>
   <app-edit-user-form [userData]="user"
                       (formSubmit)="updateUser($event)"
                       (addMedia)="selectMedia(user.id)"
   ></app-edit-user-form>
+</ng-container>
+
 
 

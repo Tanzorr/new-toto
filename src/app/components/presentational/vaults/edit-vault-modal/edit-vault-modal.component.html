@@ -5,7 +5,7 @@
 <div class="modal-body">
   <form [formGroup]="vaultForm">
     <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
-      <input formControlName="name" class="form-control" id="name" name="vaultName" required />
+      <app-custom-input formControlName="name"></app-custom-input>
       <input type="hidden" formControlName="user_id" id="user_id" />
     </app-form-group>
 

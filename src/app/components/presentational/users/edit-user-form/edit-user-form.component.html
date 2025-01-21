@@ -1,7 +1,7 @@
 <form [formGroup]="userForm" enctype="multipart/form-data"  (ngSubmit)="onSubmit()">
   <app-form-group label="Name" controlName="name" [errorMessage]="getErrorMessage('name')">
-    <input type="text" formControlName="name" class="form-control" id="name" />
     <input type="hidden" formControlName="id" class="form-control" id="id" />
+    <app-custom-input formControlName="name"></app-custom-input>
   </app-form-group>
 
   <app-form-group
@@ -9,11 +9,11 @@
     controlName="email"
     [errorMessage]="getErrorMessage('email')"
   >
-    <input type="email" formControlName="email" class="form-control" id="email" />
+    <app-custom-input formControlName="email"></app-custom-input>
   </app-form-group>
 
   <app-form-group>
-    <button (click)="selectMedia()" class="btn btn-sm btn-success">add media</button>
+    <button (click)="selectMedia($event)" class="btn btn-sm btn-success">add media</button>
   </app-form-group>
 
   <app-form-group>

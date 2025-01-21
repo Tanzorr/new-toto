@@ -7,7 +7,7 @@ import { Media } from '../../../../../../models/media';
 import { Actions, ofType } from '@ngrx/effects';
 import { addMediaSuccess } from '../../../../../../store/media/media-actions';
 import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { EntityType } from '../../../../../../constans/entity-type';
 
 @Component({
@@ -17,7 +17,7 @@ import { EntityType } from '../../../../../../constans/entity-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  user!: User;
+  user$!: Observable<User>;
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -27,14 +27,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.editUserService.user$;
-
+    this.getUser();
+    this.user$ = this.editUserService.user$;
     this.actions$
       .pipe(ofType(addMediaSuccess), takeUntil(this.destroy$))
-      .subscribe(() => this.refreshUser());
-    this.editUserService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
-      this.user = user;
-    });
+      .subscribe(() => this.editUserService.getUser());
   }
 
   ngOnDestroy(): void {
@@ -44,7 +41,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   updateUser(user: User): void {
     this.editUserService.updateUser(user);
-    this.refreshUser();
+    this.editUserService.getUser();
   }
 
   selectMedia(entityId: string): void {
@@ -59,18 +56,19 @@ export class UserEditComponent implements OnInit, OnDestroy {
     modalRef.result
       .then((result) => {
         console.log('Media selected:', result);
+        this.editUserService.getUser();
       })
       .catch((error) => {
         console.error('Media modal dismissed:', error);
       });
   }
 
-  detachMedia(mediaId: Media['id']): void {
-    this.editUserService.detachMedia(EntityType.USER, this.user.id, mediaId);
-    this.refreshUser();
+  detachMedia(mediaId: Media['id'], userId: User['id']): void {
+    this.editUserService.detachMedia(EntityType.USER, userId, mediaId);
+    this.editUserService.getUser();
   }
 
-  private refreshUser(): void {
+  getUser() {
     this.editUserService.getUser();
   }
 }

@@ -1,52 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import  './styles/scrollable';
 
 body {
   font-family: 'Roboto', sans-serif;
   background: aliceblue;
-}
-
-.gap-3 {
-  gap: 1rem;
-}
-
-.scrollable {
-  max-height: 500px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #4caf50 #f1f1f1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 8px;
-  background-color: #ffffff;
-}
-
-.scrollable::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollable::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-  background-color: #4caf50;
-  border-radius: 10px;
-  border: 2px solid #f1f1f1;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-  background-color: #388e3c;
-}
-
-.own-table-bordered {
-  border: solid 1px #4caf50;
-}
-
-.shared-table-bordered {
-  border: solid 1px #2196f3;
 }
 

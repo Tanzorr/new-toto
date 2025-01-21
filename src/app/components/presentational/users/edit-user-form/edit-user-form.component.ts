@@ -31,7 +31,7 @@ export class EditUserFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userData'].currentValue) {
-      this.userForm.patchValue(this.userData);
+      this.userForm.patchValue(changes['userData'].currentValue);
     }
   }
 
@@ -42,7 +42,7 @@ export class EditUserFormComponent implements OnChanges {
   }
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
-    if (control?.touched && control?.errors) {
+    if (control?.dirty && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return userErrorMessages[controlName][firstErrorKey];
     }
@@ -59,7 +59,8 @@ export class EditUserFormComponent implements OnChanges {
     return this.userForm.valid && this.isFormChanged();
   }
 
-  selectMedia(): void {
+  selectMedia($event: Event): void {
+    $event.preventDefault();
     this.addMedia.emit();
   }
 }

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 type fn = (value: any) => void;
 

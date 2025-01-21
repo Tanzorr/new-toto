@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../models/user';
 import { userErrorMessages } from '../../../../constans/error-messages';
@@ -27,13 +27,14 @@ export class CreateUserFormComponent {
   onSubmit(): void {
     if (this.userForm.valid) {
       this.formSubmit.emit(this.userForm.value);
+      this.userForm.reset();
     }
   }
 
   getErrorMessage(controlName: string): string | null {
     const control = this.userForm.get(controlName);
 
-    if (control?.touched && control?.errors) {
+    if (control?.dirty && control?.errors) {
       const firstErrorKey = Object.keys(control.errors)[0];
       return userErrorMessages[controlName][firstErrorKey];
     }
