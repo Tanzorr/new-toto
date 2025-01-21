@@ -16,6 +16,10 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'page/:pageId',
+    loadChildren: () => import('./components/pages/page/page.module').then((m) => m.PageModule),
+  },
+  {
     path: 'vaults',
     loadChildren: () =>
       import('./components/pages/vaults/vaults.module').then((m) => m.VaultsModule),
