@@ -86,7 +86,6 @@ export class UsersEffects {
       withLatestFrom(this.store.select(routerSelector)),
       switchMap(([action, route]) => {
         this.showSpinner();
-        console.log(route.state.params['id']);
         return this.usersApiService.getUser(route.state.params['id']).pipe(
           map((user: User) => getUserSuccess({ user })),
           catchError((error: ServerError) => this.handleError(error, getUserFail)),
