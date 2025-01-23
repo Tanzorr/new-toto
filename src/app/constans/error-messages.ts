@@ -43,3 +43,15 @@ export const passwordErrorMessages: ErrorMessages = {
     minlength: 'Description must be at least 12 characters long.',
   },
 };
+
+export const infoPageErrorMessages: ErrorMessages = {
+  title: {
+    required: 'Title is required.',
+    minlength: 'Title must be at least 2 characters long.',
+    maxlength: 'Title must be at most 255 characters long.',
+  },
+  content: {
+    required: 'Description is required.',
+    minlength: 'Description must be at least 12 characters long.',
+  },
+};

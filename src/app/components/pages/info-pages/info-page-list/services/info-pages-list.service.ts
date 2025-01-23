@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { infoPagesSelector } from 'src/app/store/info-pages/info-pages-selectors';
 import { PageState } from '../../../../../store/info-pages/info-pages-reducers';
 import { Store } from '@ngrx/store';
-import {
-  addPage,
-  getPage,
-  updatePage,
-  deletePage,
-  getPages,
-} from '../../../../../store/info-pages/info-pages-actions';
-import { Page } from '../../../../../models/page';
+import { addPage, deletePage, getPages } from '../../../../../store/info-pages/info-pages-actions';
+import { InfoPage } from '../../../../../models/infoPage';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +16,7 @@ export class InfoPagesListService {
     this.store.dispatch(getPages());
   }
 
-  addPage(pageData: Page): void {
-    this.store.dispatch(addPage({ page: pageData }));
-  }
-
-  deletePage(id: Page['id']): void {
+  deletePage(id: InfoPage['id']): void {
     this.store.dispatch(deletePage({ id }));
   }
 }

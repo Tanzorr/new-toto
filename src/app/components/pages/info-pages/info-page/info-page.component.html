@@ -1,1 +1,4 @@
-<p>info-page works!</p>
+<ng-container *ngIf="infoPage$ | async as info">
+  <h3>{{info.title}}</h3>
+  <p>{{ info.content }}</p>
+</ng-container>

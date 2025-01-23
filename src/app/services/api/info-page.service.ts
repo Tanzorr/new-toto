@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Page } from '../../models/page';
+import { InfoPage } from '../../models/infoPage';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,23 +11,23 @@ export class InfoPageService {
 
   constructor(private http: HttpClient) {}
 
-  getPages(): Observable<Page[]> {
-    return this.http.get<Page[]>(this.baseUrl);
+  getPages(): Observable<InfoPage[]> {
+    return this.http.get<InfoPage[]>(this.baseUrl);
   }
 
-  getPage(id: Page['id']): Observable<Page> {
-    return this.http.get<Page>(this.baseUrl + id);
+  getPage(id: InfoPage['id']): Observable<InfoPage> {
+    return this.http.get<InfoPage>(this.baseUrl + id);
   }
 
-  addPage(page: Page): Observable<Page> {
-    return this.http.post<Page>(this.baseUrl, page);
+  addPage(page: InfoPage): Observable<InfoPage> {
+    return this.http.post<InfoPage>(this.baseUrl, page);
   }
 
-  updatePage(page: Page): Observable<Page> {
-    return this.http.put<Page>(this.baseUrl + page.id, page);
+  updatePage(page: InfoPage): Observable<InfoPage> {
+    return this.http.put<InfoPage>(this.baseUrl + page.id, page);
   }
 
-  deletePage(id: Page['id']): Observable<{}> {
+  deletePage(id: InfoPage['id']): Observable<{}> {
     return this.http.delete(this.baseUrl + id);
   }
 }

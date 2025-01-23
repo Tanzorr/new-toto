@@ -1,0 +1,13 @@
+<form [formGroup]="infoForm" (ngSubmit)="onSubmit()">
+  <app-form-group label="title" [errorMessage]="getErrorMessage('title')">
+    <input type="hidden" formControlName="id" class="form-control" id="id" />
+    <app-custom-input formControlName="title"></app-custom-input>
+  </app-form-group>
+
+  <app-form-group label="content" [errorMessage]="getErrorMessage('content')">
+    <textarea formControlName="content" class="form-control" id="content"></textarea>
+  </app-form-group>
+  <app-form-group>
+    <button type="submit" class="btn btn-primary" [disabled]="!isCanSubmit()">Submit</button>
+  </app-form-group>
+</form>

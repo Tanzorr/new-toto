@@ -10,11 +10,11 @@ import {
   updatePageFailure,
   updatePageSuccess,
 } from './info-pages-actions';
-import { Page } from '../../models/page';
+import { InfoPage } from '../../models/infoPage';
 
 export interface PageStateModule {
-  page: Page;
-  pages: Page[];
+  page: InfoPage;
+  pages: InfoPage[];
   errorMessage: string;
 }
 

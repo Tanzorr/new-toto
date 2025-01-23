@@ -7,8 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: InfoPageComponent,
-    loadChildren: () =>
-      import('./info-page-edit/info-page-edit.module').then((m) => m.InfoPageEditModule),
   },
 ];
 

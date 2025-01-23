@@ -25,7 +25,7 @@ import {
   getPages,
   getPagesSuccess,
 } from './info-pages-actions';
-import { Page } from '../../models/page';
+import { InfoPage } from '../../models/infoPage';
 import { routerSelector } from '../router/router-selector';
 
 @Injectable()
@@ -54,7 +54,7 @@ export class InfoPagesEffects {
       switchMap(() => {
         this.showSpinner();
         return this.pageApiService.getPages().pipe(
-          map((pagesData: Page[]) => getPagesSuccess({ pages: pagesData })),
+          map((pagesData: InfoPage[]) => getPagesSuccess({ pages: pagesData })),
           catchError((error: ServerError) => this.handleError(error, this.getPagesFail)),
           finalize(this.hideSpinner)
         );
@@ -69,7 +69,7 @@ export class InfoPagesEffects {
       switchMap(([action, route]) => {
         this.showSpinner();
         return this.pageApiService.getPage(route.state.params['id']).pipe(
-          map((pagesData: Page) => getPageSuccess({ page: pagesData })),
+          map((pagesData: InfoPage) => getPageSuccess({ page: pagesData })),
           catchError((error: ServerError) => this.handleError(error, this.getPagesFail)),
           finalize(this.hideSpinner)
         );
@@ -83,7 +83,7 @@ export class InfoPagesEffects {
       switchMap((action) => {
         this.showSpinner();
         return this.pageApiService.addPage(action.page).pipe(
-          map((page: Page) => addPageSuccess({ page })),
+          map((page: InfoPage) => addPageSuccess({ page })),
           catchError((error: ServerError) => this.handleError(error, addPageFailure)),
           finalize(this.hideSpinner)
         );
@@ -97,7 +97,7 @@ export class InfoPagesEffects {
       switchMap((action) => {
         this.showSpinner();
         return this.pageApiService.updatePage(action.page).pipe(
-          map((page: Page) => updatePageSuccess({ page })),
+          map((page: InfoPage) => updatePageSuccess({ page })),
           catchError((error: ServerError) => this.handleError(error, updatePageFailure)),
           finalize(this.hideSpinner)
         );

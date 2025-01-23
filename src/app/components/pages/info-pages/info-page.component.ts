@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { InfoPagesListService } from './info-page-list/services/info-pages-list.service';
 import { Observable } from 'rxjs';
-import { Page } from '../../../models/page';
+import { InfoPage } from '../../../models/infoPage';
 
 @Component({
   selector: 'app-info-pages',
@@ -9,6 +9,6 @@ import { Page } from '../../../models/page';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoPageComponent {
-  page$!: Observable<Page>;
+  page$!: Observable<InfoPage>;
   constructor() {}
 }

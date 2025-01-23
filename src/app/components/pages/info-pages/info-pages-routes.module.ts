@@ -16,6 +16,11 @@ const routes: Routes = [
         path: ':id',
         loadChildren: () => import('./info-page/info-page.module').then((m) => m.InfoPageModule),
       },
+      {
+        path: ':id/edit',
+        loadChildren: () =>
+          import('./info-page-edit/info-page-edit.module').then((m) => m.InfoPageEditModule),
+      },
     ],
   },
 ];

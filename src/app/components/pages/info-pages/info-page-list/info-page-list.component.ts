@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Page } from '../../../../models/page';
+import { InfoPage } from '../../../../models/infoPage';
 import { InfoPagesListService } from './services/info-pages-list.service';
 import { Columns } from '../../../../models/columns';
 import { User } from '../../../../models/user';
@@ -11,7 +11,7 @@ import { User } from '../../../../models/user';
 })
 export class InfoPageListComponent implements OnInit, AfterViewInit {
   loggedUser!: User;
-  infoPages$!: Observable<Page[]>;
+  infoPages$!: Observable<InfoPage[]>;
 
   columns!: Columns[];
 
