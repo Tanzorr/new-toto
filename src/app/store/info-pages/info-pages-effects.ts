@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { PageState } from './page-reducers';
+import { PageState } from './info-pages-reducers';
 import { Router } from '@angular/router';
-import { PageService } from '../../services/api/page.service';
+import { InfoPageService } from '../../services/api/info-page.service';
 import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
 import { ServerError } from '../../models/server-error';
@@ -22,15 +22,17 @@ import {
   deletePage,
   deletePageSuccess,
   deletePageFailure,
-} from './page-actions';
+  getPages,
+  getPagesSuccess,
+} from './info-pages-actions';
 import { Page } from '../../models/page';
 import { routerSelector } from '../router/router-selector';
 
 @Injectable()
-export class PageEffects {
+export class InfoPagesEffects {
   constructor(
     private actions$: Actions,
-    private pageApiService: PageService,
+    private pageApiService: InfoPageService,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
     private store: Store<PageState>
@@ -45,6 +47,20 @@ export class PageEffects {
     this.serverErrorDisplayService.displayError(error.message);
     return of(actionFail({ error: error.message }));
   };
+
+  getPages = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getPages),
+      switchMap(() => {
+        this.showSpinner();
+        return this.pageApiService.getPages().pipe(
+          map((pagesData: Page[]) => getPagesSuccess({ pages: pagesData })),
+          catchError((error: ServerError) => this.handleError(error, this.getPagesFail)),
+          finalize(this.hideSpinner)
+        );
+      })
+    )
+  );
 
   getPage = createEffect(() =>
     this.actions$.pipe(

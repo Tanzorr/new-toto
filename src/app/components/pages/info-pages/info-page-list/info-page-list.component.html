@@ -1,0 +1,15 @@
+<h3>Page list component</h3>
+<app-table
+  [columns]="columns"
+  [data]="infoPages$ | async"
+  [fragment]="actionsTemplate"
+></app-table>
+
+<ng-template #actionsTemplate let-info>
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-success " [routerLink]="info.id">View</a>
+    <a *ngIf="loggedUser.role === 'admin'" class="btn btn-primary" [routerLink]="[info.id, 'edit']">Edit</a>
+    <button *ngIf="loggedUser.role === 'admin'"  class="btn btn-danger" >Delete</button>
+  </div>
+</ng-template>
+

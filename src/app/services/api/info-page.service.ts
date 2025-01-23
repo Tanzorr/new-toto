@@ -6,10 +6,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PageService {
+export class InfoPageService {
   private baseUrl = '/api/pages/';
 
   constructor(private http: HttpClient) {}
+
+  getPages(): Observable<Page[]> {
+    return this.http.get<Page[]>(this.baseUrl);
+  }
 
   getPage(id: Page['id']): Observable<Page> {
     return this.http.get<Page>(this.baseUrl + id);

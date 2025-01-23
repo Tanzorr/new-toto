@@ -2,17 +2,19 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addPageFailure,
   addPageSuccess,
-  deletePage,
+  deletePageFailure,
   deletePageSuccess,
   getPageFailure,
+  getPagesSuccess,
   getPageSuccess,
   updatePageFailure,
   updatePageSuccess,
-} from './page-actions';
+} from './info-pages-actions';
 import { Page } from '../../models/page';
 
 export interface PageStateModule {
   page: Page;
+  pages: Page[];
   errorMessage: string;
 }
 
@@ -26,11 +28,22 @@ export const initialState: PageStateModule = {
     title: '',
     content: '',
   },
+  pages: [],
   errorMessage: '',
 };
 
 export const pageReducer = createReducer(
   initialState,
+  on(getPagesSuccess, (state, { pages }) => ({
+    ...state,
+    pages,
+  })),
+
+  on(getPageFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+
   on(getPageSuccess, (state, { page }) => ({
     ...state,
     page: page,
@@ -57,6 +70,16 @@ export const pageReducer = createReducer(
   })),
 
   on(updatePageFailure, (state, { error }) => ({
+    ...state,
+    errorMessage: error,
+  })),
+
+  on(deletePageSuccess, (state, { id }) => ({
+    ...state,
+    pages: state.pages.filter((page) => page.id !== id),
+  })),
+
+  on(deletePageFailure, (state, { error }) => ({
     ...state,
     errorMessage: error,
   }))

@@ -1,6 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import { Page } from '../../models/page';
 
+export const getPages = createAction('[Page] Get Pages');
+
+export const getPagesSuccess = createAction('[Page] Get Pages Success', props<{ pages: Page[] }>());
+
+export const getPagesFailure = createAction('[Page] Get Pages Failure', props<{ error: string }>());
 export const getPage = createAction('[Page] Get Page');
 
 export const getPageSuccess = createAction('[Page] Get Page Success', props<{ page: Page }>());

@@ -16,9 +16,15 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'page/:id',
-    loadChildren: () => import('./components/pages/page/page.module').then((m) => m.PageModule),
+    path: 'pages',
+    loadChildren: () =>
+      import('./components/pages/info-pages/info-pages.module').then((m) => m.InfoPagesModule),
   },
+  // {
+  //   path: 'pages/:id',
+  //   loadChildren: () =>
+  //     import('./components/pages/info-pages/info-pages.module').then((m) => m.InfoPagesModule),
+  // },
   {
     path: 'vaults',
     loadChildren: () =>
