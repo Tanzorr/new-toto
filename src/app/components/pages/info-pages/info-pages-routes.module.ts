@@ -13,6 +13,11 @@ const routes: Routes = [
           import('./info-page-list/info-page-list.module').then((m) => m.InfoPageListModule),
       },
       {
+        path: 'add',
+        loadChildren: () =>
+          import('./add-info-page/add-info-page.module').then((m) => m.AddInfoPageModule),
+      },
+      {
         path: ':id',
         loadChildren: () => import('./info-page/info-page.module').then((m) => m.InfoPageModule),
       },

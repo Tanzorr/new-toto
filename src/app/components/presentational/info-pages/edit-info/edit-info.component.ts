@@ -23,7 +23,7 @@ export class EditInfoComponent implements OnChanges {
   infoForm = this.fb.group({
     id: [null],
     title: ['', [Validators.required, Validators.minLength(2)]],
-    content: ['', [Validators.required, Validators.minLength(12)]],
+    content: ['', [Validators.required, Validators.minLength(2)]],
   });
   constructor(private fb: FormBuilder) {}
 

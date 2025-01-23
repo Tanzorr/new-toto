@@ -16,6 +16,7 @@ export class NavigationComponent implements OnInit {
     { label: 'Vaults', url: '/vaults', authRequired: true },
     { label: 'About Us', url: '', authRequired: false },
     { label: 'Contacts', url: '', authRequired: false },
+    { label: 'Pages', url: '/pages', authRequired: false },
   ];
   constructor(
     private authService: AuthService,
