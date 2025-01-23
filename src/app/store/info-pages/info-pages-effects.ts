@@ -35,7 +35,8 @@ export class InfoPagesEffects {
     private pageApiService: InfoPageService,
     private spinnerLoaderService: SpinnerLoaderService,
     private serverErrorDisplayService: ServerErrorDisplayService,
-    private store: Store<PageState>
+    private store: Store<PageState>,
+    private router: Router
   ) {}
 
   private showSpinner = () => this.spinnerLoaderService.show();
@@ -83,7 +84,10 @@ export class InfoPagesEffects {
       switchMap((action) => {
         this.showSpinner();
         return this.pageApiService.addPage(action.page).pipe(
-          map((page: InfoPage) => addPageSuccess({ page })),
+          map((page: InfoPage) => {
+            this.navigateTo('/pages');
+            return addPageSuccess({ page });
+          }),
           catchError((error: ServerError) => this.handleError(error, addPageFailure)),
           finalize(this.hideSpinner)
         );
@@ -97,7 +101,10 @@ export class InfoPagesEffects {
       switchMap((action) => {
         this.showSpinner();
         return this.pageApiService.updatePage(action.page).pipe(
-          map((page: InfoPage) => updatePageSuccess({ page })),
+          map((page: InfoPage) => {
+            this.navigateTo('/pages');
+            return updatePageSuccess({ page });
+          }),
           catchError((error: ServerError) => this.handleError(error, updatePageFailure)),
           finalize(this.hideSpinner)
         );
@@ -118,4 +125,12 @@ export class InfoPagesEffects {
       })
     )
   );
+
+  private navigateTo(path: string) {
+    this.router.navigate([path]).then((success) => {
+      if (!success) {
+        console.error(`Navigation to ${path} failed`);
+      }
+    });
+  }
 }

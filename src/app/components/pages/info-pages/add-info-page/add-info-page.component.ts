@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CreateInfoPage } from '../../../../models/infoPage';
+import { AddInfoPageService } from './services/add-info-page.service';
 
 @Component({
   selector: 'app-add-info-page',
@@ -7,5 +8,8 @@ import { CreateInfoPage } from '../../../../models/infoPage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddInfoPageComponent {
-  onSubmit($event: CreateInfoPage) {}
+  constructor(private addInfoPageService: AddInfoPageService) {}
+  onSubmit($event: CreateInfoPage) {
+    this.addInfoPageService.addInfoPage($event);
+  }
 }

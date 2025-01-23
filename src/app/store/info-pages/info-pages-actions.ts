@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { InfoPage } from '../../models/infoPage';
+import { CreateInfoPage, InfoPage } from '../../models/infoPage';
 
 export const getPages = createAction('[Page] Get Pages');
 
@@ -15,7 +15,7 @@ export const getPageSuccess = createAction('[Page] Get Page Success', props<{ pa
 
 export const getPageFailure = createAction('[Page] Get Page Failure', props<{ error: string }>());
 
-export const addPage = createAction('[Page] Add Page', props<{ page: InfoPage }>());
+export const addPage = createAction('[Page] Add Page', props<{ page: CreateInfoPage }>());
 
 export const addPageSuccess = createAction('[Page] Add Page Success', props<{ page: InfoPage }>());
 

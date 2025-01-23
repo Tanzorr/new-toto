@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { InfoPage } from '../../models/infoPage';
+import { CreateInfoPage, InfoPage } from '../../models/infoPage';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class InfoPageService {
     return this.http.get<InfoPage>(this.baseUrl + id);
   }
 
-  addPage(page: InfoPage): Observable<InfoPage> {
+  addPage(page: CreateInfoPage): Observable<InfoPage> {
     return this.http.post<InfoPage>(this.baseUrl, page);
   }
 

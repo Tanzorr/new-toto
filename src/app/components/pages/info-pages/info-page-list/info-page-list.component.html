@@ -10,7 +10,7 @@
   <div class="d-flex justify-content-between">
     <a class="btn btn-success " [routerLink]="info.id">View</a>
     <a *ngIf="loggedUser.role === 'admin'" class="btn btn-primary" [routerLink]="[info.id, 'edit']">Edit</a>
-    <button *ngIf="loggedUser.role === 'admin'"  class="btn btn-danger" >Delete</button>
+    <button *ngIf="loggedUser.role === 'admin'"  class="btn btn-danger" (click)="deletePageInfo(info.id)" >Delete</button>
   </div>
 </ng-template>
 
