@@ -1,7 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { InfoPagesListService } from './info-page-list/services/info-pages-list.service';
-import { Observable } from 'rxjs';
-import { InfoPage } from '../../../models/infoPage';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-info-pages',
@@ -9,6 +6,5 @@ import { InfoPage } from '../../../models/infoPage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoPageComponent {
-  page$!: Observable<InfoPage>;
-  constructor() {}
+  @HostBinding('class') class = 'pt-4';
 }

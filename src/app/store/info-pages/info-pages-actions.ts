@@ -9,7 +9,7 @@ export const getPagesSuccess = createAction(
 );
 
 export const getPagesFailure = createAction('[Page] Get Pages Failure', props<{ error: string }>());
-export const getPage = createAction('[Page] Get Page');
+export const getPage = createAction('[Page] Get Page', props<{ id: InfoPage['id'] }>());
 
 export const getPageSuccess = createAction('[Page] Get Page Success', props<{ page: InfoPage }>());
 

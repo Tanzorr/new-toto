@@ -13,7 +13,7 @@ export class InfoPageEditService {
   constructor(private store: Store<PageState>) {}
 
   getInfoPage(): void {
-    this.store.dispatch(getPage());
+    this.store.dispatch(getPage('8' as any));
   }
 
   updateInfoPage(page: InfoPage): void {

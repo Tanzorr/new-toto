@@ -1,6 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from '../../../services/storage/local-storage.service';
+import { User } from '../../../models/user';
+import { UserRoles } from '../../../constans/user-roles';
+
+interface NavLink {
+  label: string;
+  url: string;
+  authRequired: boolean;
+  isAdmin?: boolean;
+}
 
 @Component({
   selector: 'app-navigation',
@@ -9,15 +18,17 @@ import { LocalStorageService } from '../../../services/storage/local-storage.ser
 })
 export class NavigationComponent implements OnInit {
   isLoggedIn = true;
-  loggedUserId!: number;
+  loggedUser!: User;
 
-  navLinks = [
+  navLinks: NavLink[] = [
     { label: 'Users', url: '/users', authRequired: false },
     { label: 'Vaults', url: '/vaults', authRequired: true },
-    { label: 'About Us', url: '', authRequired: false },
-    { label: 'Contacts', url: '', authRequired: false },
-    { label: 'Pages', url: '/pages', authRequired: false },
+    { label: 'About Us', url: '/pages/8', authRequired: false },
+    { label: 'Contacts', url: '/pages/7', authRequired: false },
+    { label: 'Pages', url: '/pages', authRequired: true, isAdmin: true },
   ];
+
+  protected readonly UserRoles = UserRoles;
   constructor(
     private authService: AuthService,
     private localStorageService: LocalStorageService
@@ -25,7 +36,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.localStorageService.get('access_token');
-    this.loggedUserId = +JSON.parse(<string>this.localStorageService?.get('logged_user'))?.id;
+    this.loggedUser = JSON.parse(<string>this.localStorageService?.get('logged_user'));
   }
 
   logout(): void {

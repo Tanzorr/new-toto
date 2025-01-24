@@ -5,6 +5,7 @@ import { InfoPagesListService } from './services/info-pages-list.service';
 import { Columns } from '../../../../models/columns';
 import { User } from '../../../../models/user';
 import { LocalStorageService } from '../../../../services/storage/local-storage.service';
+import { ModalService } from '../../../../services/ui/modal.service';
 @Component({
   selector: 'app-info-page-list',
   templateUrl: './info-page-list.component.html',
@@ -18,7 +19,8 @@ export class InfoPageListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private infoPagesListsService: InfoPagesListService,
-    private storageService: LocalStorageService
+    private storageService: LocalStorageService,
+    private _modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +37,22 @@ export class InfoPageListComponent implements OnInit, AfterViewInit {
   }
 
   deletePageInfo(id: InfoPage['id']) {
-    this.infoPagesListsService.deletePage(id);
+    this._modalService
+      .openModal({
+        title: 'Delete page',
+        body: 'Are you sure you want to delete this page?',
+        confirmButtonText: 'Delete',
+        confirmButtonClass: 'btn-danger',
+        cancelButtonText: 'Cancel',
+        cancelButtonClass: 'btn-success',
+      })
+      .then((result: boolean) => {
+        if (result) {
+          this.infoPagesListsService.deletePage(id);
+        }
+      })
+      .catch((error: number) => {
+        console.log('Error:', error);
+      });
   }
 }

@@ -7,7 +7,7 @@ import { InfoPageService } from '../../services/api/info-page.service';
 import { SpinnerLoaderService } from '../../services/ui/spinner-loader.service';
 import { ServerErrorDisplayService } from '../../services/api/server-error-display.service';
 import { ServerError } from '../../models/server-error';
-import { of } from 'rxjs';
+import { distinctUntilChanged, of } from 'rxjs';
 import { catchError, finalize, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import {
   getPage,
@@ -66,10 +66,9 @@ export class InfoPagesEffects {
   getPage = createEffect(() =>
     this.actions$.pipe(
       ofType(getPage),
-      withLatestFrom(this.store.select(routerSelector)),
-      switchMap(([action, route]) => {
+      switchMap((action) => {
         this.showSpinner();
-        return this.pageApiService.getPage(route.state.params['id']).pipe(
+        return this.pageApiService.getPage(action.id).pipe(
           map((pagesData: InfoPage) => getPageSuccess({ page: pagesData })),
           catchError((error: ServerError) => this.handleError(error, this.getPagesFail)),
           finalize(this.hideSpinner)
