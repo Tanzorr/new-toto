@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { InfoPageEditService } from './services/info-page-edit.service';
 import { InfoPage } from '../../../../models/infoPage';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-info-page-edit',
@@ -8,13 +11,26 @@ import { InfoPage } from '../../../../models/infoPage';
   styleUrls: ['./info-page-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoPageEditComponent {
+export class InfoPageEditComponent implements OnInit, OnDestroy {
   infoPage$ = this.infoPageEditService.infoPage$;
-  constructor(private infoPageEditService: InfoPageEditService) {
-    this.infoPageEditService.getInfoPage();
-  }
+  private destroy$ = new Subject<void>();
+  constructor(
+    private infoPageEditService: InfoPageEditService,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   onSubmit(infoPage: InfoPage): void {
     this.infoPageEditService.updateInfoPage(infoPage);
+  }
+
+  ngOnInit(): void {
+    this.activeRoute.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => this.infoPageEditService.getInfoPage(params['id']));
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

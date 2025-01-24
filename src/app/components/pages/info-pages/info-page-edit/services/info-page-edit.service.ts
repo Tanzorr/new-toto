@@ -12,8 +12,8 @@ export class InfoPageEditService {
   infoPage$ = this.store.select(infoPageSelector);
   constructor(private store: Store<PageState>) {}
 
-  getInfoPage(): void {
-    this.store.dispatch(getPage('8' as any));
+  getInfoPage(id: InfoPage['id']): void {
+    this.store.dispatch(getPage({ id }));
   }
 
   updateInfoPage(page: InfoPage): void {
