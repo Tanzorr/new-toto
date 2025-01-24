@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpinnerLoaderService } from './services/ui/spinner-loader.service';
 import { User } from './models/user';
 import { LocalStorageService } from './services/storage/local-storage.service';
+import { AppService } from './services/app/app.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,15 @@ export class AppComponent {
 
   constructor(
     private loaderService: SpinnerLoaderService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private appService: AppService
   ) {
     this.initializeUser();
+    this.appService.loggedUser$.subscribe((loggedUser) => {
+      if (loggedUser) {
+        this.userName = loggedUser.name;
+      }
+    });
   }
 
   private initializeUser(): void {

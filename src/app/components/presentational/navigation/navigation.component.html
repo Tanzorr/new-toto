@@ -19,7 +19,7 @@
           routerLinkActive="active"
           class="nav-link"
           routerLink="{{ link.url }}"
-          *ngIf="(link?.isAdmin && loggedUser.role === UserRoles.ADMIN) || !link.isAdmin"
+          *ngIf="(loggedUser.role === UserRoles.ADMIN) || !link.isAdmin"
         >
           {{ link.label }}
         </a>
