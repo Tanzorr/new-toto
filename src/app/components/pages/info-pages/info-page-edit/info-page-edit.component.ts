@@ -8,7 +8,6 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-info-page-edit',
   templateUrl: './info-page-edit.component.html',
-  styleUrls: ['./info-page-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InfoPageEditComponent implements OnInit, OnDestroy {

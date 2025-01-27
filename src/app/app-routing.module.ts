@@ -20,11 +20,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/pages/info-pages/info-pages.module').then((m) => m.InfoPagesModule),
   },
-  // {
-  //   path: 'pages/:id',
-  //   loadChildren: () =>
-  //     import('./components/pages/info-pages/info-pages.module').then((m) => m.InfoPagesModule),
-  // },
+  {
+    path: 'pages/:id',
+    loadChildren: () =>
+      import('./components/pages/info-pages/info-pages.module').then((m) => m.InfoPagesModule),
+  },
   {
     path: 'vaults',
     loadChildren: () =>
