@@ -12,5 +12,5 @@ export class CreatePassword {
   name: string = '';
   value: string = '';
   description: string = '';
-  vault_id: string | number = '';
+  vault_id: string | undefined = '';
 }
