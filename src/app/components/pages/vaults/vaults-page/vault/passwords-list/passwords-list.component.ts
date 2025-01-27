@@ -8,6 +8,7 @@ import { AddPasswordModalComponent } from '../../../../../presentational/passwor
 import { EditPasswordModalComponent } from '../../../../../presentational/passwords/edit-password-modal/edit-password-modal.component';
 import { Columns } from '../../../../../../models/columns';
 import { Vault } from '../../../../../../models/vault';
+import { AlertService } from '../../../../../libs/alert/services/alert.service';
 
 @Component({
   selector: 'app-passwords-list',
@@ -17,13 +18,14 @@ import { Vault } from '../../../../../../models/vault';
 export class PasswordsListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   columns!: Columns[];
-  vaultId!: Vault['id'];
+  vaultId!: Vault['id'] | undefined;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
 
   constructor(
     private passwordService: PasswordService,
     private modalService: ModalService,
-    private ngbModalService: NgbModal
+    private ngbModalService: NgbModal,
+    private alert: AlertService
   ) {
     this.passwords$ = this.passwordService.passwords$;
     this.columns = [
@@ -32,9 +34,8 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
     ];
   }
   ngOnInit(): void {
-    this.passwordService.vault$.subscribe((vault) => {
-      // @ts-ignore
-      this.vaultId = vault.id;
+    this.passwordService.vault$.subscribe((vault: Vault | null) => {
+      this.vaultId = vault?.id;
     });
   }
 
@@ -114,9 +115,19 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
     navigator.clipboard.writeText(value).then(
       () => {
         console.log('Password copied to clipboard');
+        this.alert.showAlert({
+          type: 'success',
+          message: 'Password copied to clipboard',
+          timeout: 3000,
+        });
       },
       (err) => {
         console.error('Could not copy text: ', err);
+        this.alert.showAlert({
+          type: 'danger',
+          message: 'Could not copy text',
+          timeout: 3000,
+        });
       }
     );
   }
