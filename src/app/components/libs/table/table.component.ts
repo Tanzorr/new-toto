@@ -14,5 +14,5 @@ export class TableComponent {
   @Input() data!: any;
   @Input() columns: { header: string; field?: string; template?: boolean }[] = [];
   @Input() fragment!: TemplateRef<unknown>;
-  @Input() trExtraClasses: string = '';
+  @Input() tdExtraClasses: string = '';
 }

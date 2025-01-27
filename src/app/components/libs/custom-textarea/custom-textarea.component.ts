@@ -2,27 +2,25 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input } from '@angular/
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 type fn = (value: any) => void;
-
 @Component({
-  selector: 'app-custom-input',
-  templateUrl: './custom-input.component.html',
-  styleUrls: ['./custom-input.component.scss'],
+  selector: 'app-custom-textarea',
+  templateUrl: './custom-textarea.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CustomInputComponent),
+      useExisting: forwardRef(() => CustomTextareaComponent),
       multi: true,
     },
   ],
 })
-export class CustomInputComponent implements ControlValueAccessor {
-  @Input() placeholder: string = '';
-  @Input() id: string = '';
-  @Input() type: string = 'text';
-
+export class CustomTextareaComponent implements ControlValueAccessor {
   value: string = '';
   disabled: boolean = false;
+
+  @Input() placeholder: string = '';
+  @Input() id: string = '';
+  @Input() rows = 3;
 
   private onChange: fn = (_: any) => {};
   private onTouched: fn = () => {};
@@ -46,7 +44,8 @@ export class CustomInputComponent implements ControlValueAccessor {
   }
 
   onInputChange(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
-    this.onChange(value);
+    const input = event.target as HTMLTextAreaElement;
+    this.value = input.value;
+    this.onChange(this.value);
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginUserFormComponent } from './login-user-form.component';
 import { FormGroupModule } from '../../../libs/form-group/form-group.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomInputModule } from '../../../libs/input-text/custom-input.module';
+import { CustomInputModule } from '../../../libs/custom-input/custom-input.module';
 
 @NgModule({
   declarations: [LoginUserFormComponent],

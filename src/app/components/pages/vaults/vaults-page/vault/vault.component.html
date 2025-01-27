@@ -7,9 +7,8 @@
 <hr />
 
 <div *ngIf="vault$ | async as vault" class="vault-content">
-  <h5>Vault name: {{ vault.name }}</h5>
+  <h5>{{ vault.name }}</h5>
 
-  <h5>Vault Description</h5>
   <p>
     {{ vault.description }}
   </p>

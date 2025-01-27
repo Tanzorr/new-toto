@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { CreatePassword, Password } from '../../../../../../models/password';
 import { PasswordService } from './services/password.service';
 import { ModalService } from '../../../../../../services/ui/modal.service';
@@ -9,17 +16,18 @@ import { EditPasswordModalComponent } from '../../../../../presentational/passwo
 import { Columns } from '../../../../../../models/columns';
 import { Vault } from '../../../../../../models/vault';
 import { AlertService } from '../../../../../libs/alert/services/alert.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-passwords-list',
   templateUrl: './passwords-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PasswordsListComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
+export class PasswordsListComponent implements OnInit {
   columns!: Columns[];
   vaultId!: Vault['id'] | undefined;
   passwords$: Observable<Password[]> = new Observable<Password[]>();
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private passwordService: PasswordService,
@@ -34,16 +42,12 @@ export class PasswordsListComponent implements OnInit, OnDestroy {
     ];
   }
   ngOnInit(): void {
-    this.passwordService.vault$.subscribe((vault: Vault | null) => {
-      this.vaultId = vault?.id;
-    });
+    this.passwordService.vault$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((vault: Vault | null) => {
+        this.vaultId = vault?.id;
+      });
   }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   addPasswordModal(): void {
     const modalRef = this.ngbModalService.open(AddPasswordModalComponent);
 

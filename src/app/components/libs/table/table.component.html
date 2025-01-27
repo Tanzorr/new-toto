@@ -7,8 +7,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of data" [class]="trExtraClasses" >
-      <td *ngFor="let column of columns">
+    <tr *ngFor="let row of data">
+      <td *ngFor="let column of columns" [class]="tdExtraClasses">
         <ng-container *ngIf="!column.template; else templateRef">
           <div *ngIf="column.field">
             {{ row[column.field] }}
