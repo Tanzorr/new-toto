@@ -4,7 +4,6 @@ import { Vault } from '../../../../models/vault';
 @Component({
   selector: 'app-static-vaults-list',
   templateUrl: './static-vaults-list.component.html',
-  styleUrls: ['./static-vaults-list.component.styles'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StaticVaultsListComponent {

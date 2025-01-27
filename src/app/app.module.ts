@@ -32,6 +32,8 @@ import { SharedAccessEffects } from './store/shared-access/sharred-access-effect
 import { AddHeadersInterceptor } from './interceptors/add-headers.interceptor';
 import { MediaEffects } from './store/media/media-effects';
 import { mediaReducer } from './store/media/media-reducers';
+import { InfoPagesEffects } from './store/info-pages/info-pages-effects';
+import { pageReducer } from './store/info-pages/info-pages-reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +49,7 @@ import { mediaReducer } from './store/media/media-reducers';
       authState: authReducer,
       accessState: sharedAccessReducer,
       mediaState: mediaReducer,
+      pageState: pageReducer,
     }),
     EffectsModule.forRoot([
       UsersEffects,
@@ -55,6 +58,7 @@ import { mediaReducer } from './store/media/media-reducers';
       PasswordsEffects,
       SharedAccessEffects,
       MediaEffects,
+      InfoPagesEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

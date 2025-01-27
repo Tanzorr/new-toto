@@ -15,7 +15,7 @@ export interface User {
   sharedVaults?: Vault[];
   shared_access_id?: SharedAccess['id'] | undefined;
   pivot?: Pivot;
-  role?: string;
+  role?: UserRole;
   media?: Media[] | undefined;
 }
 
@@ -28,3 +28,5 @@ type Pivot = {
   user_id: number;
   accessible_id: number;
 };
+
+export type UserRole = 'admin' | 'user';

@@ -19,13 +19,13 @@
           routerLinkActive="active"
           class="nav-link"
           routerLink="{{ link.url }}"
-          *ngIf="!link.authRequired || isLoggedIn"
+          *ngIf="(loggedUser.role === UserRoles.ADMIN) || !link.isAdmin"
         >
           {{ link.label }}
         </a>
       </li>
       <li class="nav-item">
-        <a routerLinkActive="active" class="nav-link" routerLink="/users/{{ loggedUserId }}"
+        <a routerLinkActive="active" class="nav-link" routerLink="/users/{{ loggedUser.id }}" *ngIf="isLoggedIn"
           >My Profile</a
         >
       </li>
