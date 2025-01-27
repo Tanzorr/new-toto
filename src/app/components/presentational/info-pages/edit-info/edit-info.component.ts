@@ -14,7 +14,6 @@ import { infoPageErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-edit-info',
   templateUrl: './edit-info.component.html',
-  styleUrls: ['./edit-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditInfoComponent implements OnChanges {
