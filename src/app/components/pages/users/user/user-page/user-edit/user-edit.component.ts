@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { User } from '../../../../../../models/user';
 import { EditUserService } from './services/edit-user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,9 +6,9 @@ import { MediaComponent } from '../../../../../presentational/media/media.compon
 import { Media } from '../../../../../../models/media';
 import { Actions, ofType } from '@ngrx/effects';
 import { addMediaSuccess } from '../../../../../../store/media/media-actions';
-import { takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EntityType } from '../../../../../../constans/entity-type';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-user-edit',
@@ -16,9 +16,10 @@ import { EntityType } from '../../../../../../constans/entity-type';
   styleUrls: ['./user-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class UserEditComponent implements OnInit {
   user$!: Observable<User>;
-  private destroy$ = new Subject<void>();
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private editUserService: EditUserService,
@@ -30,18 +31,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.getUser();
     this.user$ = this.editUserService.user$;
     this.actions$
-      .pipe(ofType(addMediaSuccess), takeUntil(this.destroy$))
-      .subscribe(() => this.editUserService.getUser());
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+      .pipe(ofType(addMediaSuccess), takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.getUser());
   }
 
   updateUser(user: User): void {
     this.editUserService.updateUser(user);
-    this.editUserService.getUser();
+    this.getUser();
   }
 
   selectMedia(entityId: string): void {
@@ -56,7 +52,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     modalRef.result
       .then((result) => {
         console.log('Media selected:', result);
-        this.editUserService.getUser();
+        this.getUser();
       })
       .catch((error) => {
         console.error('Media modal dismissed:', error);
@@ -65,10 +61,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   detachMedia(mediaId: Media['id'], userId: User['id']): void {
     this.editUserService.detachMedia(EntityType.USER, userId, mediaId);
-    this.editUserService.getUser();
+    this.getUser();
   }
 
-  getUser() {
+  private getUser() {
     this.editUserService.getUser();
   }
 }

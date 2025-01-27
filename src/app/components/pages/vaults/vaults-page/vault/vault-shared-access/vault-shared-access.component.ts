@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { VaultSharedAccessService } from './services/vault-shared-access.service';
 import { Vault } from '../../../../../../models/vault';
 import { Observable } from 'rxjs';
@@ -19,10 +19,9 @@ export class VaultSharedAccessComponent implements OnInit {
   vault!: Vault;
   columns!: Columns[];
 
-  constructor(
-    private vaultSharedAccessService: VaultSharedAccessService,
-    private destroyRef: DestroyRef
-  ) {
+  private destroyRef = inject(DestroyRef);
+
+  constructor(private vaultSharedAccessService: VaultSharedAccessService) {
     this.notAccessedUsers$ = this.vaultSharedAccessService.notAccessedUsers$;
     this.accessUsers$ = this.vaultSharedAccessService.accessedUsers$;
     this.columns = [

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../../models/user';
 import { userErrorMessages } from '../../../../constans/error-messages';
@@ -6,7 +6,6 @@ import { userErrorMessages } from '../../../../constans/error-messages';
 @Component({
   selector: 'app-create-user-form',
   templateUrl: './create-user-form.component.html',
-  styleUrls: ['./create-user-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateUserFormComponent {

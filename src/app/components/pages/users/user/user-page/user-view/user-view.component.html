@@ -7,11 +7,11 @@
   <div class="col-lg-6">
     <ng-container *ngIf="user.ownVaults">
       <h4>Own Vaults List</h4>
-      <app-table [columns]="columns" [data]="user.ownVaults" trExtraClasses="own-table-bordered"></app-table>
+      <app-table [columns]="columns" [data]="user.ownVaults" tdExtraClasses="text-white bg-success"></app-table>
     </ng-container>
     <ng-container *ngIf="user.sharedVaults">
       <h4>Shared Vaults List</h4>
-      <app-table [columns]="columns" [data]="user.sharedVaults" trExtraClasses="shared-table-bordered"></app-table>
+      <app-table [columns]="columns" [data]="user.sharedVaults" tdExtraClasses="text-white bg-info"></app-table>
     </ng-container>
   </div>
 </div>

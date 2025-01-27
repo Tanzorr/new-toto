@@ -4,7 +4,7 @@
   </app-form-group>
 
   <app-form-group label="content" [errorMessage]="getErrorMessage('content')">
-    <textarea formControlName="content" class="form-control" id="content"></textarea>
+    <app-custom-textarea formControlName="content"></app-custom-textarea>
   </app-form-group>
   <app-form-group>
     <button type="submit" class="btn btn-primary" [disabled]="!isCanSubmit()">Submit</button>

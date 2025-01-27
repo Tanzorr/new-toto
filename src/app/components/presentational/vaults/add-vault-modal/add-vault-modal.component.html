@@ -13,13 +13,7 @@
       controlName="description"
       [errorMessage]="getErrorMessage('description')"
     >
-      <textarea
-        class="form-control"
-        formControlName="description"
-        id="vaultDescription"
-        name="vaultDescription"
-        required
-      ></textarea>
+      <app-custom-textarea formControlName="description"></app-custom-textarea>
     </app-form-group>
   </form>
 </div>

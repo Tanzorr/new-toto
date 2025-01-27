@@ -1,17 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { InfoPageService } from './services/info-page.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-info-page',
   templateUrl: './info-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InfoPageComponent implements OnInit, OnDestroy {
+export class InfoPageComponent implements OnInit {
   infoPage$ = this.infoPageService.infoPage$;
-  private destroy$ = new Subject<void>();
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private infoPageService: InfoPageService,
@@ -20,12 +19,7 @@ export class InfoPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activeRoute.params
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params) => this.infoPageService.getInfoPage(params['id']));
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }
